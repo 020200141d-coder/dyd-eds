@@ -31,7 +31,7 @@ PHP y PDO. Permite gestionar todo el contenido de la revista digital.
 
 3. Abre **phpMyAdmin** (http://localhost/phpmyadmin), ve a la pestaña
    **Importar**, selecciona el archivo `sql/schema.sql` de este proyecto y
-   dale a **Continuar**. Esto crea la base de datos `revista_digital` con
+   dale a **Continuar**. Esto crea la base de datos `dyd` con
    todas las tablas y un usuario administrador de prueba.
 
    (Alternativa por consola: `mysql -u root -p < sql/schema.sql`)
@@ -39,7 +39,7 @@ PHP y PDO. Permite gestionar todo el contenido de la revista digital.
 4. Revisa `config/db.php`. Por defecto usa:
    ```
    DB_HOST = localhost
-   DB_NAME = revista_digital
+   DB_NAME = dyd
    DB_USER = root
    DB_PASS = ''  (vacío, como en XAMPP por defecto)
    ```

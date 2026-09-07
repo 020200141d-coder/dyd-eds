@@ -2,7 +2,7 @@
 // Configuración de conexión a la base de datos (XAMPP por defecto)
 // Ajusta estos valores si tu MySQL tiene usuario/clave distintos.
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'revista_digital');
+define('DB_NAME', 'dyd');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
@@ -19,7 +19,7 @@ function getPDO(): PDO
                 PDO::ATTR_EMULATE_PREPARES => false,
             ]);
         } catch (PDOException $e) {
-            die('Error de conexión a la base de datos. Verifica que MySQL (XAMPP) esté encendido y que la base "revista_digital" exista (importa sql/schema.sql). Detalle: ' . $e->getMessage());
+            die('Error de conexión a la base de datos. Verifica que MySQL (XAMPP) esté encendido y que la base "dyd" exista (importa sql/schema.sql). Detalle: ' . $e->getMessage());
         }
     }
     return $pdo;

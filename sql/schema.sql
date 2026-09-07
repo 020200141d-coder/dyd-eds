@@ -3,11 +3,11 @@
 -- Motor: MySQL 8.0+ / MariaDB (XAMPP)
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS revista_digital
+CREATE DATABASE IF NOT EXISTS dyd
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 
-USE revista_digital;
+USE dyd;
 
 SET FOREIGN_KEY_CHECKS = 0;
 

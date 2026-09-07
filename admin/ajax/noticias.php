@@ -1,0 +1,66 @@
+<?php
+require_once __DIR__ . '/../config/global.php';
+require_once __DIR__ . '/../config/imagen.php';
+require_once __DIR__ . '/../modelos/Noticia.php';
+
+exigirSesionAjax();
+
+$accion = $_POST['accion'] ?? $_GET['accion'] ?? '';
+$carpeta = __DIR__ . '/../files/noticias';
+
+switch ($accion) {
+    case 'listar':
+        respuestaJson(['ok' => true, 'datos' => Noticia::listar()]);
+
+    case 'obtener':
+        $noticia = Noticia::obtener((int) ($_GET['id'] ?? 0));
+        respuestaJson($noticia ? ['ok' => true, 'datos' => $noticia] : ['ok' => false, 'error' => 'Noticia no encontrada.']);
+
+    case 'crear':
+    case 'actualizar':
+        $id = (int) ($_POST['id'] ?? 0);
+        $titulo = trim($_POST['titulo'] ?? '');
+        if ($titulo === '') {
+            respuestaJson(['ok' => false, 'error' => 'El título es obligatorio.']);
+        }
+
+        try {
+            $fotoNueva = subirArchivo('foto', $carpeta, ['jpg', 'jpeg', 'png', 'webp']);
+            $datos = [
+                'titulo' => $titulo,
+                'link_externo' => trim($_POST['link_externo'] ?? '') ?: null,
+                'fecha_publicacion' => $_POST['fecha_publicacion'] ?? date('Y-m-d'),
+                'usuario_id' => usuarioActual()['id'],
+            ];
+
+            if ($accion === 'crear') {
+                $datos['foto'] = $fotoNueva;
+                $id = Noticia::crear($datos);
+            } else {
+                $actual = Noticia::obtener($id);
+                if (!$actual) {
+                    respuestaJson(['ok' => false, 'error' => 'Noticia no encontrada.']);
+                }
+                if ($fotoNueva) {
+                    borrarArchivo($carpeta, $actual['foto']);
+                }
+                $datos['foto'] = $fotoNueva ?: $actual['foto'];
+                Noticia::actualizar($id, $datos);
+            }
+            respuestaJson(['ok' => true, 'id' => $id]);
+        } catch (RuntimeException $e) {
+            respuestaJson(['ok' => false, 'error' => $e->getMessage()]);
+        }
+
+    case 'eliminar':
+        $id = (int) ($_POST['id'] ?? 0);
+        $noticia = Noticia::obtener($id);
+        if ($noticia) {
+            Noticia::eliminar($id);
+            borrarArchivo($carpeta, $noticia['foto']);
+        }
+        respuestaJson(['ok' => true]);
+
+    default:
+        respuestaJson(['ok' => false, 'error' => 'Acción no reconocida.']);
+}

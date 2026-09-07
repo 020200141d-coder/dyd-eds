@@ -1,0 +1,11 @@
+# Uploads de usuarios (no se versionan, solo la estructura de carpetas)
+uploads/**/*
+!uploads/**/.gitkeep
+!uploads/**/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/

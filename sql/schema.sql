@@ -12,9 +12,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- usuarios: administradores del panel
 CREATE TABLE IF NOT EXISTS usuarios (
     id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nombres         VARCHAR(100) NOT NULL,
-    ap_paterno      VARCHAR(100) NOT NULL,
-    ap_materno      VARCHAR(100) NULL,
+    nombre_completo VARCHAR(150) NOT NULL,
     email           VARCHAR(150) NOT NULL,
     password_hash   VARCHAR(255) NOT NULL,
     rol             ENUM('admin', 'editor', 'redactor') NOT NULL DEFAULT 'redactor',
@@ -24,12 +22,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
 
 -- autores: colaboradores externos, no siempre tienen usuario en el panel
 CREATE TABLE IF NOT EXISTS autores (
-    id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nombres         VARCHAR(100) NOT NULL,
-    ap_paterno      VARCHAR(100) NULL,
-    ap_materno      VARCHAR(100) NULL,
-    nickname        VARCHAR(100) NULL,
-    es_nickname     TINYINT(1) NOT NULL DEFAULT 0
+    id      INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre  VARCHAR(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- reportajes: contenido principal de la revista
@@ -127,12 +121,10 @@ CREATE TABLE IF NOT EXISTS videos (
 
 -- invitados: expositores que se pueden etiquetar en un podcast o video
 CREATE TABLE IF NOT EXISTS invitados (
-    id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nombres         VARCHAR(100) NOT NULL,
-    ap_paterno      VARCHAR(100) NULL,
-    ap_materno      VARCHAR(100) NULL,
-    cargo           VARCHAR(150) NULL,
-    foto            VARCHAR(255) NULL
+    id      INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre  VARCHAR(150) NOT NULL,
+    cargo   VARCHAR(150) NULL,
+    foto    VARCHAR(255) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- relacion N:M entre podcasts e invitados
@@ -164,8 +156,8 @@ CREATE TABLE IF NOT EXISTS video_invitados (
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- usuario administrador de prueba, cambiar la clave apenas se ingrese
--- correo: admin@dyd.com / clave: admin123
-INSERT INTO usuarios (nombres, ap_paterno, ap_materno, email, password_hash, rol)
-SELECT 'Administrador', 'General', NULL, 'admin@dyd.com',
-       '$2y$12$6yUzdOEgUe8Hj/HoRSOqWONg0/yY65QMpb6D0uME9itPy4dMP/T2m', 'admin'
+-- correo: admin@dyd.com / clave: admin123 (guardada como SHA-256)
+INSERT INTO usuarios (nombre_completo, email, password_hash, rol)
+SELECT 'Administrador General', 'admin@dyd.com',
+       '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'admin'
 WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'admin@dyd.com');

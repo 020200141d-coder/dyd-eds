@@ -1,0 +1,59 @@
+<?php
+require_once __DIR__ . '/config/global.php';
+
+if (usuarioActual()) {
+    header('Location: /dyd-eds/admin/index.php');
+    exit;
+}
+?><!DOCTYPE html>
+<html lang="es" class="form-screen">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciar sesión - Panel Revista Digital</title>
+  <link rel="stylesheet" href="/dyd-eds/assets/css/main.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="/dyd-eds/assets/img/favicon-32x32.png"/>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+</head>
+<body>
+<div id="app">
+  <section class="section main-section">
+    <div id="aviso" class="notification red mb-6" hidden></div>
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-lock"></i></span>
+          Panel Revista Digital
+        </p>
+      </header>
+      <div class="card-content">
+        <form id="formLogin">
+          <div class="field spaced">
+            <label class="label">Correo</label>
+            <div class="control icons-left">
+              <input class="input" type="email" name="email" placeholder="admin@dyd.com" autocomplete="username" required>
+              <span class="icon is-small left"><i class="mdi mdi-account"></i></span>
+            </div>
+          </div>
+          <div class="field spaced">
+            <label class="label">Contraseña</label>
+            <p class="control icons-left">
+              <input class="input" type="password" name="clave" placeholder="Contraseña" autocomplete="current-password" required>
+              <span class="icon is-small left"><i class="mdi mdi-asterisk"></i></span>
+            </p>
+          </div>
+          <hr>
+          <div class="field grouped">
+            <div class="control">
+              <button type="submit" class="button blue">Ingresar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="/dyd-eds/admin/vistas/scripts/comun.js"></script>
+<script src="/dyd-eds/admin/vistas/scripts/login.js"></script>
+</body>
+</html>

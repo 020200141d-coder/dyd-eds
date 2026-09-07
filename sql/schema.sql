@@ -1,7 +1,5 @@
--- ============================================================
--- Base de datos: Revista Digital NTEP - Panel de administración
+-- Base de datos del panel administrativo de la revista digital
 -- Motor: MySQL 8.0+ / MariaDB (XAMPP)
--- ============================================================
 
 CREATE DATABASE IF NOT EXISTS dyd
     CHARACTER SET utf8mb4
@@ -11,9 +9,7 @@ USE dyd;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
--- ------------------------------------------------------------
--- Tabla: usuarios (administradores del panel)
--- ------------------------------------------------------------
+-- usuarios: administradores del panel
 CREATE TABLE IF NOT EXISTS usuarios (
     id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nombres         VARCHAR(100) NOT NULL,
@@ -26,9 +22,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     CONSTRAINT uq_usuarios_email UNIQUE (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ------------------------------------------------------------
--- Tabla: autores (colaboradores externos, opcional)
--- ------------------------------------------------------------
+-- autores: colaboradores externos, no siempre tienen usuario en el panel
 CREATE TABLE IF NOT EXISTS autores (
     id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nombres         VARCHAR(100) NOT NULL,
@@ -38,9 +32,7 @@ CREATE TABLE IF NOT EXISTS autores (
     es_nickname     TINYINT(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ------------------------------------------------------------
--- Tabla: reportajes
--- ------------------------------------------------------------
+-- reportajes: contenido principal de la revista
 CREATE TABLE IF NOT EXISTS reportajes (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo              VARCHAR(255) NOT NULL,
@@ -64,9 +56,7 @@ CREATE TABLE IF NOT EXISTS reportajes (
     INDEX idx_reportajes_destacado (es_destacado)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ------------------------------------------------------------
--- Tabla: reportajes_fotos (fotos adicionales de un reportaje)
--- ------------------------------------------------------------
+-- reportajes_fotos: fotos extra de un reportaje (aparte de la foto principal)
 CREATE TABLE IF NOT EXISTS reportajes_fotos (
     id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     reportaje_id    INT UNSIGNED NOT NULL,
@@ -79,9 +69,7 @@ CREATE TABLE IF NOT EXISTS reportajes_fotos (
     INDEX idx_reportajes_fotos_reportaje (reportaje_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ------------------------------------------------------------
--- Tabla: noticias
--- ------------------------------------------------------------
+-- noticias: notas cortas que enlazan a otro medio
 CREATE TABLE IF NOT EXISTS noticias (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo              VARCHAR(255) NOT NULL,
@@ -95,9 +83,7 @@ CREATE TABLE IF NOT EXISTS noticias (
     INDEX idx_noticias_fecha (fecha_publicacion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ------------------------------------------------------------
--- Tabla: boletines
--- ------------------------------------------------------------
+-- boletines: boletines NTEP con su PDF
 CREATE TABLE IF NOT EXISTS boletines (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     numero_boletin      VARCHAR(50) NOT NULL,
@@ -113,9 +99,7 @@ CREATE TABLE IF NOT EXISTS boletines (
     INDEX idx_boletines_fecha (fecha_publicacion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ------------------------------------------------------------
--- Tabla: podcasts
--- ------------------------------------------------------------
+-- podcasts
 CREATE TABLE IF NOT EXISTS podcasts (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo              VARCHAR(255) NOT NULL,
@@ -128,9 +112,7 @@ CREATE TABLE IF NOT EXISTS podcasts (
     INDEX idx_podcasts_fecha (fecha_publicacion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ------------------------------------------------------------
--- Tabla: videos
--- ------------------------------------------------------------
+-- videos
 CREATE TABLE IF NOT EXISTS videos (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo              VARCHAR(255) NOT NULL,
@@ -143,10 +125,7 @@ CREATE TABLE IF NOT EXISTS videos (
     INDEX idx_videos_fecha (fecha_publicacion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ------------------------------------------------------------
--- Tabla: invitados (expositores/panelistas etiquetables
--- en podcasts y videos)
--- ------------------------------------------------------------
+-- invitados: expositores que se pueden etiquetar en un podcast o video
 CREATE TABLE IF NOT EXISTS invitados (
     id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nombres         VARCHAR(100) NOT NULL,
@@ -156,9 +135,7 @@ CREATE TABLE IF NOT EXISTS invitados (
     foto            VARCHAR(255) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ------------------------------------------------------------
--- Tabla: podcast_invitados (relación N:M podcast - invitado)
--- ------------------------------------------------------------
+-- relacion N:M entre podcasts e invitados
 CREATE TABLE IF NOT EXISTS podcast_invitados (
     podcast_id      INT UNSIGNED NOT NULL,
     invitado_id     INT UNSIGNED NOT NULL,
@@ -171,9 +148,7 @@ CREATE TABLE IF NOT EXISTS podcast_invitados (
         ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ------------------------------------------------------------
--- Tabla: video_invitados (relación N:M video - invitado)
--- ------------------------------------------------------------
+-- relacion N:M entre videos e invitados
 CREATE TABLE IF NOT EXISTS video_invitados (
     video_id        INT UNSIGNED NOT NULL,
     invitado_id     INT UNSIGNED NOT NULL,
@@ -188,11 +163,8 @@ CREATE TABLE IF NOT EXISTS video_invitados (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
--- ------------------------------------------------------------
--- Usuario administrador por defecto
--- Email:    admin@dyd.com
--- Password: admin123   (cámbialo apenas ingreses)
--- ------------------------------------------------------------
+-- usuario administrador de prueba, cambiar la clave apenas se ingrese
+-- correo: admin@dyd.com / clave: admin123
 INSERT INTO usuarios (nombres, ap_paterno, ap_materno, email, password_hash, rol)
 SELECT 'Administrador', 'General', NULL, 'admin@dyd.com',
        '$2y$12$6yUzdOEgUe8Hj/HoRSOqWONg0/yY65QMpb6D0uME9itPy4dMP/T2m', 'admin'

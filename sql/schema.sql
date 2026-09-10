@@ -119,40 +119,6 @@ CREATE TABLE IF NOT EXISTS videos (
     INDEX idx_videos_fecha (fecha_publicacion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- invitados: expositores que se pueden etiquetar en un podcast o video
-CREATE TABLE IF NOT EXISTS invitados (
-    id      INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nombre  VARCHAR(150) NOT NULL,
-    cargo   VARCHAR(150) NULL,
-    foto    VARCHAR(255) NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- relacion N:M entre podcasts e invitados
-CREATE TABLE IF NOT EXISTS podcast_invitados (
-    podcast_id      INT UNSIGNED NOT NULL,
-    invitado_id     INT UNSIGNED NOT NULL,
-    PRIMARY KEY (podcast_id, invitado_id),
-    CONSTRAINT fk_podcast_invitados_podcast
-        FOREIGN KEY (podcast_id) REFERENCES podcasts(id)
-        ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_podcast_invitados_invitado
-        FOREIGN KEY (invitado_id) REFERENCES invitados(id)
-        ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- relacion N:M entre videos e invitados
-CREATE TABLE IF NOT EXISTS video_invitados (
-    video_id        INT UNSIGNED NOT NULL,
-    invitado_id     INT UNSIGNED NOT NULL,
-    PRIMARY KEY (video_id, invitado_id),
-    CONSTRAINT fk_video_invitados_video
-        FOREIGN KEY (video_id) REFERENCES videos(id)
-        ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_video_invitados_invitado
-        FOREIGN KEY (invitado_id) REFERENCES invitados(id)
-        ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- usuario administrador de prueba, cambiar la clave apenas se ingrese

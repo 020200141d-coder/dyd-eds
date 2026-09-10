@@ -29,9 +29,8 @@ vista.php  →  script.js (FormData)  →  ajax/x.php  →  modelos/Clase.php  �
   y galería de fotos adicionales sin número fijo)
 - **Noticias** (foto y link externo al medio de origen)
 - **Boletines NTEP** (portada + PDF)
-- **Podcasts** y **Videos** (URL embebida + invitados/expositores
-  etiquetados)
-- **Invitados** (expositores etiquetables en podcasts y videos)
+- **Podcasts** y **Videos** (URL embebida, se reproducen en la plataforma
+  de origen)
 - **Autores**
 - **Usuarios** del panel (solo el rol `admin` los gestiona)
 - **Login** con sesión PHP, contraseña guardada con **SHA-256**
@@ -97,8 +96,6 @@ admin/
 - Un reportaje puede tener muchas fotos adicionales (`reportajes_fotos`),
   gestionables desde `admin/vistas/reportajes_fotos.php`; la foto principal
   es la que se usa en la grilla de reportajes.
-- Podcasts y videos tienen una relación N:M con `invitados` a través de
-  `podcast_invitados` y `video_invitados`.
 - Las rutas absolutas (`/dyd-eds/admin/...`) asumen que el proyecto vive en
   `htdocs/dyd-eds`. Si cambias el nombre de la carpeta, actualiza ese
   prefijo en `admin/vistas/parciales/cabecera.php`, `pie.php`,

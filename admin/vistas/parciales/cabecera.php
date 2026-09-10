@@ -14,7 +14,6 @@ $itemsMenu = [
     'podcasts'   => ['etiqueta' => 'Podcasts',   'icono' => 'mdi-microphone',       'href' => '/dyd-eds/admin/vistas/podcasts.php'],
     'videos'     => ['etiqueta' => 'Videos',     'icono' => 'mdi-video',            'href' => '/dyd-eds/admin/vistas/videos.php'],
     'autores'    => ['etiqueta' => 'Autores',    'icono' => 'mdi-account-edit',     'href' => '/dyd-eds/admin/vistas/autores.php'],
-    'invitados'  => ['etiqueta' => 'Invitados',  'icono' => 'mdi-account-star',     'href' => '/dyd-eds/admin/vistas/invitados.php'],
     'usuarios'   => ['etiqueta' => 'Usuarios',   'icono' => 'mdi-account-multiple', 'href' => '/dyd-eds/admin/vistas/usuarios.php'],
 ];
 ?><!DOCTYPE html>
@@ -89,7 +88,7 @@ $itemsMenu = [
     </ul>
     <p class="menu-label">Contenido</p>
     <ul class="menu-list">
-      <?php foreach (['reportajes', 'noticias', 'boletines', 'podcasts', 'videos', 'autores', 'invitados'] as $clave): ?>
+      <?php foreach (['reportajes', 'noticias', 'boletines', 'podcasts', 'videos', 'autores'] as $clave): ?>
       <li class="<?= $menuActivo === $clave ? 'active' : '' ?>">
         <a href="<?= $itemsMenu[$clave]['href'] ?>">
           <span class="icon"><i class="mdi <?= $itemsMenu[$clave]['icono'] ?>"></i></span>

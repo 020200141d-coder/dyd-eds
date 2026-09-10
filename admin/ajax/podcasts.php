@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/global.php';
 require_once __DIR__ . '/../modelos/Podcast.php';
-require_once __DIR__ . '/../modelos/Invitado.php';
 
 exigirSesionAjax();
 
@@ -12,16 +11,8 @@ switch ($accion) {
         respuestaJson(['ok' => true, 'datos' => Podcast::listar()]);
 
     case 'obtener':
-        $id = (int) ($_GET['id'] ?? 0);
-        $podcast = Podcast::obtener($id);
-        if (!$podcast) {
-            respuestaJson(['ok' => false, 'error' => 'Podcast no encontrado.']);
-        }
-        $podcast['invitados_ids'] = Podcast::invitadosDe($id);
-        respuestaJson(['ok' => true, 'datos' => $podcast]);
-
-    case 'invitadosDisponibles':
-        respuestaJson(['ok' => true, 'datos' => Invitado::listar()]);
+        $podcast = Podcast::obtener((int) ($_GET['id'] ?? 0));
+        respuestaJson($podcast ? ['ok' => true, 'datos' => $podcast] : ['ok' => false, 'error' => 'Podcast no encontrado.']);
 
     case 'crear':
     case 'actualizar':
@@ -36,7 +27,6 @@ switch ($accion) {
             'url_embed' => $urlEmbed,
             'fecha_publicacion' => $_POST['fecha_publicacion'] ?? date('Y-m-d'),
             'usuario_id' => usuarioActual()['id'],
-            'invitados' => $_POST['invitados'] ?? [],
         ];
 
         if ($accion === 'crear') {

@@ -10,6 +10,10 @@ admin/files/**/*
 !admin/files/boletines/pdf/boletin-ntep-45.pdf
 !admin/files/boletines/pdf/boletin-relleno.pdf
 
+# Paginas del sitio real bajadas con descargar_articulos.ps1, solo sirven
+# para sacar el texto de cada reportaje y cargarlo a la base
+articulos/
+
 # Sistema
 .DS_Store
 Thumbs.db

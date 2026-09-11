@@ -5,7 +5,7 @@ $id = (int) ($_GET['id'] ?? 0);
 $reportaje = Reportaje::mostrar_uno($id);
 
 if (!$reportaje) {
-    header('Location: /dyd-eds/reportajes.php');
+    header('Location: ' . BASE . '/reportajes.php');
     exit;
 }
 
@@ -26,7 +26,7 @@ require __DIR__ . '/partials/cabecera.php';
         </p>
 
         <?php if (!empty($reportaje['foto_principal'])): ?>
-          <img src="/dyd-eds/admin/files/reportajes/<?= htmlspecialchars($reportaje['foto_principal']) ?>" class="img-fluid mb-4" alt="">
+          <img src="<?= BASE ?>/admin/files/reportajes/<?= htmlspecialchars($reportaje['foto_principal']) ?>" class="img-fluid mb-4" alt="">
         <?php endif; ?>
 
         <div class="reportaje-cuerpo">
@@ -35,7 +35,7 @@ require __DIR__ . '/partials/cabecera.php';
 
         <?php if (!empty($reportaje['pdf_adjunto'])): ?>
           <p class="mt-4">
-            <a href="/dyd-eds/admin/files/reportajes/<?= htmlspecialchars($reportaje['pdf_adjunto']) ?>" target="_blank" class="btn btn-style btn-primary">
+            <a href="<?= BASE ?>/admin/files/reportajes/<?= htmlspecialchars($reportaje['pdf_adjunto']) ?>" target="_blank" class="btn btn-style btn-primary">
               <span class="fa fa-download"></span> Descargar PDF adjunto
             </a>
           </p>
@@ -46,7 +46,7 @@ require __DIR__ . '/partials/cabecera.php';
           <div class="row">
             <?php foreach ($fotos as $foto): ?>
               <div class="col-md-4 mb-4">
-                <img src="/dyd-eds/admin/files/reportajes_fotos/<?= htmlspecialchars($foto['url_foto']) ?>" class="img-fluid" alt="">
+                <img src="<?= BASE ?>/admin/files/reportajes_fotos/<?= htmlspecialchars($foto['url_foto']) ?>" class="img-fluid" alt="">
                 <?php if (!empty($foto['descripcion'])): ?>
                   <p class="small text-muted mt-1"><?= htmlspecialchars($foto['descripcion']) ?></p>
                 <?php endif; ?>
@@ -55,7 +55,7 @@ require __DIR__ . '/partials/cabecera.php';
           </div>
         <?php endif; ?>
 
-        <a href="/dyd-eds/reportajes.php" class="btn mt-4 p-0"><span class="fa fa-arrow-left"></span> Volver a Reportajes</a>
+        <a href="<?= BASE ?>/reportajes.php" class="btn mt-4 p-0"><span class="fa fa-arrow-left"></span> Volver a Reportajes</a>
       </div>
     </div>
   </div>

@@ -3,9 +3,9 @@ document.getElementById('formLogin').addEventListener('submit', function (evento
   const datos = new FormData(this);
   datos.append('accion', 'login');
 
-  llamarAjax('/dyd-eds/admin/ajax/login.php', datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/login.php', datos).then((respuesta) => {
     if (respuesta.ok) {
-      window.location.href = '/dyd-eds/admin/index.php';
+      window.location.href = BASE + '/admin/index.php';
     } else {
       mostrarAviso(respuesta.error, 'error');
     }

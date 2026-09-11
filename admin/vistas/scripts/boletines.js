@@ -1,5 +1,5 @@
 function cargarBoletines() {
-  obtenerJson('/dyd-eds/admin/ajax/boletines.php?accion=listar').then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/boletines.php?accion=listar').then((respuesta) => {
     const cuerpo = document.getElementById('filasBoletines');
     if (!respuesta.ok) {
       cuerpo.innerHTML = `<tr><td colspan="6">${escaparHtml(respuesta.error)}</td></tr>`;
@@ -11,10 +11,10 @@ function cargarBoletines() {
     }
     cuerpo.innerHTML = respuesta.datos.map((b) => `
       <tr>
-        <td class="image-cell">${b.foto_portada ? `<div class="image"><img src="/dyd-eds/admin/files/boletines/portada/${escaparHtml(b.foto_portada)}" class="rounded-full"></div>` : ''}</td>
+        <td class="image-cell">${b.foto_portada ? `<div class="image"><img src="${BASE}/admin/files/boletines/portada/${escaparHtml(b.foto_portada)}" class="rounded-full"></div>` : ''}</td>
         <td data-label="N°">${escaparHtml(b.numero_boletin)}</td>
         <td data-label="Resumen">${escaparHtml(b.resumen ?? '')}</td>
-        <td data-label="PDF"><a href="/dyd-eds/admin/files/boletines/pdf/${escaparHtml(b.archivo_pdf)}" target="_blank" class="text-blue-500">Ver PDF</a></td>
+        <td data-label="PDF"><a href="${BASE}/admin/files/boletines/pdf/${escaparHtml(b.archivo_pdf)}" target="_blank" class="text-blue-500">Ver PDF</a></td>
         <td data-label="Fecha">${formatearFecha(b.fecha_publicacion)}</td>
         <td class="actions-cell">
           <div class="buttons right nowrap">
@@ -45,7 +45,7 @@ function mostrarFormulario() {
 }
 
 function editarBoletin(id) {
-  obtenerJson('/dyd-eds/admin/ajax/boletines.php?accion=obtener&id=' + id).then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/boletines.php?accion=obtener&id=' + id).then((respuesta) => {
     if (!respuesta.ok) {
       mostrarAviso(respuesta.error, 'error');
       return;
@@ -55,8 +55,8 @@ function editarBoletin(id) {
     document.getElementById('campoNumero').value = b.numero_boletin;
     document.getElementById('campoResumen').value = b.resumen ?? '';
     document.getElementById('campoFecha').value = b.fecha_publicacion;
-    document.getElementById('portadaActual').innerHTML = b.foto_portada ? `Actual: <img src="/dyd-eds/admin/files/boletines/portada/${escaparHtml(b.foto_portada)}" style="height:60px;">` : '';
-    document.getElementById('pdfActual').innerHTML = `Actual: <a href="/dyd-eds/admin/files/boletines/pdf/${escaparHtml(b.archivo_pdf)}" target="_blank" class="text-blue-500">Ver PDF actual</a>`;
+    document.getElementById('portadaActual').innerHTML = b.foto_portada ? `Actual: <img src="${BASE}/admin/files/boletines/portada/${escaparHtml(b.foto_portada)}" style="height:60px;">` : '';
+    document.getElementById('pdfActual').innerHTML = `Actual: <a href="${BASE}/admin/files/boletines/pdf/${escaparHtml(b.archivo_pdf)}" target="_blank" class="text-blue-500">Ver PDF actual</a>`;
     document.getElementById('etiquetaPdf').textContent = 'Archivo PDF (dejar vacío para conservar el actual)';
     document.getElementById('campoPdfInput').required = false;
     document.getElementById('tituloFormulario').textContent = 'Editar boletín';
@@ -69,7 +69,7 @@ function eliminarBoletin(id) {
   if (!confirm('¿Eliminar este boletín?')) return;
   const datos = new FormData();
   datos.append('id', id);
-  llamarAjax('/dyd-eds/admin/ajax/boletines.php?accion=eliminar', datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/boletines.php?accion=eliminar', datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso('Boletín eliminado.', 'exito');
       cargarBoletines();
@@ -85,7 +85,7 @@ document.getElementById('formBoletin').addEventListener('submit', function (even
   const datos = new FormData(this);
   const accion = id ? 'actualizar' : 'crear';
 
-  llamarAjax('/dyd-eds/admin/ajax/boletines.php?accion=' + accion, datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/boletines.php?accion=' + accion, datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso(id ? 'Boletín actualizado.' : 'Boletín creado.', 'exito');
       mostrarLista();

@@ -5,6 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once __DIR__ . '/../../base.php';
 require_once __DIR__ . '/Conexion.php';
 
 function usuarioActual(): ?array
@@ -16,7 +17,7 @@ function usuarioActual(): ?array
 function exigirSesion(): void
 {
     if (!usuarioActual()) {
-        header('Location: /dyd-eds/admin/login.php');
+        header('Location: ' . BASE . '/admin/login.php');
         exit;
     }
 }

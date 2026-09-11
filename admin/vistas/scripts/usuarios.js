@@ -1,5 +1,5 @@
 function cargarUsuarios() {
-  obtenerJson('/dyd-eds/admin/ajax/usuarios.php?accion=listar').then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/usuarios.php?accion=listar').then((respuesta) => {
     const cuerpo = document.getElementById('filasUsuarios');
     if (!respuesta.ok) {
       cuerpo.innerHTML = `<tr><td colspan="4">${escaparHtml(respuesta.error)}</td></tr>`;
@@ -36,7 +36,7 @@ function mostrarFormulario() {
 }
 
 function editarUsuario(id) {
-  obtenerJson('/dyd-eds/admin/ajax/usuarios.php?accion=obtener&id=' + id).then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/usuarios.php?accion=obtener&id=' + id).then((respuesta) => {
     if (!respuesta.ok) {
       mostrarAviso(respuesta.error, 'error');
       return;
@@ -58,7 +58,7 @@ function eliminarUsuario(id) {
   if (!confirm('¿Eliminar este usuario?')) return;
   const datos = new FormData();
   datos.append('id', id);
-  llamarAjax('/dyd-eds/admin/ajax/usuarios.php?accion=eliminar', datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/usuarios.php?accion=eliminar', datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso('Usuario eliminado.', 'exito');
       cargarUsuarios();
@@ -74,7 +74,7 @@ document.getElementById('formUsuario').addEventListener('submit', function (even
   const datos = new FormData(this);
   const accion = id ? 'actualizar' : 'crear';
 
-  llamarAjax('/dyd-eds/admin/ajax/usuarios.php?accion=' + accion, datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/usuarios.php?accion=' + accion, datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso(id ? 'Usuario actualizado.' : 'Usuario creado.', 'exito');
       mostrarLista();

@@ -4,7 +4,7 @@ exigirSesion();
 
 $tituloPagina = 'Mi perfil';
 $menuActivo = '';
-$scriptPagina = '/dyd-eds/admin/vistas/scripts/perfil.js';
+$scriptPagina = BASE . '/admin/vistas/scripts/perfil.js';
 require __DIR__ . '/parciales/cabecera.php';
 ?>
 

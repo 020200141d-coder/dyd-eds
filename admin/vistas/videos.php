@@ -4,7 +4,7 @@ exigirSesion();
 
 $tituloPagina = 'Videos';
 $menuActivo = 'videos';
-$scriptPagina = '/dyd-eds/admin/vistas/scripts/videos.js';
+$scriptPagina = BASE . '/admin/vistas/scripts/videos.js';
 require __DIR__ . '/parciales/cabecera.php';
 ?>
 

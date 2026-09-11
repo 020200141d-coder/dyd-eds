@@ -1,5 +1,5 @@
 function cargarPodcasts() {
-  obtenerJson('/dyd-eds/admin/ajax/podcasts.php?accion=listar').then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/podcasts.php?accion=listar').then((respuesta) => {
     const cuerpo = document.getElementById('filasPodcasts');
     if (!respuesta.ok) {
       cuerpo.innerHTML = `<tr><td colspan="4">${escaparHtml(respuesta.error)}</td></tr>`;
@@ -39,7 +39,7 @@ function mostrarFormulario() {
 }
 
 function editarPodcast(id) {
-  obtenerJson('/dyd-eds/admin/ajax/podcasts.php?accion=obtener&id=' + id).then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/podcasts.php?accion=obtener&id=' + id).then((respuesta) => {
     if (!respuesta.ok) {
       mostrarAviso(respuesta.error, 'error');
       return;
@@ -59,7 +59,7 @@ function eliminarPodcast(id) {
   if (!confirm('¿Eliminar este podcast?')) return;
   const datos = new FormData();
   datos.append('id', id);
-  llamarAjax('/dyd-eds/admin/ajax/podcasts.php?accion=eliminar', datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/podcasts.php?accion=eliminar', datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso('Podcast eliminado.', 'exito');
       cargarPodcasts();
@@ -75,7 +75,7 @@ document.getElementById('formPodcast').addEventListener('submit', function (even
   const datos = new FormData(this);
   const accion = id ? 'actualizar' : 'crear';
 
-  llamarAjax('/dyd-eds/admin/ajax/podcasts.php?accion=' + accion, datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/podcasts.php?accion=' + accion, datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso(id ? 'Podcast actualizado.' : 'Podcast creado.', 'exito');
       mostrarLista();

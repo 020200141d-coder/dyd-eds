@@ -17,15 +17,15 @@ require __DIR__ . '/partials/cabecera.php';
         <?php endif; ?>
         <?php foreach ($boletines as $boletin): ?>
           <div class="col-lg-4 col-md-6 grids5-info mt-5">
-            <a target="_blank" href="/dyd-eds/admin/files/boletines/pdf/<?= htmlspecialchars($boletin['archivo_pdf']) ?>" class="d-block">
+            <a target="_blank" href="<?= BASE ?>/admin/files/boletines/pdf/<?= htmlspecialchars($boletin['archivo_pdf']) ?>" class="d-block">
               <?php if (!empty($boletin['foto_portada'])): ?>
-                <img src="/dyd-eds/admin/files/boletines/portada/<?= htmlspecialchars($boletin['foto_portada']) ?>" alt="" class="img-fluid">
+                <img src="<?= BASE ?>/admin/files/boletines/portada/<?= htmlspecialchars($boletin['foto_portada']) ?>" alt="" class="img-fluid">
               <?php endif; ?>
             </a>
             <div class="blog-info">
               <h5>Nº <?= htmlspecialchars($boletin['numero_boletin']) ?> — <?= date('d/m/Y', strtotime($boletin['fecha_publicacion'])) ?></h5>
               <h4><?= htmlspecialchars($boletin['resumen'] ?? '') ?></h4>
-              <a target="_blank" href="/dyd-eds/admin/files/boletines/pdf/<?= htmlspecialchars($boletin['archivo_pdf']) ?>" class="btn mt-4 p-0"><span class="fa fa-download"></span> Ver Boletín</a>
+              <a target="_blank" href="<?= BASE ?>/admin/files/boletines/pdf/<?= htmlspecialchars($boletin['archivo_pdf']) ?>" class="btn mt-4 p-0"><span class="fa fa-download"></span> Ver Boletín</a>
             </div>
           </div>
         <?php endforeach; ?>

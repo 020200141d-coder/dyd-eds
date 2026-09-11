@@ -4,7 +4,7 @@ exigirSesion();
 
 $tituloPagina = 'Boletines';
 $menuActivo = 'boletines';
-$scriptPagina = '/dyd-eds/admin/vistas/scripts/boletines.js';
+$scriptPagina = BASE . '/admin/vistas/scripts/boletines.js';
 require __DIR__ . '/parciales/cabecera.php';
 ?>
 

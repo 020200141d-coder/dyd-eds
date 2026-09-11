@@ -8,7 +8,7 @@ const iconosTarjetas = {
   usuarios: { icono: 'mdi-account-multiple', color: 'text-gray-500', etiqueta: 'Usuarios' },
 };
 
-obtenerJson('/dyd-eds/admin/ajax/dashboard.php').then((respuesta) => {
+obtenerJson(BASE + '/admin/ajax/dashboard.php').then((respuesta) => {
   if (!respuesta.ok) {
     mostrarAviso(respuesta.error, 'error');
     return;

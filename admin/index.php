@@ -4,7 +4,7 @@ exigirSesion();
 
 $tituloPagina = 'Dashboard';
 $menuActivo = 'dashboard';
-$scriptPagina = '/dyd-eds/admin/vistas/scripts/dashboard.js';
+$scriptPagina = BASE . '/admin/vistas/scripts/dashboard.js';
 require __DIR__ . '/vistas/parciales/cabecera.php';
 ?>
 

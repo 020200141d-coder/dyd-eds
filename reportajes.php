@@ -22,7 +22,7 @@ require __DIR__ . '/partials/cabecera.php';
         <?php endforeach; ?>
       </div>
       <?php if ($totalPaginas > 1): ?>
-      <?php $url = fn(int $p) => '/dyd-eds/reportajes.php?pagina=' . $p; ?>
+      <?php $url = fn(int $p) => BASE . '/reportajes.php?pagina=' . $p; ?>
       <div class="pagination">
         <ul>
           <li class="prev"><a href="<?= $url(max(1, $pagina - 1)) ?>">Ant</a></li>

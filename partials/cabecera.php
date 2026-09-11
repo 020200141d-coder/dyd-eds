@@ -3,6 +3,7 @@
  * Cabecera del sitio publico. Solo pinta HTML; $tituloBreadcrumb lo define
  * cada pagina antes de incluir este archivo.
  */
+require_once __DIR__ . '/../base.php';
 ?><!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,15 +11,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?= htmlspecialchars($tituloPagina ?? 'DDP Noticias - Diálogo y Desarrollo Perú') ?></title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&family=Google+Sans:wght@400;500;700&display=swap">
-  <link rel="stylesheet" href="/dyd-eds/assets/css/iconos.css">
-  <link rel="stylesheet" href="/dyd-eds/assets/css/style-starter.css">
+  <link rel="stylesheet" href="<?= BASE ?>/assets/css/iconos.css">
+  <link rel="stylesheet" href="<?= BASE ?>/assets/css/style-starter.css">
 </head>
 <body>
 <header id="site-header" class="fixed-top">
   <div class="container">
     <nav class="navbar navbar-expand-lg stroke">
-      <a class="navbar-brand" href="/dyd-eds/index.php">
-        <img src="/dyd-eds/assets/images/logo.png" alt="Diálogo y Desarrollo Perú" title="Diálogo y Desarrollo Perú" style="height:75px;">
+      <a class="navbar-brand" href="<?= BASE ?>/index.php">
+        <img src="<?= BASE ?>/assets/images/logo.png" alt="Diálogo y Desarrollo Perú" title="Diálogo y Desarrollo Perú" style="height:75px;">
       </a>
       <button class="navbar-toggler collapsed bg-gradient" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
@@ -27,25 +28,25 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/dyd-eds/index.php">Inicio</a>
+            <a class="nav-link" href="<?= BASE ?>/index.php">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/dyd-eds/index.php#actualidad">Actualidad</a>
+            <a class="nav-link" href="<?= BASE ?>/index.php#actualidad">Actualidad</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/dyd-eds/reportajes.php">Reportajes</a>
+            <a class="nav-link" href="<?= BASE ?>/reportajes.php">Reportajes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/dyd-eds/podcast.php">Podcast</a>
+            <a class="nav-link" href="<?= BASE ?>/podcast.php">Podcast</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/dyd-eds/boletines.php">Boletín NTEP</a>
+            <a class="nav-link" href="<?= BASE ?>/boletines.php">Boletín NTEP</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/dyd-eds/videos.php">Videos</a>
+            <a class="nav-link" href="<?= BASE ?>/videos.php">Videos</a>
           </li>
           <li class="ml-2">
-            <a href="/dyd-eds/index.php#footer" class="btn btn-style btn-outline-secondary">Contacto</a>
+            <a href="<?= BASE ?>/index.php#footer" class="btn btn-style btn-outline-secondary">Contacto</a>
           </li>
         </ul>
       </div>

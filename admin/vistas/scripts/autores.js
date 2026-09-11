@@ -1,5 +1,5 @@
 function cargarAutores() {
-  obtenerJson('/dyd-eds/admin/ajax/autores.php?accion=listar').then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/autores.php?accion=listar').then((respuesta) => {
     const cuerpo = document.getElementById('filasAutores');
     if (!respuesta.ok) {
       cuerpo.innerHTML = `<tr><td colspan="2">${escaparHtml(respuesta.error)}</td></tr>`;
@@ -36,7 +36,7 @@ function mostrarFormulario() {
 }
 
 function editarAutor(id) {
-  obtenerJson('/dyd-eds/admin/ajax/autores.php?accion=obtener&id=' + id).then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/autores.php?accion=obtener&id=' + id).then((respuesta) => {
     if (!respuesta.ok) {
       mostrarAviso(respuesta.error, 'error');
       return;
@@ -53,7 +53,7 @@ function eliminarAutor(id) {
   if (!confirm('¿Eliminar este autor?')) return;
   const datos = new FormData();
   datos.append('id', id);
-  llamarAjax('/dyd-eds/admin/ajax/autores.php?accion=eliminar', datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/autores.php?accion=eliminar', datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso('Autor eliminado.', 'exito');
       cargarAutores();
@@ -69,7 +69,7 @@ document.getElementById('formAutor').addEventListener('submit', function (evento
   const datos = new FormData(this);
   const accion = id ? 'actualizar' : 'crear';
 
-  llamarAjax('/dyd-eds/admin/ajax/autores.php?accion=' + accion, datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/autores.php?accion=' + accion, datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso(id ? 'Autor actualizado.' : 'Autor creado.', 'exito');
       mostrarLista();

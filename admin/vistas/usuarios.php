@@ -2,13 +2,13 @@
 require_once __DIR__ . '/../config/global.php';
 exigirSesion();
 if (usuarioActual()['rol'] !== 'admin') {
-    header('Location: /dyd-eds/admin/index.php');
+    header('Location: ' . BASE . '/admin/index.php');
     exit;
 }
 
 $tituloPagina = 'Usuarios';
 $menuActivo = 'usuarios';
-$scriptPagina = '/dyd-eds/admin/vistas/scripts/usuarios.js';
+$scriptPagina = BASE . '/admin/vistas/scripts/usuarios.js';
 require __DIR__ . '/parciales/cabecera.php';
 ?>
 <script>const idUsuarioActual = <?= (int) usuarioActual()['id'] ?>;</script>

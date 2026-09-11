@@ -34,11 +34,11 @@ require __DIR__ . '/partials/cabecera.php';
     <div class="video-grids-info row">
       <div class="video-gd-right col-lg-6 p-0">
         <div class="position-relative">
-          <a href="/dyd-eds/reportaje.php?id=<?= (int) $destacado['id'] ?>">
+          <a href="<?= BASE ?>/reportaje.php?id=<?= (int) $destacado['id'] ?>">
             <?php if (!empty($destacado['foto_principal'])): ?>
-              <img src="/dyd-eds/admin/files/reportajes/<?= htmlspecialchars($destacado['foto_principal']) ?>" alt="" class="img-fluid">
+              <img src="<?= BASE ?>/admin/files/reportajes/<?= htmlspecialchars($destacado['foto_principal']) ?>" alt="" class="img-fluid">
             <?php else: ?>
-              <img src="/dyd-eds/assets/images/video.jpg" alt="" class="img-fluid">
+              <img src="<?= BASE ?>/assets/images/video.jpg" alt="" class="img-fluid">
             <?php endif; ?>
           </a>
         </div>
@@ -46,9 +46,9 @@ require __DIR__ . '/partials/cabecera.php';
       <div class="video-gd-left col-lg-6 p-lg-5 p-4 align-self">
         <div class="p-xl-4 p-0 video-wrap">
           <h5><?= date('d/m/Y', strtotime($destacado['fecha_publicacion'])) ?></h5>
-          <h3 class="title-big text-left mb-4"><a href="/dyd-eds/reportaje.php?id=<?= (int) $destacado['id'] ?>"><?= htmlspecialchars($destacado['titulo']) ?></a></h3>
+          <h3 class="title-big text-left mb-4"><a href="<?= BASE ?>/reportaje.php?id=<?= (int) $destacado['id'] ?>"><?= htmlspecialchars($destacado['titulo']) ?></a></h3>
           <p><?= htmlspecialchars($destacado['resumen_corto'] ?? '') ?></p>
-          <a href="/dyd-eds/reportaje.php?id=<?= (int) $destacado['id'] ?>" class="btn mt-4 p-0">Leer <span class="fa fa-arrow-right"></span></a>
+          <a href="<?= BASE ?>/reportaje.php?id=<?= (int) $destacado['id'] ?>" class="btn mt-4 p-0">Leer <span class="fa fa-arrow-right"></span></a>
         </div>
       </div>
     </div>
@@ -68,7 +68,7 @@ require __DIR__ . '/partials/cabecera.php';
         <?php endforeach; ?>
       </div>
       <div class="pagination">
-        <ul><li><a href="/dyd-eds/reportajes.php">Ver todos</a></li></ul>
+        <ul><li><a href="<?= BASE ?>/reportajes.php">Ver todos</a></li></ul>
       </div>
     </div>
   </section>
@@ -96,7 +96,7 @@ require __DIR__ . '/partials/cabecera.php';
           <div class="col-lg-4 col-md-6 grids5-info mt-lg-0 mt-5">
             <a target="_blank" href="<?= htmlspecialchars($noticia['link_externo'] ?? '#') ?>" class="d-block">
               <?php if (!empty($noticia['foto'])): ?>
-                <img src="/dyd-eds/admin/files/noticias/<?= htmlspecialchars($noticia['foto']) ?>" alt="" class="img-fluid">
+                <img src="<?= BASE ?>/admin/files/noticias/<?= htmlspecialchars($noticia['foto']) ?>" alt="" class="img-fluid">
               <?php endif; ?>
             </a>
             <div class="blog-info">
@@ -124,15 +124,15 @@ require __DIR__ . '/partials/cabecera.php';
             <h4><?= date('d/m/Y', strtotime($boletin['fecha_publicacion'])) ?></h4>
           </div>
           <div class="col-6 p-0">
-            <span><a target="_blank" href="/dyd-eds/admin/files/boletines/pdf/<?= htmlspecialchars($boletin['archivo_pdf']) ?>" class="facebook"><span class="fa fa-download"></span></a></span>
+            <span><a target="_blank" href="<?= BASE ?>/admin/files/boletines/pdf/<?= htmlspecialchars($boletin['archivo_pdf']) ?>" class="facebook"><span class="fa fa-download"></span></a></span>
             <h4>Ver Boletín</h4>
           </div>
-          <center><a href="/dyd-eds/boletines.php" class="btn btn-style btn-primary mt-md-5 mt-4">Ver todos</a></center>
+          <center><a href="<?= BASE ?>/boletines.php" class="btn btn-style btn-primary mt-md-5 mt-4">Ver todos</a></center>
         </div>
       </div>
       <div class="col-lg-4 mt-lg-0 mt-4">
         <?php if (!empty($boletin['foto_portada'])): ?>
-          <img src="/dyd-eds/admin/files/boletines/portada/<?= htmlspecialchars($boletin['foto_portada']) ?>" class="img-fluid radius-image" alt="">
+          <img src="<?= BASE ?>/admin/files/boletines/portada/<?= htmlspecialchars($boletin['foto_portada']) ?>" class="img-fluid radius-image" alt="">
         <?php endif; ?>
       </div>
     </div>
@@ -150,13 +150,13 @@ require __DIR__ . '/partials/cabecera.php';
       <?php foreach ($podcasts as $podcast): ?>
         <div class="col-lg-3 col-sm-6 mt-sm-0 mt-5">
           <div class="area-box">
-            <img src="/dyd-eds/assets/images/podcast.png" alt="">
+            <img src="<?= BASE ?>/assets/images/podcast.png" alt="">
             <p><a href="<?= htmlspecialchars($podcast['url_embed']) ?>" target="_blank"><?= htmlspecialchars($podcast['titulo']) ?></a></p>
           </div>
         </div>
       <?php endforeach; ?>
     </div>
-    <center><a href="/dyd-eds/podcast.php" class="btn btn-style btn-primary mt-md-5 mt-4">Ver todos</a></center>
+    <center><a href="<?= BASE ?>/podcast.php" class="btn btn-style btn-primary mt-md-5 mt-4">Ver todos</a></center>
   </div>
 </section>
 
@@ -169,7 +169,7 @@ require __DIR__ . '/partials/cabecera.php';
           <div class="item">
             <div class="d-grid team-info">
               <div class="column position-relative">
-                <img src="/dyd-eds/assets/images/team2.jpg" alt="" class="img-fluid rounded team-image">
+                <img src="<?= BASE ?>/assets/images/team2.jpg" alt="" class="img-fluid rounded team-image">
               </div>
               <div class="column"><p>Por una minería artesanal segura para todos</p></div>
             </div>
@@ -177,7 +177,7 @@ require __DIR__ . '/partials/cabecera.php';
           <div class="item">
             <div class="d-grid team-info">
               <div class="column position-relative">
-                <img src="/dyd-eds/assets/images/team3.jpg" alt="" class="img-fluid rounded team-image">
+                <img src="<?= BASE ?>/assets/images/team3.jpg" alt="" class="img-fluid rounded team-image">
               </div>
               <div class="column"><p>REINFO Días decisivos en el Congreso</p></div>
             </div>
@@ -185,7 +185,7 @@ require __DIR__ . '/partials/cabecera.php';
           <div class="item">
             <div class="d-grid team-info">
               <div class="column position-relative">
-                <img src="/dyd-eds/assets/images/team4.jpg" alt="" class="img-fluid rounded team-image">
+                <img src="<?= BASE ?>/assets/images/team4.jpg" alt="" class="img-fluid rounded team-image">
               </div>
               <div class="column"><p>La minería ilegal: un negocio rentable para bandas criminales</p></div>
             </div>
@@ -193,7 +193,7 @@ require __DIR__ . '/partials/cabecera.php';
           <div class="item">
             <div class="d-grid team-info">
               <div class="column position-relative">
-                <img src="/dyd-eds/assets/images/team5.jpg" alt="" class="img-fluid rounded team-image">
+                <img src="<?= BASE ?>/assets/images/team5.jpg" alt="" class="img-fluid rounded team-image">
               </div>
               <div class="column"><p>El problema del REINFO y la minería ilegal en 50 segundos</p></div>
             </div>
@@ -215,7 +215,7 @@ require __DIR__ . '/partials/cabecera.php';
         </div>
         <div class="col-md-6 left-wthree-img mt-lg-0 mt-4">
           <div class="position-relative">
-            <img src="/dyd-eds/assets/images/bannerimg.jpg" alt="" class="img-fluid">
+            <img src="<?= BASE ?>/assets/images/bannerimg.jpg" alt="" class="img-fluid">
           </div>
         </div>
       </div>

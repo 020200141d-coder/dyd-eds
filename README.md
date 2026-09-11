@@ -60,8 +60,9 @@ una tipografía del sistema sin que nada se rompa.
 
 ## Instalación
 
-1. Copia esta carpeta dentro de `C:\xampp\htdocs\dyd-eds\`, de forma que
-   `C:\xampp\htdocs\dyd-eds\admin\index.php` exista.
+1. Copia esta carpeta dentro de `C:\xampp\htdocs\`, de forma que
+   `C:\xampp\htdocs\<carpeta>\admin\index.php` exista. El nombre de la
+   carpeta da igual: la direccion del sitio se calcula sola (`base.php`).
 
 2. Enciende **Apache** y **MySQL** en el Panel de Control de XAMPP.
 
@@ -80,12 +81,12 @@ una tipografía del sistema sin que nada se rompa.
 
 6. Abre el **sitio público** en:
    ```
-   http://localhost/dyd-eds/index.php
+   http://localhost/<carpeta>/index.php
    ```
 
 7. Abre el **panel de administración** en:
    ```
-   http://localhost/dyd-eds/admin/login.php
+   http://localhost/<carpeta>/admin/login.php
    ```
    Ingresa con:
    - **Correo:** admin@dyd.com
@@ -143,7 +144,8 @@ admin/
 - `clases/Conexion.php` (sitio público) y `admin/config/Conexion.php`
   (panel) son conexiones **separadas a propósito** — el sitio público nunca
   debería poder escribir en la base de datos.
-- Las rutas absolutas (`/dyd-eds/...`) asumen que el proyecto vive en
-  `htdocs/dyd-eds`. Si cambias el nombre de la carpeta, hay que actualizar
-  ese prefijo en `partials/`, `admin/vistas/parciales/`, `admin/login.php`
-  y `admin/config/global.php`.
+- `base.php` calcula la constante `BASE`, que es la direccion desde la que
+  se ve el proyecto (`/dyd-eds`, o vacia si esta en la raiz del servidor).
+  Todas las rutas del sitio y del panel la usan, asi que la carpeta puede
+  llamarse como sea y todo sigue funcionando. En el JavaScript del panel la
+  misma direccion esta disponible como `BASE`.

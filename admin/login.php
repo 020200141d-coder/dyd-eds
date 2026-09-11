@@ -2,7 +2,7 @@
 require_once __DIR__ . '/config/global.php';
 
 if (usuarioActual()) {
-    header('Location: /dyd-eds/admin/index.php');
+    header('Location: ' . BASE . '/admin/index.php');
     exit;
 }
 ?><!DOCTYPE html>
@@ -11,9 +11,9 @@ if (usuarioActual()) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Iniciar sesión - Panel DDP Noticias</title>
-  <link rel="stylesheet" href="/dyd-eds/admin/assets/css/main.css">
-  <link rel="icon" type="image/png" sizes="32x32" href="/dyd-eds/admin/assets/img/favicon-32x32.png"/>
-  <link rel="stylesheet" href="/dyd-eds/assets/css/iconos.css">
+  <link rel="stylesheet" href="<?= BASE ?>/admin/assets/css/main.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= BASE ?>/admin/assets/img/favicon-32x32.png"/>
+  <link rel="stylesheet" href="<?= BASE ?>/assets/css/iconos.css">
 </head>
 <body>
 <div id="app">
@@ -53,7 +53,8 @@ if (usuarioActual()) {
     </div>
   </section>
 </div>
-<script src="/dyd-eds/admin/vistas/scripts/comun.js"></script>
-<script src="/dyd-eds/admin/vistas/scripts/login.js"></script>
+<script>const BASE = <?= json_encode(BASE) ?>;</script>
+<script src="<?= BASE ?>/admin/vistas/scripts/comun.js"></script>
+<script src="<?= BASE ?>/admin/vistas/scripts/login.js"></script>
 </body>
 </html>

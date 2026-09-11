@@ -6,15 +6,17 @@
 -- no cada articulo completo. Por ahora "desarrollo" repite el resumen;
 -- entra al panel y pega el texto completo real de cada nota cuando puedas.
 --
--- El Boletin NTEP Nº45 NO esta aqui porque necesita el PDF real, que yo
--- no pude descargar. Bajalo tu mismo de:
+-- El PDF del Boletin NTEP Nº45 es un PDF de RELLENO (no el real, porque
+-- no se pudo descargar desde aqui). Reemplázalo entrando al panel
+-- (Boletines > editar > Archivo PDF) y subiendo el real, que puedes bajar
+-- tu mismo de:
 --   https://www.dialogoydesarrollo.com.pe/boletines/boletin-NTEP-edicion-N45-2808.pdf
--- y súbelo desde el panel (Boletines > Nuevo boletín) usando como portada
--- el archivo admin/files/boletines/portada/boletin-ntep-45.png que ya
--- quedo copiado en el proyecto. Datos del boletin: numero 45, resumen
--- "Promueven megaproyectos turísticos por S/ 2,400 mllns. Invertirán S/ 9
--- millones en zonas rurales de Cusco. Producción láctea se duplica en
--- Cajamarca.", fecha 2025-08-28.
+--
+-- El video de YouTube NO es el que aparece embebido en el sitio real (ese
+-- ID de YouTube no se pudo identificar desde aqui): es un video público
+-- distinto, sobre el mismo tema (REINFO y minería ilegal en Perú), para
+-- que la sección de Videos no quede vacía. Reemplázalo por el real cuando
+-- lo tengas, desde el panel (Videos > editar).
 
 USE dyd;
 
@@ -99,5 +101,27 @@ VALUES (
     'nota-facebook-20-11-25.png',
     'https://diarioelnoticiero.com/ministerio-de-vivienda-llego-a-juliaca-para-reafirmar-que-el-proyecto-de-agua-potable-y-alcantarillado-no-se-detiene-2/',
     '2025-11-20',
+    1
+);
+
+-- Boletin NTEP Nº45 (portada real, PDF de relleno — ver nota arriba)
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES (
+    '45',
+    'Promueven megaproyectos turísticos por S/ 2,400 mllns. Invertirán S/ 9 millones en zonas rurales de Cusco. Producción láctea se duplica en Cajamarca.',
+    'boletin-ntep-45.png',
+    'boletin-ntep-45.pdf',
+    '2025-08-28',
+    1
+);
+
+-- Video relacionado con el tema del sitio (REINFO / minería ilegal en Perú)
+-- No es el video embebido real del sitio (ver nota arriba) — reemplázalo
+-- desde el panel cuando tengas el ID real de YouTube.
+INSERT INTO videos (titulo, url_embed, fecha_publicacion, usuario_id)
+VALUES (
+    'Minería ilegal en Perú: el fracaso del REINFO y su impacto económico',
+    'https://www.youtube.com/embed/VOfLN4ulvLM',
+    '2026-04-17',
     1
 );

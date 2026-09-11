@@ -20,7 +20,7 @@
 
 USE dyd;
 
--- reportaje destacado (portada del sitio, Set 09 2026)
+-- reportaje destacado (portada del sitio, Set 08 2026)
 INSERT INTO reportajes
     (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
 VALUES (
@@ -28,11 +28,28 @@ VALUES (
     'Las universidades estatales concentran recursos provenientes de actividades extractivas. Pero han invertido la mitad. Especialistas dicen que una evaluación completa debería ir más allá del porcentaje ejecutado y preguntarse si esas inversiones producen mejores condiciones en formación e investigación.',
     'Las universidades estatales concentran recursos provenientes de actividades extractivas. Pero han invertido la mitad. Especialistas dicen que una evaluación completa debería ir más allá del porcentaje ejecutado y preguntarse si esas inversiones producen mejores condiciones en formación e investigación. (Completar con el texto real del artículo desde el panel.)',
     'video-destacado-09-09-26.jpg',
-    '2026-09-09',
+    '2026-09-08',
     1,
     NULL,
     1
 );
+
+-- 5 reportajes mas viejos (reportajes-1.html). No tengo sus fotos reales
+-- (reportaje-05-08-26.jpg, etc.) asi que foto_principal queda NULL.
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Minería ilegal: la brecha sigue abierta a una semana del nuevo gobierno', NULL, '(Completar con el texto real del artículo desde el panel.)', NULL, '2026-08-05', 0, NULL, 1);
+
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Así lavan el oro ilegal plantas procesadoras y mineros con Reinfo', NULL, '(Completar con el texto real del artículo desde el panel.)', NULL, '2026-07-30', 0, NULL, 1);
+
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Medidas que el nuevo gobierno debe tomar para frenar la minería ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', NULL, '2026-07-24', 0, NULL, 1);
+
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Por qué algunas comunidades respaldan actividades de minería ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', NULL, '2026-07-16', 0, NULL, 1);
+
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Más reservas, cuencas y zonas protegidas afectadas por la minería ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', NULL, '2026-07-07', 0, NULL, 1);
 
 -- reportaje: 730 mineros con Reinfo
 INSERT INTO reportajes
@@ -115,13 +132,30 @@ VALUES (
     1
 );
 
--- Video relacionado con el tema del sitio (REINFO / minería ilegal en Perú)
--- No es el video embebido real del sitio (ver nota arriba) — reemplázalo
--- desde el panel cuando tengas el ID real de YouTube.
+-- Boletines Nº44 a Nº40 (boletines.html). No tengo sus portadas ni PDF
+-- reales, asi que usan el PDF de relleno generico (boletin-relleno.pdf).
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES ('44', NULL, NULL, 'boletin-relleno.pdf', '2025-08-25', 1);
+
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES ('43', NULL, NULL, 'boletin-relleno.pdf', '2025-08-21', 1);
+
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES ('42', NULL, NULL, 'boletin-relleno.pdf', '2025-08-18', 1);
+
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES ('41', NULL, NULL, 'boletin-relleno.pdf', '2025-08-14', 1);
+
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES ('40', NULL, NULL, 'boletin-relleno.pdf', '2025-08-11', 1);
+
+-- Video REAL embebido en el sitio (seccion "Nosotros" del inicio,
+-- confirmado en el HTML real). No se pudo saber el titulo exacto del
+-- video de YouTube, se usa uno descriptivo del contexto.
 INSERT INTO videos (titulo, url_embed, fecha_publicacion, usuario_id)
 VALUES (
-    'Minería ilegal en Perú: el fracaso del REINFO y su impacto económico',
-    'https://www.youtube.com/embed/VOfLN4ulvLM',
-    '2026-04-17',
+    'Conoce Diálogo y Desarrollo Perú',
+    'https://www.youtube.com/embed/2jI6fHBtRJU',
+    '2026-01-01',
     1
 );

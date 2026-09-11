@@ -24,7 +24,7 @@ switch ($accion) {
 
         $datos = [
             'titulo' => $titulo,
-            'url_embed' => $urlEmbed,
+            'url_embed' => urlParaIncrustar($urlEmbed),
             'fecha_publicacion' => $_POST['fecha_publicacion'] ?? date('Y-m-d'),
             'usuario_id' => usuarioActual()['id'],
         ];

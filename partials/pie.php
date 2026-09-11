@@ -4,7 +4,7 @@
       <h3 class="title-big">Síguenos en nuestras Redes Sociales</h3>
       <div class="main-social-footer-29">
         <a target="_blank" href="https://www.facebook.com/DialogoyDesarrolloPeru" class="facebook"><span class="fa fa-facebook-square fa-2x"></span></a>
-        <a target="_blank" href="https://www.tiktok.com/@dialogo.y.desarrollo" class="twitter"><img src="/dyd-eds/assets/images/tiktokg.png"></a>
+        <a target="_blank" href="https://www.tiktok.com/@dialogo.y.desarrollo" class="twitter"><img src="<?= BASE ?>/assets/images/tiktokg.png"></a>
         <a target="_blank" href="https://www.instagram.com/dialogo.y.desarrollo/" class="instagram"><span class="fa fa-instagram fa-2x"></span></a>
       </div>
     </div>
@@ -20,16 +20,16 @@
           <p>Somos un espacio de periodismo independiente que busca visibilizar las acciones de diálogo en el país desde una mirada constructiva.</p>
           <div class="main-social-footer-29">
             <a target="_blank" href="https://www.facebook.com/DialogoyDesarrolloPeru" class="facebook"><span class="fa fa-facebook-square"></span></a>
-            <a target="_blank" href="https://www.tiktok.com/@dialogo.y.desarrollo" class="twitter"><img src="/dyd-eds/assets/images/tiktokp.png"></a>
+            <a target="_blank" href="https://www.tiktok.com/@dialogo.y.desarrollo" class="twitter"><img src="<?= BASE ?>/assets/images/tiktokp.png"></a>
             <a target="_blank" href="https://www.instagram.com/dialogo.y.desarrollo/" class="instagram"><span class="fa fa-instagram"></span></a>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 footer-list-29 footer-2 mt-md-0 mt-5">
           <ul>
             <h6 class="footer-title-29">Contenido</h6>
-            <li><a href="/dyd-eds/index.php#actualidad">Noticias</a></li>
-            <li><a href="/dyd-eds/videos.php">Videos</a></li>
-            <li><a href="/dyd-eds/podcast.php">Podcast</a></li>
+            <li><a href="<?= BASE ?>/index.php#actualidad">Noticias</a></li>
+            <li><a href="<?= BASE ?>/videos.php">Videos</a></li>
+            <li><a href="<?= BASE ?>/podcast.php">Podcast</a></li>
           </ul>
         </div>
         <div class="col-lg-3 col-md-6 mt-lg-0 mt-5 footer-list-29 footer-3">
@@ -65,8 +65,8 @@
   </script>
 </section>
 
-<script src="/dyd-eds/assets/js/jquery-3.3.1.min.js"></script>
-<script src="/dyd-eds/assets/js/owl.carousel.js"></script>
+<script src="<?= BASE ?>/assets/js/jquery-3.3.1.min.js"></script>
+<script src="<?= BASE ?>/assets/js/owl.carousel.js"></script>
 <script>
   $(document).ready(function () {
     $('.owl-carousel').owlCarousel({
@@ -82,7 +82,7 @@
     });
   });
 </script>
-<script src="/dyd-eds/assets/js/jquery.magnific-popup.min.js"></script>
+<script src="<?= BASE ?>/assets/js/jquery.magnific-popup.min.js"></script>
 <script>
   $(document).ready(function () {
     $('.popup-with-zoom-anim').magnificPopup({
@@ -113,6 +113,6 @@
     $("header").toggleClass("active");
   });
 </script>
-<script src="/dyd-eds/assets/js/bootstrap.min.js"></script>
+<script src="<?= BASE ?>/assets/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 function cargarVideos() {
-  obtenerJson('/dyd-eds/admin/ajax/videos.php?accion=listar').then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/videos.php?accion=listar').then((respuesta) => {
     const cuerpo = document.getElementById('filasVideos');
     if (!respuesta.ok) {
       cuerpo.innerHTML = `<tr><td colspan="4">${escaparHtml(respuesta.error)}</td></tr>`;
@@ -39,7 +39,7 @@ function mostrarFormulario() {
 }
 
 function editarVideo(id) {
-  obtenerJson('/dyd-eds/admin/ajax/videos.php?accion=obtener&id=' + id).then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/videos.php?accion=obtener&id=' + id).then((respuesta) => {
     if (!respuesta.ok) {
       mostrarAviso(respuesta.error, 'error');
       return;
@@ -59,7 +59,7 @@ function eliminarVideo(id) {
   if (!confirm('¿Eliminar este video?')) return;
   const datos = new FormData();
   datos.append('id', id);
-  llamarAjax('/dyd-eds/admin/ajax/videos.php?accion=eliminar', datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/videos.php?accion=eliminar', datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso('Video eliminado.', 'exito');
       cargarVideos();
@@ -75,7 +75,7 @@ document.getElementById('formVideo').addEventListener('submit', function (evento
   const datos = new FormData(this);
   const accion = id ? 'actualizar' : 'crear';
 
-  llamarAjax('/dyd-eds/admin/ajax/videos.php?accion=' + accion, datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/videos.php?accion=' + accion, datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso(id ? 'Video actualizado.' : 'Video creado.', 'exito');
       mostrarLista();

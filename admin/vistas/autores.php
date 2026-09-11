@@ -4,7 +4,7 @@ exigirSesion();
 
 $tituloPagina = 'Autores';
 $menuActivo = 'autores';
-$scriptPagina = '/dyd-eds/admin/vistas/scripts/autores.js';
+$scriptPagina = BASE . '/admin/vistas/scripts/autores.js';
 require __DIR__ . '/parciales/cabecera.php';
 ?>
 

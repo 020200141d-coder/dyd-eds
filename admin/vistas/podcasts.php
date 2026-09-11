@@ -4,7 +4,7 @@ exigirSesion();
 
 $tituloPagina = 'Podcasts';
 $menuActivo = 'podcasts';
-$scriptPagina = '/dyd-eds/admin/vistas/scripts/podcasts.js';
+$scriptPagina = BASE . '/admin/vistas/scripts/podcasts.js';
 require __DIR__ . '/parciales/cabecera.php';
 ?>
 

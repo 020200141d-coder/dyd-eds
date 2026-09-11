@@ -3,7 +3,7 @@ function nombreAutor(r) {
 }
 
 function cargarReportajes() {
-  obtenerJson('/dyd-eds/admin/ajax/reportajes.php?accion=listar').then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/reportajes.php?accion=listar').then((respuesta) => {
     const cuerpo = document.getElementById('filasReportajes');
     if (!respuesta.ok) {
       cuerpo.innerHTML = `<tr><td colspan="6">${escaparHtml(respuesta.error)}</td></tr>`;
@@ -15,7 +15,7 @@ function cargarReportajes() {
     }
     cuerpo.innerHTML = respuesta.datos.map((r) => `
       <tr>
-        <td class="image-cell">${r.foto_principal ? `<div class="image"><img src="/dyd-eds/admin/files/reportajes/${escaparHtml(r.foto_principal)}" class="rounded-full"></div>` : ''}</td>
+        <td class="image-cell">${r.foto_principal ? `<div class="image"><img src="${BASE}/admin/files/reportajes/${escaparHtml(r.foto_principal)}" class="rounded-full"></div>` : ''}</td>
         <td data-label="Título">${escaparHtml(r.titulo)}</td>
         <td data-label="Autor">${escaparHtml(nombreAutor(r))}</td>
         <td data-label="Fecha">${formatearFecha(r.fecha_publicacion)}</td>
@@ -49,15 +49,15 @@ function mostrarFormulario() {
   document.getElementById('campoFecha').value = new Date().toISOString().slice(0, 10);
   document.getElementById('botonFotos').hidden = true;
   document.getElementById('tituloFormulario').textContent = 'Nuevo reportaje';
-  obtenerJson('/dyd-eds/admin/ajax/reportajes.php?accion=autoresDisponibles').then((r) => pintarSelectAutores(r.datos, ''));
+  obtenerJson(BASE + '/admin/ajax/reportajes.php?accion=autoresDisponibles').then((r) => pintarSelectAutores(r.datos, ''));
   document.getElementById('vistaLista').hidden = true;
   document.getElementById('vistaFormulario').hidden = false;
 }
 
 function editarReportaje(id) {
   Promise.all([
-    obtenerJson('/dyd-eds/admin/ajax/reportajes.php?accion=obtener&id=' + id),
-    obtenerJson('/dyd-eds/admin/ajax/reportajes.php?accion=autoresDisponibles'),
+    obtenerJson(BASE + '/admin/ajax/reportajes.php?accion=obtener&id=' + id),
+    obtenerJson(BASE + '/admin/ajax/reportajes.php?accion=autoresDisponibles'),
   ]).then(([respuesta, autores]) => {
     if (!respuesta.ok) {
       mostrarAviso(respuesta.error, 'error');
@@ -71,9 +71,9 @@ function editarReportaje(id) {
     document.getElementById('campoFecha').value = r.fecha_publicacion;
     document.getElementById('campoDestacado').checked = r.es_destacado == 1;
     pintarSelectAutores(autores.datos, r.autor_id);
-    document.getElementById('fotoActual').innerHTML = r.foto_principal ? `Actual: <img src="/dyd-eds/admin/files/reportajes/${escaparHtml(r.foto_principal)}" style="height:60px;">` : '';
-    document.getElementById('pdfActual').innerHTML = r.pdf_adjunto ? `Actual: <a href="/dyd-eds/admin/files/reportajes/${escaparHtml(r.pdf_adjunto)}" target="_blank" class="text-blue-500">Ver PDF actual</a>` : '';
-    document.getElementById('enlaceFotos').href = '/dyd-eds/admin/vistas/reportajes_fotos.php?id=' + r.id;
+    document.getElementById('fotoActual').innerHTML = r.foto_principal ? `Actual: <img src="${BASE}/admin/files/reportajes/${escaparHtml(r.foto_principal)}" style="height:60px;">` : '';
+    document.getElementById('pdfActual').innerHTML = r.pdf_adjunto ? `Actual: <a href="${BASE}/admin/files/reportajes/${escaparHtml(r.pdf_adjunto)}" target="_blank" class="text-blue-500">Ver PDF actual</a>` : '';
+    document.getElementById('enlaceFotos').href = BASE + '/admin/vistas/reportajes_fotos.php?id=' + r.id;
     document.getElementById('botonFotos').hidden = false;
     document.getElementById('tituloFormulario').textContent = 'Editar reportaje';
     document.getElementById('vistaLista').hidden = true;
@@ -85,7 +85,7 @@ function eliminarReportaje(id) {
   if (!confirm('¿Eliminar este reportaje y sus fotos?')) return;
   const datos = new FormData();
   datos.append('id', id);
-  llamarAjax('/dyd-eds/admin/ajax/reportajes.php?accion=eliminar', datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/reportajes.php?accion=eliminar', datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso('Reportaje eliminado.', 'exito');
       cargarReportajes();
@@ -101,7 +101,7 @@ document.getElementById('formReportaje').addEventListener('submit', function (ev
   const datos = new FormData(this);
   const accion = id ? 'actualizar' : 'crear';
 
-  llamarAjax('/dyd-eds/admin/ajax/reportajes.php?accion=' + accion, datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/reportajes.php?accion=' + accion, datos).then((respuesta) => {
     if (!respuesta.ok) {
       mostrarAviso(respuesta.error, 'error');
       return;
@@ -112,7 +112,7 @@ document.getElementById('formReportaje').addEventListener('submit', function (ev
       cargarReportajes();
     } else {
       // reportaje nuevo: va directo a la galería de fotos, como antes
-      window.location.href = '/dyd-eds/admin/vistas/reportajes_fotos.php?id=' + respuesta.id;
+      window.location.href = BASE + '/admin/vistas/reportajes_fotos.php?id=' + respuesta.id;
     }
   });
 });

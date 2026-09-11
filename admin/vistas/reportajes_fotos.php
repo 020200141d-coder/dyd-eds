@@ -6,7 +6,7 @@ $reportajeId = (int) ($_GET['id'] ?? 0);
 
 $tituloPagina = 'Fotos del reportaje';
 $menuActivo = 'reportajes';
-$scriptPagina = '/dyd-eds/admin/vistas/scripts/reportajes_fotos.js';
+$scriptPagina = BASE . '/admin/vistas/scripts/reportajes_fotos.js';
 require __DIR__ . '/parciales/cabecera.php';
 ?>
 <script>const idReportaje = <?= $reportajeId ?>;</script>
@@ -14,7 +14,7 @@ require __DIR__ . '/parciales/cabecera.php';
 <div class="card mb-6">
   <header class="card-header">
     <p class="card-header-title"><span class="icon"><i class="mdi mdi-image-multiple"></i></span> Fotos adicionales de "<span id="tituloReportaje"></span>"</p>
-    <a href="/dyd-eds/admin/vistas/reportajes.php" class="card-header-icon"><span class="icon"><i class="mdi mdi-arrow-left"></i></span></a>
+    <a href="<?= BASE ?>/admin/vistas/reportajes.php" class="card-header-icon"><span class="icon"><i class="mdi mdi-arrow-left"></i></span></a>
   </header>
   <div class="card-content">
     <form id="formFoto" enctype="multipart/form-data" class="mb-6">

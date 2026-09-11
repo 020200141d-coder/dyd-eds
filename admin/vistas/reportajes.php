@@ -4,7 +4,7 @@ exigirSesion();
 
 $tituloPagina = 'Reportajes';
 $menuActivo = 'reportajes';
-$scriptPagina = '/dyd-eds/admin/vistas/scripts/reportajes.js';
+$scriptPagina = BASE . '/admin/vistas/scripts/reportajes.js';
 require __DIR__ . '/parciales/cabecera.php';
 ?>
 

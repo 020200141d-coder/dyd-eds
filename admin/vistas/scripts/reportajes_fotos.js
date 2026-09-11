@@ -7,7 +7,7 @@ function pintarFotos(fotos) {
   grilla.innerHTML = fotos.map((f) => `
     <div class="card">
       <div class="card-content" style="padding:10px;">
-        <img src="/dyd-eds/admin/files/reportajes_fotos/${escaparHtml(f.url_foto)}" style="width:100%;height:120px;object-fit:cover;border-radius:6px;">
+        <img src="${BASE}/admin/files/reportajes_fotos/${escaparHtml(f.url_foto)}" style="width:100%;height:120px;object-fit:cover;border-radius:6px;">
         <p class="mt-2" style="font-size:12px;">${escaparHtml(f.descripcion ?? '')}</p>
         <button type="button" class="button small red mt-2" style="width:100%;" onclick="eliminarFoto(${f.id})"><span class="icon"><i class="mdi mdi-trash-can"></i></span></button>
       </div>
@@ -15,7 +15,7 @@ function pintarFotos(fotos) {
 }
 
 function cargarFotos() {
-  obtenerJson('/dyd-eds/admin/ajax/reportajes.php?accion=listarFotos&reportaje_id=' + idReportaje).then((respuesta) => {
+  obtenerJson(BASE + '/admin/ajax/reportajes.php?accion=listarFotos&reportaje_id=' + idReportaje).then((respuesta) => {
     if (respuesta.ok) pintarFotos(respuesta.datos);
   });
 }
@@ -24,7 +24,7 @@ function eliminarFoto(fotoId) {
   if (!confirm('¿Eliminar esta foto?')) return;
   const datos = new FormData();
   datos.append('foto_id', fotoId);
-  llamarAjax('/dyd-eds/admin/ajax/reportajes.php?accion=eliminarFoto', datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/reportajes.php?accion=eliminarFoto', datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso('Foto eliminada.', 'exito');
       cargarFotos();
@@ -39,7 +39,7 @@ document.getElementById('formFoto').addEventListener('submit', function (evento)
   const datos = new FormData(this);
   datos.append('reportaje_id', idReportaje);
 
-  llamarAjax('/dyd-eds/admin/ajax/reportajes.php?accion=agregarFoto', datos).then((respuesta) => {
+  llamarAjax(BASE + '/admin/ajax/reportajes.php?accion=agregarFoto', datos).then((respuesta) => {
     if (respuesta.ok) {
       mostrarAviso('Foto agregada correctamente.', 'exito');
       this.reset();
@@ -50,9 +50,9 @@ document.getElementById('formFoto').addEventListener('submit', function (evento)
   });
 });
 
-obtenerJson('/dyd-eds/admin/ajax/reportajes.php?accion=obtener&id=' + idReportaje).then((respuesta) => {
+obtenerJson(BASE + '/admin/ajax/reportajes.php?accion=obtener&id=' + idReportaje).then((respuesta) => {
   if (!respuesta.ok) {
-    window.location.href = '/dyd-eds/admin/vistas/reportajes.php';
+    window.location.href = BASE + '/admin/vistas/reportajes.php';
     return;
   }
   document.getElementById('tituloReportaje').textContent = respuesta.datos.titulo;

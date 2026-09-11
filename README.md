@@ -1,11 +1,12 @@
-# Panel de Administración - Revista Digital NTEP
+# Diálogo y Desarrollo Perú - Sitio + Panel de Administración
 
-Panel de administración basado en la plantilla **Admin One Tailwind CSS**,
-conectado a una base de datos MySQL real. Sigue el patrón de capas pedido
-en el curso (vista → script.js → ajax → modelo → MySQL), usando PHP puro,
-sin frameworks.
+Dos partes: el **sitio público** (lo que ve cualquier visitante, replicando
+el diseño real de dialogoydesarrollo.com.pe) y el **panel de administración**
+(donde se publica el contenido), ambos conectados a la misma base de datos
+MySQL. Todo en PHP puro, sin frameworks, siguiendo el patrón de capas
+pedido en el curso.
 
-## Arquitectura
+## Arquitectura del panel (admin/)
 
 ```
 vista.php  →  script.js (FormData)  →  ajax/x.php  →  modelos/Clase.php  →  MySQL
@@ -23,7 +24,20 @@ vista.php  →  script.js (FormData)  →  ajax/x.php  →  modelos/Clase.php  �
   (`listar`, `obtener`, `crear`, `actualizar`, `eliminar`, …) que arma y
   ejecuta las consultas. Nunca hace `echo`.
 
-## Módulos incluidos
+## Arquitectura del sitio público (raíz del proyecto)
+
+```
+pagina.php  →  clases/Clase.php (solo lectura)  →  MySQL
+```
+
+Las páginas (`index.php`, `reportajes.php`, `reportaje.php`, `noticias.php`,
+`boletines.php`, `podcast.php`, `videos.php`) solo llaman a métodos de
+`clases/` (`mostrar_todos()`, `mostrar_uno($id)`, `mostrar_destacado()`,
+`mostrar_fotos($id)`, …) y pintan el HTML real de la plantilla del sitio.
+Estas clases son de **solo lectura** — nunca insertan ni actualizan nada,
+por diseño; publicar contenido es trabajo exclusivo del panel.
+
+## Módulos incluidos (panel)
 
 - **Reportajes** (foto principal usada en la grilla, PDF adjunto opcional,
   y galería de fotos adicionales sin número fijo)
@@ -38,6 +52,9 @@ vista.php  →  script.js (FormData)  →  ajax/x.php  →  modelos/Clase.php  �
 ## Requisitos
 
 - XAMPP (Apache + MySQL + PHP 8+)
+- Conexión a internet para que carguen Google Fonts y Font Awesome (vía CDN)
+  en el sitio público — si no hay internet, el sitio funciona igual pero
+  sin los iconos ni la tipografía Cabin.
 
 ## Instalación
 
@@ -50,15 +67,19 @@ vista.php  →  script.js (FormData)  →  ajax/x.php  →  modelos/Clase.php  �
    **Importar** → selecciona `sql/schema.sql` → **Continuar**. Esto crea la
    base `dyd` con todas las tablas y un usuario de prueba.
 
-4. Revisa `admin/config/Conexion.php` si tu MySQL usa otro usuario o clave
-   (por defecto `root` sin clave, como en XAMPP).
+4. Revisa `admin/config/Conexion.php` y `clases/Conexion.php` si tu MySQL
+   usa otro usuario o clave (por defecto `root` sin clave, como en XAMPP).
 
-5. Abre en el navegador:
+5. Abre el **sitio público** en:
+   ```
+   http://localhost/dyd-eds/index.php
+   ```
+
+6. Abre el **panel de administración** en:
    ```
    http://localhost/dyd-eds/admin/login.php
    ```
-
-6. Ingresa con:
+   Ingresa con:
    - **Correo:** admin@dyd.com
    - **Contraseña:** admin123
 
@@ -67,20 +88,32 @@ vista.php  →  script.js (FormData)  →  ajax/x.php  →  modelos/Clase.php  �
 ## Estructura del proyecto
 
 ```
-assets/                  CSS/JS de la plantilla Admin One Tailwind
-sql/schema.sql           Script completo de la base de datos + usuario admin
+index.php  reportajes.php  reportaje.php  noticias.php
+boletines.php  podcast.php  videos.php        Páginas del sitio público
+
+clases/            Reportaje.php Noticia.php Boletin.php Podcast.php Video.php
+                   Conexion.php — todas de solo lectura, sin escritura a la BD
+
+partials/          cabecera.php  pie.php  tarjeta.php
+                   Piezas de HTML reutilizadas por las páginas públicas
+
+assets/            CSS/JS/imágenes reales del sitio (style-starter.css, etc.)
+
+sql/schema.sql     Script completo de la base de datos + usuario admin
+
 admin/
+  assets/          CSS/JS de la plantilla Admin One Tailwind (solo del panel)
   config/
-    Conexion.php         Conexión PDO (única fuente de la conexión)
-    global.php            Sesión, guardas de acceso, helpers comunes
-    imagen.php            Subir/borrar archivos en disco
-  modelos/                Una clase por entidad (sin echo, solo SQL)
-  ajax/                   Un endpoint por entidad (JSON), llama a los modelos
+    Conexion.php   Conexión PDO del panel (separada de clases/Conexion.php)
+    global.php     Sesión, guardas de acceso, helpers comunes
+    imagen.php     Subir/borrar archivos en disco
+  modelos/         Una clase por entidad (sin echo, solo SQL) — el panel SÍ escribe
+  ajax/            Un endpoint por entidad (JSON), llama a los modelos
   vistas/
-    parciales/            cabecera.php y pie.php compartidos
-    scripts/              Un .js por vista (fetch + FormData)
-    *.php                 Una vista por módulo
-  files/                  Fotos y PDFs subidos (reportajes, boletines, etc.)
+    parciales/     cabecera.php y pie.php compartidos del panel
+    scripts/       Un .js por vista (fetch + FormData)
+    *.php          Una vista por módulo
+  files/           Fotos y PDFs subidos (reportajes, boletines, etc.)
   login.php  logout.php  index.php (dashboard)
 ```
 
@@ -91,12 +124,17 @@ admin/
 - Todas las consultas usan sentencias preparadas (PDO) para evitar
   inyección SQL.
 - Los archivos subidos se guardan con un nombre aleatorio dentro de
-  `admin/files/<módulo>/`.
-- Solo el rol `admin` puede gestionar la sección de **Usuarios**.
+  `admin/files/<módulo>/`, y el sitio público los lee desde ahí mismo.
+- Solo el rol `admin` puede gestionar la sección de **Usuarios** del panel.
 - Un reportaje puede tener muchas fotos adicionales (`reportajes_fotos`),
   gestionables desde `admin/vistas/reportajes_fotos.php`; la foto principal
-  es la que se usa en la grilla de reportajes.
-- Las rutas absolutas (`/dyd-eds/admin/...`) asumen que el proyecto vive en
-  `htdocs/dyd-eds`. Si cambias el nombre de la carpeta, actualiza ese
-  prefijo en `admin/vistas/parciales/cabecera.php`, `pie.php`,
-  `admin/login.php` y `admin/config/global.php`.
+  es la que se usa en la grilla de reportajes y en el destacado del inicio.
+- El reportaje destacado del inicio es el marcado `es_destacado`, o si
+  ninguno está marcado, el último publicado.
+- `clases/Conexion.php` (sitio público) y `admin/config/Conexion.php`
+  (panel) son conexiones **separadas a propósito** — el sitio público nunca
+  debería poder escribir en la base de datos.
+- Las rutas absolutas (`/dyd-eds/...`) asumen que el proyecto vive en
+  `htdocs/dyd-eds`. Si cambias el nombre de la carpeta, hay que actualizar
+  ese prefijo en `partials/`, `admin/vistas/parciales/`, `admin/login.php`
+  y `admin/config/global.php`.

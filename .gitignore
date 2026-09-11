@@ -1,7 +1,12 @@
-# Uploads de usuarios (no se versionan, solo la estructura de carpetas)
-uploads/**/*
-!uploads/**/.gitkeep
-!uploads/**/
+# Archivos subidos desde el panel (no se versionan, solo la estructura
+# de carpetas y las fotos/PDF reales de la carga inicial de datos)
+admin/files/**/*
+!admin/files/**/.gitkeep
+!admin/files/**/
+!admin/files/reportajes/reportaje-*.jpg
+!admin/files/reportajes/video-destacado-*.jpg
+!admin/files/noticias/nota-facebook-*.png
+!admin/files/boletines/portada/boletin-ntep-45.png
 
 # Sistema
 .DS_Store

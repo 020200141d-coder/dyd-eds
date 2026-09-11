@@ -7,8 +7,7 @@ admin/files/**/*
 !admin/files/reportajes/video-destacado-*.jpg
 !admin/files/noticias/nota-facebook-*.png
 !admin/files/boletines/portada/boletin-ntep-*.png
-!admin/files/boletines/pdf/boletin-ntep-45.pdf
-!admin/files/boletines/pdf/boletin-relleno.pdf
+!admin/files/boletines/pdf/boletin-ntep-*.pdf
 
 # Paginas del sitio real bajadas con descargar_articulos.ps1, solo sirven
 # para sacar el texto de cada reportaje y cargarlo a la base

@@ -1,12 +1,386 @@
--- Texto completo de los reportajes, tomado de la pagina propia de cada
--- nota en el sitio real (las paginas de listado solo traen el titular).
--- Llena 'desarrollo' con el cuerpo del articulo y 'resumen_corto' con la
--- bajada que aparece destacada arriba de cada nota.
+-- Contenido del sitio: reportajes, noticias, boletines y video.
+-- Tomado de dialogoydesarrollo.com.pe.
 --
--- Tambien registra al unico autor que el sitio acredita (Yuri Castro) y
--- lo asocia a su reportaje.
+-- Ejecutar DESPUES de sql/schema.sql, que crea las tablas y el usuario
+-- admin. Con estos dos archivos la base queda completa; no hay mas
+-- scripts que correr.
+--
+-- Contiene 64 reportajes (63 con su texto completo y su foto), 3 noticias,
+-- 6 boletines y el video embebido del inicio.
+--
+-- Lo unico que queda pendiente de completar desde el panel:
+--   - 3 reportajes sin foto (05-08-26, 18-06-25 y 19-06-25)
+--   - 1 reportaje sin texto, el del 05-08-26
 
 USE dyd;
+
+-- reportaje destacado (portada del sitio, Set 08 2026)
+INSERT INTO reportajes
+    (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES (
+    'Universidades públicas administran casi S/900 millones de canon, regalías y otros recursos determinados',
+    'Las universidades estatales concentran recursos provenientes de actividades extractivas. Pero han invertido la mitad. Especialistas dicen que una evaluación completa debería ir más allá del porcentaje ejecutado y preguntarse si esas inversiones producen mejores condiciones en formación e investigación.',
+    'Las universidades estatales concentran recursos provenientes de actividades extractivas. Pero han invertido la mitad. Especialistas dicen que una evaluación completa debería ir más allá del porcentaje ejecutado y preguntarse si esas inversiones producen mejores condiciones en formación e investigación. (Completar con el texto real del artículo desde el panel.)',
+    'video-destacado-09-09-26.jpg',
+    '2026-09-08',
+    1,
+    NULL,
+    1
+);
+
+-- 5 reportajes mas viejos (reportajes-1.html). No tengo sus fotos reales
+-- (reportaje-05-08-26.jpg, etc.) asi que foto_principal queda NULL.
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Minería ilegal: la brecha sigue abierta a una semana del nuevo gobierno', NULL, '(Completar con el texto real del artículo desde el panel.)', NULL, '2026-08-05', 0, NULL, 1);
+
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Así lavan el oro ilegal plantas procesadoras y mineros con Reinfo', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-30-07-26.jpg', '2026-07-30', 0, NULL, 1);
+
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Medidas que el nuevo gobierno debe tomar para frenar la minería ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-24-07-26.jpg', '2026-07-24', 0, NULL, 1);
+
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Por qué algunas comunidades respaldan actividades de minería ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-16-07-26.jpg', '2026-07-16', 0, NULL, 1);
+
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Más reservas, cuencas y zonas protegidas afectadas por la minería ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-07-07-26.jpg', '2026-07-07', 0, NULL, 1);
+
+-- reportaje: 730 mineros con Reinfo
+INSERT INTO reportajes
+    (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES (
+    'Más de 730 mineros con Reinfo vigente o suspendido participan en las elecciones regionales y municipales',
+    '43 candidatos buscan llegar a gobiernos regionales y 692 postulan a alcaldías y regidurías. El analista Iván Arenas advierte los posibles conflictos de interés y el riesgo de que estas autoridades favorezcan las actividades mineras informales.',
+    '43 candidatos buscan llegar a gobiernos regionales y 692 postulan a alcaldías y regidurías. El analista Iván Arenas advierte los posibles conflictos de interés y el riesgo de que estas autoridades favorezcan las actividades mineras informales. (Completar con el texto real del artículo desde el panel.)',
+    'reportaje-28-08-26.jpg',
+    '2026-08-28',
+    0,
+    NULL,
+    1
+);
+
+-- reportaje: Quiruvilca
+INSERT INTO reportajes
+    (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES (
+    'Quiruvilca: el pueblo perforado por la minería ilegal',
+    NULL,
+    '(Completar con el texto real del artículo desde el panel — no se pudo obtener el resumen ni el cuerpo desde la portada del sitio.)',
+    'reportaje-18-08-26.jpg',
+    '2026-08-18',
+    0,
+    NULL,
+    1
+);
+
+-- reportaje: canon del boom minero
+INSERT INTO reportajes
+    (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES (
+    'Cómo evitar que el canon del boom minero termine en obras de poco impacto',
+    NULL,
+    '(Completar con el texto real del artículo desde el panel — no se pudo obtener el resumen ni el cuerpo desde la portada del sitio.)',
+    'reportaje-12-08-26.jpg',
+    '2026-08-12',
+    0,
+    NULL,
+    1
+);
+
+-- 55 reportajes mas (paginas 2 a 6 del listado de Reportajes del sitio
+-- real). Igual que los anteriores, no tengo las fotos reales asi que
+-- foto_principal queda NULL; el nombre real de cada foto queda anotado
+-- al lado de cada INSERT por si la consigues despues.
+
+-- foto real: reportaje-02-07-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Aportes mineros para las regiones y el gobierno central crecieron 62% en 2026', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-02-07-26.jpg', '2026-07-02', 0, NULL, 1);
+
+-- foto real: reportaje-12-06-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Canon y regalías mineras sostienen el 70% del presupuesto de la región Moquegua y hasta el 90% en obras y proyectos', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-12-06-26.jpg', '2026-06-12', 0, NULL, 1);
+
+-- foto real: reportaje-04-06-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('742 escolares de Taca y Raccaya reciben kits educativos', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-04-06-26.jpg', '2026-06-04', 0, NULL, 1);
+
+-- foto real: reportaje-21-05-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Áreas naturales desprotegidas: al menos ocho son impactadas por la minería ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-21-05-26.jpg', '2026-05-21', 0, NULL, 1);
+
+-- foto real: reportaje-14-05-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Los peligros de trabajar en un socavón ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-14-05-26.jpg', '2026-05-14', 0, NULL, 1);
+
+-- foto real: reportaje-08-05-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Canon y regalías mineras y gasíferas sostienen más del 70 % del presupuesto en Cusco', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-08-05-26.jpg', '2026-05-08', 0, NULL, 1);
+
+-- foto real: reportaje-30-04-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('La violencia ligada a economías ilegales se expande por todo el Perú', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-30-04-26.jpg', '2026-04-30', 0, NULL, 1);
+
+-- foto real: reportaje-24-04-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Bancada Reinfo: los nuevos aliados de la informalidad en el Congreso', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-24-04-26.jpg', '2026-04-24', 0, NULL, 1);
+
+-- foto real: reportaje-21-04-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Alianza entre UGEL Melgar, Minsur y Enseña Perú impulsará aprendizajes en estudiantes de Nuñoa', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-21-04-26.jpg', '2026-04-21', 0, NULL, 1);
+
+-- foto real: reportaje-20-04-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('19 jóvenes cajamarquinos se gradúan como técnicos gracias al programa INSPIRA de Minera La Granja y Cetemin', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-20-04-26.jpg', '2026-04-20', 0, NULL, 1);
+
+-- foto real: reportaje-08-04-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Elecciones 2026: solo 3 de cada 10 partidos se enfrentarían a mineros ilegales', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-08-04-26.jpg', '2026-04-08', 0, NULL, 1);
+
+-- foto real: reportaje-26-03-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Elecciones 2026: solo 3 de cada 10 partidos se enfrentarían a mineros ilegales', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-26-03-26.jpg', '2026-03-26', 0, NULL, 1);
+
+-- foto real: reportaje-24-03-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Congreso acelera paquetazo a favor de mineros informales en plena campaña', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-24-03-26.jpg', '2026-03-24', 0, NULL, 1);
+
+-- foto real: reportaje-18-03-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Empresas y regiones que concentran la producción minera en Perú', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-18-03-26.jpg', '2026-03-18', 0, NULL, 1);
+
+-- foto real: reportaje-11-03-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Crisis del gas: vuelve el debate sobre la seguridad energética del país', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-11-03-26.jpg', '2026-03-11', 0, NULL, 1);
+
+-- foto real: reportaje-10-03-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Sunat incauta menos del 1% del oro ilegal que el Perú exporta en un año', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-10-03-26.jpg', '2026-03-10', 0, NULL, 1);
+
+-- foto real: reportaje-27-02-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Canon minero en La Libertad: mucho dinero ejecutado, pocas brechas cerradas', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-27-02-26.jpg', '2026-02-27', 0, NULL, 1);
+
+-- foto real: reportaje-19-02-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('El canon que Ica no logra convertir en obras', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-19-02-26.jpg', '2026-02-19', 0, NULL, 1);
+
+-- foto real: reportaje-18-02-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('¿A qué se destinó el canon minero y gasífero en Cusco?', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-18-02-26.jpg', '2026-02-18', 0, NULL, 1);
+
+-- foto real: reportaje-16-02-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('El canon minero como motor de desarrollo social en 2025', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-16-02-26.jpg', '2026-02-16', 0, NULL, 1);
+
+-- foto real: reportaje-13-02-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Arequipa destina 7 de cada 10 soles del canon minero a obras viales', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-13-02-26.jpg', '2026-02-13', 0, NULL, 1);
+
+-- foto real: reportaje-11-02-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Gobierno Regional de Apurímac invirtió el 89,7 % del canon minero y regalías transferidas en 2025', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-11-02-26.jpg', '2026-02-11', 0, NULL, 1);
+
+-- foto real: reportaje-09-02-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Uso de más de S/3,000 millones de canon minero no muestran impacto real en Áncash', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-09-02-26.jpg', '2026-02-09', 0, NULL, 1);
+
+-- foto real: reportaje-30-01-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Esto proponen los candidatos a la presidencia para enfrentar la minería ilegal e informal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-30-01-26.jpg', '2026-01-30', 0, NULL, 1);
+
+-- foto real: reportaje-26-01-26.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Esto proponen los candidatos a la presidencia para enfrentar la minería ilegal e informal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-26-01-26.jpg', '2026-01-26', 0, NULL, 1);
+
+-- foto real: reportaje-17-12-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Mineros ilegales invaden concesiones mineras formales en regiones', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-17-12-25.jpg', '2025-12-17', 0, NULL, 1);
+
+-- foto real: reportaje-10-12-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Cómo se posicionan los partidos frente a los mineros informales', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-10-12-25.jpg', '2025-12-10', 0, NULL, 1);
+
+-- foto real: reportaje-03-12-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Candidatos serían financiados por mineros inscritos en el REINFO como en 2021', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-03-12-25.jpg', '2025-12-03', 0, NULL, 1);
+
+-- foto real: reportaje-25-11-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Gobierno observaría ampliación del REINFO si no cumple ciertas condiciones', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-25-11-25.jpg', '2025-11-25', 0, NULL, 1);
+
+-- foto real: reportaje-19-11-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('¿Congresistas volverán a apostar por la minería ilegal?', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-19-11-25.jpg', '2025-11-19', 0, NULL, 1);
+
+-- foto real: reportaje-12ii-11-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Por qué ampliar el Reinfo sería un error', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-12ii-11-25.jpg', '2025-11-12', 0, NULL, 1);
+
+-- foto real: reportaje-12-11-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('La minería ilegal habría lavado unos 22 mil millones de dólares', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-12-11-25.jpg', '2025-11-12', 0, NULL, 1);
+
+-- foto real: reportaje-05-11-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Investigación revela rechazo ciudadano a minería ilegal o informal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-05-11-25.jpg', '2025-11-05', 0, NULL, 1);
+
+-- foto real: reportaje-31-10-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Se suman más buses San Antonio de Torontoy en la ruta Hiram Bingham', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-31-10-25.jpg', '2025-10-31', 0, NULL, 1);
+
+-- foto real: reportaje-29-10-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('CRESPO Cumple compromisos con comunidades de Arcata y Chucñihuaqui en el distrito de Cayarani', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-29-10-25.jpg', '2025-10-29', 0, NULL, 1);
+
+-- foto real: reportaje-15-10-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Juliane Koepcke, única sobreviviente del accidente aéreo de 1971, denuncia que Minería Ilegal invade Reserva Comunal El Sira', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-15-10-25.jpg', '2025-10-15', 0, NULL, 1);
+
+-- foto real: reportaje-09-10-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Minería ilegal contamina ríos y deja sin agua a millones de familias', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-09-10-25.jpg', '2025-10-09', 0, NULL, 1);
+
+-- foto real: reportaje-01-10-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('SUNAT pone en la mira a las plantas de procesamiento de minerales', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-01-10-25.jpg', '2025-10-01', 0, NULL, 1);
+
+-- foto real: reportaje-24-09-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('El oro ilegal iguala a la minería formal en exportaciones', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-24-09-25.jpg', '2025-09-24', 0, NULL, 1);
+
+-- foto real: reportaje-17-09-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Regiones pierden canon y regalías por evasión tributaria de mineros ilegales y por la ineficiencia de las autoridades', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-17-09-25.jpg', '2025-09-17', 0, NULL, 1);
+
+-- foto real: reportaje-10-09-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Los ríos y lagos que antes se defendieron con marchas, hoy son contaminados por mineros ilegales', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-10-09-25.jpg', '2025-09-10', 0, NULL, 1);
+
+-- foto real: reportaje-03-09-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Nueva Ley MAPE debe frenar a la minería ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-03-09-25.jpg', '2025-09-03', 0, NULL, 1);
+
+-- foto real: reportaje-29-08-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Cinco de cada diez peruanos no votarían por un candidato defensor de la minería informal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-29-08-25.jpg', '2025-08-29', 0, NULL, 1);
+
+-- foto real: reportaje-21-08-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Carga explosiva que destruyó viviendas en Trujillo es la misma que usa la minería ilegal en Pataz', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-21-08-25.jpg', '2025-08-21', 0, NULL, 1);
+
+-- foto real: reportaje-11-08-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('El mercurio envenena bosques, ríos y personas', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-11-08-25.jpg', '2025-08-11', 0, NULL, 1);
+
+-- foto real: reportaje-04-08-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Gobiernos regionales y locales perderán 2.600 millones a causa de mineros informales e ilegales', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-04-08-25.jpg', '2025-08-04', 0, NULL, 1);
+
+-- foto real: reportaje-29-07-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Dina Boluarte calló sobre la minería informal e ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-29-07-25.jpg', '2025-07-29', 0, NULL, 1);
+
+-- foto real: reportaje-10-07-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Siete de cada diez mineros del Reinfo operan en concesiones de otros pequeños mineros', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-10-07-25.jpg', '2025-07-10', 0, NULL, 1);
+
+-- foto real: reportaje-08-07-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Ley MAPE amaneza cuidado de ríos, lagos y quebradas', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-08-07-25.jpg', '2025-07-08', 0, NULL, 1);
+
+-- foto real: reportaje-07-07-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Colectivo PAS invoca a no ceder a las presiones para frenar combate a la minería ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-07-07-25.jpg', '2025-07-07', 0, NULL, 1);
+
+-- foto real: reportaje-04-07-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Crece riesgo de que mineros ilegales financien campañas en 2026', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-04-07-25.jpg', '2025-07-04', 0, NULL, 1);
+
+-- foto real: reportaje-19-06-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Fiscalía advierte que mineros ilegales posiblemente financien a candidatos', NULL, '(Completar con el texto real del artículo desde el panel.)', NULL, '2025-06-19', 0, NULL, 1);
+
+-- foto real: reportaje-18-06-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Colectivo PAS alerta sobre el avance de la minería ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', NULL, '2025-06-18', 0, NULL, 1);
+
+-- foto real: reportaje-10-06-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Regiones y municipios recibieron casi 7,000 millones de soles de canon minero', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-10-06-25.jpg', '2025-06-10', 0, NULL, 1);
+
+-- foto real: reportaje-09-06-25.jpg
+INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, fecha_publicacion, es_destacado, autor_id, usuario_id)
+VALUES ('Gobierno no sabe cómo enfrentar la minería ilegal', NULL, '(Completar con el texto real del artículo desde el panel.)', 'reportaje-09-06-25.jpg', '2025-06-09', 0, NULL, 1);
+
+-- noticias recientes (enlazan a otros medios, tal como en el sitio real)
+INSERT INTO noticias (titulo, foto, link_externo, fecha_publicacion, usuario_id)
+VALUES (
+    'Impulsan talento local en Hualgayoc',
+    'nota-facebook-21-11-25.png',
+    'https://minart.pe/2025/11/07/gold-fields-y-empresas-locales-apuestan-por-el-talento-hualgayoquino-capacitando-a-pobladores-en-manejo-de-camiones-mineros-en-hualgayoc/',
+    '2025-11-21',
+    1
+);
+
+INSERT INTO noticias (titulo, foto, link_externo, fecha_publicacion, usuario_id)
+VALUES (
+    'Inauguran moderno colegio en Cerro Azul',
+    'nota-facebook-21-11-25b.png',
+    'https://andina.pe/agencia/noticia-canete-inauguran-moderno-local-colegio-construido-inversion-s30-millones-1051936.aspx',
+    '2025-11-21',
+    1
+);
+
+INSERT INTO noticias (titulo, foto, link_externo, fecha_publicacion, usuario_id)
+VALUES (
+    'Megaproyecto de saneamiento en Juliaca',
+    'nota-facebook-20-11-25.png',
+    'https://diarioelnoticiero.com/ministerio-de-vivienda-llego-a-juliaca-para-reafirmar-que-el-proyecto-de-agua-potable-y-alcantarillado-no-se-detiene-2/',
+    '2025-11-20',
+    1
+);
+
+-- Boletin NTEP Nº45 (portada y PDF reales)
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES (
+    '45',
+    'Promueven megaproyectos turísticos por S/ 2,400 mllns. Invertirán S/ 9 millones en zonas rurales de Cusco. Producción láctea se duplica en Cajamarca.',
+    'boletin-ntep-45.png',
+    'boletin-ntep-45.pdf',
+    '2025-08-28',
+    1
+);
+
+-- Boletines Nº44 a Nº40, con su portada y su PDF real. El resumen de
+-- cada uno son los titulares que aparecen en su portada.
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES ('44', 'Vía de evitamiento Cusco potenciará el turismo. Gestionarán bosques de Ucayali de forma sostenible. Impulsan energía renovable en el valle de Huarmey.', 'boletin-ntep-44.png', 'boletin-ntep-44.pdf', '2025-08-25', 1);
+
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES ('43', 'Protegen 35 áreas de conservación regional. Casos de dengue caen 93 % en Ayacucho. Financian estudios para vía de evitamiento Moquegua.', 'boletin-ntep-43.png', 'boletin-ntep-43.pdf', '2025-08-21', 1);
+
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES ('42', 'Puerto de Paita aumentará exportaciones piuranas. Protegen bosques andinos como estrategia climática. Priorizan 8 proyectos de inversión en Chumbivilcas.', 'boletin-ntep-42.png', 'boletin-ntep-42.pdf', '2025-08-18', 1);
+
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES ('41', 'Perú busca fortalecer agroexportaciones a Japón. Avanza el terminal portuario de Lambayeque. Impulsan empleabilidad en Hualgayoc.', 'boletin-ntep-41.png', 'boletin-ntep-41.pdf', '2025-08-14', 1);
+
+INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
+VALUES ('40', 'Modernizan aeropuerto en Junín por US$ 62 millones. Nuevo centro de salud de S/ 56 millones en Parcona. Biblioteca virtual para estudiantes en Caylloma.', 'boletin-ntep-40.png', 'boletin-ntep-40.pdf', '2025-08-11', 1);
+
+-- Video REAL embebido en el sitio (seccion "Nosotros" del inicio,
+-- confirmado en el HTML real). No se pudo saber el titulo exacto del
+-- video de YouTube, se usa uno descriptivo del contexto.
+INSERT INTO videos (titulo, url_embed, fecha_publicacion, usuario_id)
+VALUES (
+    'Conoce Diálogo y Desarrollo Perú',
+    'https://www.youtube.com/embed/2jI6fHBtRJU',
+    '2026-01-01',
+    1
+);
+
+-- Texto completo de cada reportaje (cuerpo del articulo y bajada),
+-- tomado de la pagina propia de cada nota en el sitio real.
 
 INSERT INTO autores (nombre) VALUES ('Yuri Castro');
 
@@ -1398,3 +1772,22 @@ Así, el 2025 registró una alta ejecución, pero baja especificidad. Áncash lo
 
 En esta región, persiste el reto de convertir los recursos del canon y las regalías mineras en bienestar tangible para la población, con mayor transparencia en la información y una inversión más consistente en sectores sensibles como salud y educación.', resumen_corto = 'En 2025, la región recibió más de S/ 3,100 millones y ejecutó más del 90 % de los recursos. Sin embargo, la falta de información sobre los proyectos financiados y la desigual distribución entre distritos reabren el debate sobre transparencia y cierre de brechas'
 WHERE titulo = 'Uso de más de S/3,000 millones de canon minero no muestran impacto real en Áncash' AND fecha_publicacion = '2026-02-09';
+
+-- En el sitio real dos entradas del listado apuntan al mismo articulo
+-- (Nov 12 y Nov 19), asi que comparten texto.
+UPDATE reportajes SET desarrollo = 'La Comisión de Energía y Minas del Congreso debatirá, el 17 de noviembre, la ampliación del Registro Integral de Formalización Minera (Reinfo), que, en el papel, vence el 31 de diciembre próximo. Se trata del dictamen que priorizó la iniciativa del legislador Roberto Sánchez para prolongar su vigencia hasta diciembre de 2027 e incluir, además, a 50 000 titulares que habían sido excluidos del proceso por no cumplir con los requisitos legales ni formales por más de un año.
+
+Hay varias bancadas, afines a estos mineros, que esperan aprobar el dictamen. Con esta sería la quinta vez que el registro no se cierra, pese a su evidente fracaso. Cualquiera podría preguntar: ¿por qué oponerse a ampliar nuevamente el registro si es la única manera de impulsar la formalización minera?
+
+La respuesta en sencilla: el Reinfo no funciona. En casi diez años apenas logró formalizar a 2 181 mineros (2,6 %) de 87 111 inscritos. En cambio, 65 101 (78 %) fueron suspendidos, según datos del Ministerio de Energía y Minas (Minem).
+
+Hay otra razón. En la práctica, el Reinfo se ha convertido en un escudo para la minería ilegal. Obtener un registro es bastante fácil, incluso se puede comprar en redes sociales. Con ese papel en la mano, los mineros pasan por informales, aunque extraigan oro y otros minerales en ríos, bosques amazónicos, áreas naturales protegidas o sitios arqueológicos.
+
+La Fiscalía Especializada en Materia Ambiental (Fema) y el Servicio Nacional de Áreas Naturales Protegidas (Sernanp) han detectado que estos mineros, amparados en el Reinfo, usan maquinaria e insumos químicos en zonas prohibidas. Lo hacen, por ejemplo, en la zona de amortiguamiento de las Líneas de Nasca; dentro de la Reserva Nacional Pampa Galeras Bárbara D’Achille, refugio de vicuñas; en la Reserva Natural de El Sira; o cerca de la Reserva Nacional del Manú, Tambopata y Amarakaeri y Huascarán.
+
+Una tercera razón es que la minería ilegal, amparada en el REINFO, alimenta las extorsiones. En regiones donde predomina, los índices de criminalidad han crecido. Y una cuarta razón es que es la principal fuente lavado de activos. Según la Unidad de Inteligencia Financiera (UIF), entre 2015 y 2024, se reportaron más de 5 700 reportes de operaciones sospechosas (ROS) vinculadas a esta actividad, por un valor de 22 800 millones de dólares.
+
+Por eso, para Karina Garay, vocera del Observatorio de Minería Ilegal (OMI), el Reinfo debería cerrarse. Darle más tiempo de vigencia solo fortalecerá a las organizaciones criminales y consolidará el fracaso. “Lo único que ha generado el Reinfo en más de dos décadas, además del desorden, es que la mayoría de los mineros incumplan los requisitos ambientales, sociales y laborales. Ha aumentado la criminalidad y ha favorecido a gremios que no quieren una minería adecuada ni un proceso real de formalización”, dijo.
+
+Mantenerlo abierto, explicó Garay, significaría darles luz verde a operaciones sin control en los ríos, los bosques y las comunidades indígenas. “Y no vaya a ser que estén financiando a futuros candidatos a senadores y diputados… justamente para que los favorezcan con esta ley”, advirtió.', resumen_corto = 'Varias son las razones por las que el Congreso no tendría que prorrogar, por quinta vez, el registro: porque fracasó al formalizar a solo 2032 personas en casi diez años; porque blinda a quienes operan en ríos, áreas naturales protegidas y sitios arqueológicos, porque facilita el tráfico de explosivos usados en extorsiones, entre otros motivos.'
+WHERE titulo = 'Por qué ampliar el Reinfo sería un error' AND fecha_publicacion = '2025-11-12';

@@ -52,9 +52,11 @@ por diseño; publicar contenido es trabajo exclusivo del panel.
 ## Requisitos
 
 - XAMPP (Apache + MySQL + PHP 8+)
-- Conexión a internet para que carguen Google Fonts y Font Awesome (vía CDN)
-  en el sitio público — si no hay internet, el sitio funciona igual pero
-  sin los iconos ni la tipografía Cabin.
+
+No hace falta conexión a internet: los iconos van incluidos en el propio
+proyecto (`assets/css/iconos.css`, en SVG). Lo único que se carga de fuera
+es la tipografía Cabin de Google Fonts, y si no hay red el navegador usa
+una tipografía del sistema sin que nada se rompa.
 
 ## Instalación
 
@@ -65,16 +67,13 @@ por diseño; publicar contenido es trabajo exclusivo del panel.
 
 3. Abre **phpMyAdmin** (`http://localhost/phpmyadmin`) → pestaña
    **Importar** → selecciona `sql/schema.sql` → **Continuar**. Esto crea la
-   base `dyd` con todas las tablas y un usuario de prueba.
+   base `dyd` con todas las tablas y el usuario admin.
 
-4. En la misma pestaña **Importar**, carga ahora `sql/datos_reales.sql`.
-   Esto llena la base con el contenido real del sitio: 64 reportajes con
-   sus fotos, 6 boletines, 3 noticias y el video.
+4. En la misma pestaña **Importar**, carga ahora `sql/datos.sql`, que llena
+   la base con el contenido del sitio: 64 reportajes con su texto y su
+   foto, 6 boletines con portada y PDF, 3 noticias y el video.
 
-   Si ya habias importado `datos_reales.sql` en una version anterior del
-   proyecto, NO lo vuelvas a importar (crearia filas repetidas): importa
-   solamente los archivos de actualizacion que te falten, en orden:
-   `actualizacion_2.sql`, `actualizacion_3.sql`, `actualizacion_4.sql`.
+   Son los dos unicos scripts que hay que correr, en ese orden.
 
 5. Revisa `admin/config/Conexion.php` y `clases/Conexion.php` si tu MySQL
    usa otro usuario o clave (por defecto `root` sin clave, como en XAMPP).
@@ -108,9 +107,8 @@ partials/          cabecera.php  pie.php  tarjeta.php
 
 assets/            CSS/JS/imágenes reales del sitio (style-starter.css, etc.)
 
-sql/               schema.sql       Tablas de la base de datos + usuario admin
-                   datos_reales.sql Contenido real del sitio (instalacion nueva)
-                   actualizacion_*.sql  Parches para bases ya cargadas antes
+sql/               schema.sql   Tablas de la base de datos + usuario admin
+                   datos.sql    Contenido del sitio (reportajes, boletines...)
 
 admin/
   assets/          CSS/JS de la plantilla Admin One Tailwind (solo del panel)

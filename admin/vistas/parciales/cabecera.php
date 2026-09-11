@@ -21,10 +21,10 @@ $itemsMenu = [
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= htmlspecialchars($tituloPagina) ?> - Panel Revista Digital</title>
+  <title><?= htmlspecialchars($tituloPagina) ?> - Panel DDP Noticias</title>
   <link rel="stylesheet" href="/dyd-eds/admin/assets/css/main.css">
   <link rel="icon" type="image/png" sizes="32x32" href="/dyd-eds/admin/assets/img/favicon-32x32.png"/>
-  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/dyd-eds/assets/css/iconos.css">
 </head>
 <body>
 <div id="app">
@@ -73,7 +73,7 @@ $itemsMenu = [
 <aside class="aside is-placed-left is-expanded">
   <div class="aside-tools">
     <div>
-      Revista <b class="font-black">NTEP</b>
+      DDP <b class="font-black">Noticias</b>
     </div>
   </div>
   <div class="menu is-menu-main">

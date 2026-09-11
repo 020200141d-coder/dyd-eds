@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?= htmlspecialchars($tituloPagina ?? 'DDP Noticias - Diálogo y Desarrollo Perú') ?></title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&family=Google+Sans:wght@400;500;700&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/dyd-eds/assets/css/iconos.css">
   <link rel="stylesheet" href="/dyd-eds/assets/css/style-starter.css">
 </head>
 <body>

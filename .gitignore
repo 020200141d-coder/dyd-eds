@@ -7,6 +7,7 @@ admin/files/**/*
 !admin/files/reportajes/video-destacado-*.jpg
 !admin/files/noticias/nota-facebook-*.png
 !admin/files/boletines/portada/boletin-ntep-45.png
+!admin/files/boletines/pdf/boletin-ntep-45.pdf
 
 # Sistema
 .DS_Store

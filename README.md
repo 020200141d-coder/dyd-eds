@@ -67,15 +67,24 @@ por diseño; publicar contenido es trabajo exclusivo del panel.
    **Importar** → selecciona `sql/schema.sql` → **Continuar**. Esto crea la
    base `dyd` con todas las tablas y un usuario de prueba.
 
-4. Revisa `admin/config/Conexion.php` y `clases/Conexion.php` si tu MySQL
+4. En la misma pestaña **Importar**, carga ahora `sql/datos_reales.sql`.
+   Esto llena la base con el contenido real del sitio: 64 reportajes con
+   sus fotos, 6 boletines, 3 noticias y el video.
+
+   Si ya habias importado `datos_reales.sql` en una version anterior del
+   proyecto, NO lo vuelvas a importar (crearia filas repetidas): importa
+   solamente los archivos de actualizacion que te falten, en orden:
+   `actualizacion_2.sql`, `actualizacion_3.sql`, `actualizacion_4.sql`.
+
+5. Revisa `admin/config/Conexion.php` y `clases/Conexion.php` si tu MySQL
    usa otro usuario o clave (por defecto `root` sin clave, como en XAMPP).
 
-5. Abre el **sitio público** en:
+6. Abre el **sitio público** en:
    ```
    http://localhost/dyd-eds/index.php
    ```
 
-6. Abre el **panel de administración** en:
+7. Abre el **panel de administración** en:
    ```
    http://localhost/dyd-eds/admin/login.php
    ```
@@ -99,7 +108,9 @@ partials/          cabecera.php  pie.php  tarjeta.php
 
 assets/            CSS/JS/imágenes reales del sitio (style-starter.css, etc.)
 
-sql/schema.sql     Script completo de la base de datos + usuario admin
+sql/               schema.sql       Tablas de la base de datos + usuario admin
+                   datos_reales.sql Contenido real del sitio (instalacion nueva)
+                   actualizacion_*.sql  Parches para bases ya cargadas antes
 
 admin/
   assets/          CSS/JS de la plantilla Admin One Tailwind (solo del panel)

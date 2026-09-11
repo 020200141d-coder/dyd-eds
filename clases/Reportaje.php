@@ -3,7 +3,7 @@ require_once __DIR__ . '/Conexion.php';
 
 class Reportaje
 {
-    private const POR_PAGINA = 6;
+    private const POR_PAGINA = 9;
 
     public static function mostrar_destacado(): ?array
     {

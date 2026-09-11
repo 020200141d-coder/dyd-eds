@@ -22,11 +22,14 @@ require __DIR__ . '/partials/cabecera.php';
         <?php endforeach; ?>
       </div>
       <?php if ($totalPaginas > 1): ?>
+      <?php $url = fn(int $p) => '/dyd-eds/reportajes.php?pagina=' . $p; ?>
       <div class="pagination">
         <ul>
+          <li class="prev"><a href="<?= $url(max(1, $pagina - 1)) ?>">Ant</a></li>
           <?php for ($p = 1; $p <= $totalPaginas; $p++): ?>
-            <li><a href="/dyd-eds/reportajes.php?pagina=<?= $p ?>" <?= $p === $pagina ? 'style="font-weight:bold;"' : '' ?>><?= $p ?></a></li>
+            <li><a href="<?= $url($p) ?>"<?= $p === $pagina ? ' class="active"' : '' ?>><?= $p ?></a></li>
           <?php endfor; ?>
+          <li class="next"><a href="<?= $url(min($totalPaginas, $pagina + 1)) ?>">Sig</a></li>
         </ul>
       </div>
       <?php endif; ?>

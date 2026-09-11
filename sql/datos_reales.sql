@@ -357,22 +357,23 @@ VALUES (
     1
 );
 
--- Boletines Nº44 a Nº40 (boletines.html). No tengo sus portadas ni PDF
--- reales, asi que usan el PDF de relleno generico (boletin-relleno.pdf).
+-- Boletines Nº44 a Nº40 (boletines.html). Portadas reales; el PDF sigue
+-- siendo el de relleno generico (boletin-relleno.pdf) hasta conseguir
+-- los PDF reales de cada edicion.
 INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
-VALUES ('44', NULL, NULL, 'boletin-relleno.pdf', '2025-08-25', 1);
+VALUES ('44', NULL, 'boletin-ntep-44.png', 'boletin-relleno.pdf', '2025-08-25', 1);
 
 INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
-VALUES ('43', NULL, NULL, 'boletin-relleno.pdf', '2025-08-21', 1);
+VALUES ('43', NULL, 'boletin-ntep-43.png', 'boletin-relleno.pdf', '2025-08-21', 1);
 
 INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
-VALUES ('42', NULL, NULL, 'boletin-relleno.pdf', '2025-08-18', 1);
+VALUES ('42', NULL, 'boletin-ntep-42.png', 'boletin-relleno.pdf', '2025-08-18', 1);
 
 INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
-VALUES ('41', NULL, NULL, 'boletin-relleno.pdf', '2025-08-14', 1);
+VALUES ('41', NULL, 'boletin-ntep-41.png', 'boletin-relleno.pdf', '2025-08-14', 1);
 
 INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id)
-VALUES ('40', NULL, NULL, 'boletin-relleno.pdf', '2025-08-11', 1);
+VALUES ('40', NULL, 'boletin-ntep-40.png', 'boletin-relleno.pdf', '2025-08-11', 1);
 
 -- Video REAL embebido en el sitio (seccion "Nosotros" del inicio,
 -- confirmado en el HTML real). No se pudo saber el titulo exacto del

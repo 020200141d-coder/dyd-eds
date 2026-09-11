@@ -2,10 +2,12 @@
 -- guardadas del sitio (reportajes-1.html a reportajes-6.html).
 -- Los archivos van en admin/files/reportajes/.
 --
+-- Tambien enlaza las portadas reales de los boletines 40 al 44.
+--
 -- Faltan 3 fotos que venian dañadas en el comprimido
--- (reportaje-05-08-26.jpg, reportaje-18-06-25.jpg, reportaje-19-06-25.jpg)
--- y las 5 portadas de boletines: esos reportajes se siguen viendo con
--- la imagen de relleno hasta que se suban desde el panel.
+-- (reportaje-05-08-26.jpg, reportaje-18-06-25.jpg, reportaje-19-06-25.jpg):
+-- esos reportajes se siguen viendo con la imagen de relleno hasta que
+-- se suban desde el panel.
 
 USE dyd;
 
@@ -179,3 +181,10 @@ WHERE titulo = 'Regiones y municipios recibieron casi 7,000 millones de soles de
 
 UPDATE reportajes SET foto_principal = 'reportaje-09-06-25.jpg'
 WHERE titulo = 'Gobierno no sabe cómo enfrentar la minería ilegal' AND fecha_publicacion = '2025-06-09';
+
+-- portadas reales de los boletines 40 al 44
+UPDATE boletines SET foto_portada = 'boletin-ntep-40.png' WHERE numero_boletin = '40';
+UPDATE boletines SET foto_portada = 'boletin-ntep-41.png' WHERE numero_boletin = '41';
+UPDATE boletines SET foto_portada = 'boletin-ntep-42.png' WHERE numero_boletin = '42';
+UPDATE boletines SET foto_portada = 'boletin-ntep-43.png' WHERE numero_boletin = '43';
+UPDATE boletines SET foto_portada = 'boletin-ntep-44.png' WHERE numero_boletin = '44';

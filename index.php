@@ -35,11 +35,13 @@ require __DIR__ . '/partials/cabecera.php';
       <div class="video-gd-right col-lg-6 p-0">
         <div class="position-relative">
           <a href="<?= BASE ?>/reportaje.php?id=<?= (int) $destacado['id'] ?>">
-            <?php if (!empty($destacado['foto_principal'])): ?>
-              <img src="<?= BASE ?>/admin/files/reportajes/<?= htmlspecialchars($destacado['foto_principal']) ?>" alt="" class="img-fluid">
-            <?php else: ?>
-              <img src="<?= BASE ?>/assets/images/video.jpg" alt="" class="img-fluid">
-            <?php endif; ?>
+            <span class="foto-marca">
+              <?php if (!empty($destacado['foto_principal'])): ?>
+                <img src="<?= BASE ?>/admin/files/reportajes/<?= htmlspecialchars($destacado['foto_principal']) ?>" alt="<?= htmlspecialchars($destacado['titulo']) ?>" class="img-fluid">
+              <?php else: ?>
+                <img src="<?= BASE ?>/assets/images/video.jpg" alt="" class="img-fluid">
+              <?php endif; ?>
+            </span>
           </a>
         </div>
       </div>
@@ -96,7 +98,9 @@ require __DIR__ . '/partials/cabecera.php';
           <div class="col-lg-4 col-md-6 grids5-info mt-lg-0 mt-5">
             <a target="_blank" href="<?= htmlspecialchars($noticia['link_externo'] ?? '#') ?>" class="d-block">
               <?php if (!empty($noticia['foto'])): ?>
-                <img src="<?= BASE ?>/admin/files/noticias/<?= htmlspecialchars($noticia['foto']) ?>" alt="" class="img-fluid">
+                <span class="foto-marca cuadrada">
+                  <img src="<?= BASE ?>/admin/files/noticias/<?= htmlspecialchars($noticia['foto']) ?>" alt="<?= htmlspecialchars($noticia['titulo']) ?>" class="img-fluid">
+                </span>
               <?php endif; ?>
             </a>
             <div class="blog-info">

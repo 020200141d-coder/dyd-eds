@@ -36,3 +36,39 @@ function resumir(?string $texto, int $largo = 160): string
     }
     return $corte . '…';
 }
+
+/**
+ * Cuerpo de la nota listo para mostrar.
+ *
+ * Lo que se escribe con el editor del panel ya viene como HTML y ya paso por
+ * limpiarHtml() al guardarse, asi que se muestra tal cual. Las notas viejas,
+ * cargadas como texto plano, se escapan y se parten en parrafos por las
+ * lineas en blanco; de lo contrario se verian como un solo bloque corrido.
+ */
+function cuerpoComoHtml(?string $texto): string
+{
+    $texto = (string) $texto;
+    if (trim($texto) === '') {
+        return '';
+    }
+
+    if (preg_match('~<(p|h2|h3|h4|ul|ol|blockquote|br)\b~i', $texto)) {
+        return $texto;
+    }
+
+    // Segun como se cargo la nota, los parrafos vienen separados por una
+    // linea en blanco o por un solo salto; se prueba primero lo mas explicito.
+    $bloques = preg_split('/\n\s*\n/', trim($texto));
+    if (count($bloques) < 2) {
+        $bloques = preg_split('/\n/', trim($texto));
+    }
+
+    $html = '';
+    foreach ($bloques as $bloque) {
+        $bloque = trim($bloque);
+        if ($bloque !== '') {
+            $html .= '<p>' . htmlspecialchars($bloque) . '</p>';
+        }
+    }
+    return $html;
+}

@@ -25,6 +25,7 @@ $itemsMenu = [
   <link rel="stylesheet" href="<?= BASE ?>/admin/assets/css/main.css">
   <link rel="icon" type="image/png" sizes="32x32" href="<?= BASE ?>/admin/assets/img/favicon-32x32.png"/>
   <link rel="stylesheet" href="<?= BASE ?>/assets/css/iconos.css">
+  <link rel="stylesheet" href="<?= BASE ?>/admin/assets/css/editor.css">
 </head>
 <body>
 <div id="app">

@@ -1,0 +1,87 @@
+/* Editor de texto con formato del panel (admin/vistas/scripts/editor.js). */
+
+.editor-rico {
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.editor-barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  background: #f7f8fa;
+  border-bottom: 1px solid #e6e8ec;
+}
+
+.editor-boton {
+  min-width: 32px;
+  height: 30px;
+  padding: 0 9px;
+  font-size: 13px;
+  line-height: 1;
+  color: #33404f;
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.editor-boton:hover {
+  background: #e0020d;
+  border-color: #e0020d;
+  color: #fff;
+}
+
+.editor-separador {
+  width: 1px;
+  height: 20px;
+  margin: 0 4px;
+  background: #dcdfe4;
+}
+
+.editor-area {
+  min-height: 320px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 14px 16px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #24303d;
+}
+
+.editor-area:focus {
+  outline: 2px solid rgba(224, 2, 13, .35);
+  outline-offset: -2px;
+}
+
+.editor-area p { margin: 0 0 1em; }
+.editor-area h2 { font-size: 1.35em; margin: 1.2em 0 .5em; }
+.editor-area h3 { font-size: 1.15em; margin: 1.2em 0 .5em; }
+.editor-area ul,
+.editor-area ol { margin: 0 0 1em 1.4em; }
+.editor-area li { margin-bottom: .3em; }
+.editor-area a { color: #e0020d; text-decoration: underline; }
+
+.editor-area blockquote {
+  margin: 1em 0;
+  padding: .2em 0 .2em 1em;
+  border-left: 3px solid #e0020d;
+  color: #4a5560;
+  font-style: italic;
+}
+
+/* El textarea original sigue existiendo porque es el campo que se envia,
+   pero deja de verse: lo que ve el periodista es el area con formato. */
+.editor-oculto {
+  display: none;
+}
+
+/* En pantalla chica la barra no debe empujar el contenido a lo ancho. */
+@media (max-width: 767px) {
+  .editor-boton { padding: 0 7px; font-size: 12px; }
+  .editor-area { min-height: 220px; }
+}

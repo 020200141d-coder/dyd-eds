@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/global.php';
+require_once __DIR__ . '/../config/html.php';
 require_once __DIR__ . '/../config/imagen.php';
 require_once __DIR__ . '/../modelos/Reportaje.php';
 require_once __DIR__ . '/../modelos/Autor.php';
@@ -29,9 +30,9 @@ switch ($accion) {
     case 'actualizar':
         $id = (int) ($_POST['id'] ?? 0);
         $titulo = trim($_POST['titulo'] ?? '');
-        $desarrollo = trim($_POST['desarrollo'] ?? '');
+        $desarrollo = limpiarHtml($_POST['desarrollo'] ?? '');
 
-        if ($titulo === '' || $desarrollo === '') {
+        if ($titulo === '' || trim(strip_tags($desarrollo)) === '') {
             respuestaJson(['ok' => false, 'error' => 'Título y desarrollo son obligatorios.']);
         }
 

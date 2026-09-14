@@ -43,6 +43,10 @@ $urlImagen = $esquema . '://' . $dominio . ($metaImagen ?? BASE . '/assets/image
   <link rel="stylesheet" href="<?= BASE ?>/assets/css/iconos.css">
   <link rel="stylesheet" href="<?= BASE ?>/assets/css/style-starter.css">
   <link rel="stylesheet" href="<?= BASE ?>/assets/css/sitio.css">
+
+  <!-- Va en la cabecera y no al final: el onerror de las miniaturas se
+       dispara mientras el navegador lee el HTML, antes de llegar al pie. -->
+  <script src="<?= BASE ?>/assets/js/miniaturas.js"></script>
 </head>
 <body>
 <header id="site-header" class="fixed-top">

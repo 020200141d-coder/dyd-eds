@@ -79,6 +79,23 @@ switch ($accion) {
             respuestaJson(['ok' => false, 'error' => $e->getMessage()]);
         }
 
+    case 'destacar':
+        $id = (int) ($_POST['id'] ?? 0);
+        $reportaje = Reportaje::obtener($id);
+        if (!$reportaje) {
+            respuestaJson(['ok' => false, 'error' => 'Reportaje no encontrado.']);
+        }
+        // Un borrador no puede ser el destacado de la portada: no se ve.
+        if ($reportaje['estado'] !== 'publicado' && $reportaje['es_destacado'] != 1) {
+            respuestaJson(['ok' => false, 'error' => 'Publica el reportaje antes de destacarlo.']);
+        }
+        if ($reportaje['es_destacado'] == 1) {
+            Reportaje::quitarDestacado($id);
+            respuestaJson(['ok' => true, 'destacado' => false]);
+        }
+        Reportaje::marcarDestacado($id);
+        respuestaJson(['ok' => true, 'destacado' => true]);
+
     case 'eliminar':
         $id = (int) ($_POST['id'] ?? 0);
         $reportaje = Reportaje::obtener($id);

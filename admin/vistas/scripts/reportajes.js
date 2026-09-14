@@ -13,6 +13,7 @@ function cargarReportajes() {
       cuerpo.innerHTML = '<tr><td colspan="6">No hay reportajes registrados.</td></tr>';
       return;
     }
+    pintarAvisoDestacado(respuesta.datos);
     cuerpo.innerHTML = respuesta.datos.map((r) => `
       <tr>
         <td class="image-cell">${r.foto_principal ? `<div class="image"><img src="${BASE}/admin/files/reportajes/${escaparHtml(r.foto_principal)}" class="rounded-full"></div>` : ''}</td>
@@ -20,7 +21,13 @@ function cargarReportajes() {
         <td data-label="Autor">${escaparHtml(nombreAutor(r))}</td>
         <td data-label="Fecha">${formatearFecha(r.fecha_publicacion)}</td>
         <td data-label="Estado">${r.estado === 'borrador' ? '<span class="tag is-warning">Borrador</span>' : '<span class="tag is-success">Publicado</span>'}</td>
-        <td data-label="Destacado">${r.es_destacado == 1 ? 'Sí' : 'No'}</td>
+        <td data-label="Destacado">
+          <button type="button" class="button small ${r.es_destacado == 1 ? 'yellow' : ''}"
+                  title="${r.es_destacado == 1 ? 'Es el destacado de la portada. Clic para quitarlo.' : 'Poner como destacado de la portada'}"
+                  onclick="alternarDestacado(${r.id})">
+            ${r.es_destacado == 1 ? '★ Destacado' : '☆ Destacar'}
+          </button>
+        </td>
         <td class="actions-cell">
           <div class="buttons right nowrap">
             <button type="button" class="button small blue" onclick="editarReportaje(${r.id})"><span class="icon"><i class="mdi mdi-pencil"></i></span></button>
@@ -125,3 +132,28 @@ document.getElementById('formReportaje').addEventListener('submit', function (ev
 
 crearEditor('campoDesarrollo');
 cargarReportajes();
+
+/** Deja claro de un vistazo cual es el reportaje que abre la portada. */
+function pintarAvisoDestacado(reportajes) {
+  const caja = document.getElementById('avisoDestacado');
+  if (!caja) return;
+  const destacado = reportajes.find((r) => r.es_destacado == 1);
+  caja.innerHTML = destacado
+    ? `★ En la portada: <b>${escaparHtml(destacado.titulo)}</b>`
+    : `Ningún reportaje está destacado: la portada muestra el más reciente de los ${reportajes.length} publicados.`;
+}
+
+function alternarDestacado(id) {
+  const datos = new FormData();
+  datos.append('accion', 'destacar');
+  datos.append('id', id);
+
+  llamarAjax(BASE + '/admin/ajax/reportajes.php', datos).then((respuesta) => {
+    if (!respuesta.ok) {
+      mostrarAviso(respuesta.error, 'error');
+      return;
+    }
+    mostrarAviso(respuesta.destacado ? 'Este reportaje abre ahora la portada.' : 'Se quitó de la portada.', 'exito');
+    cargarReportajes();
+  });
+}

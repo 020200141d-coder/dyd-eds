@@ -4,6 +4,7 @@ require_once __DIR__ . '/clases/Boletin.php';
 $boletines = Boletin::mostrar_todos();
 
 $tituloPagina = 'Boletín NTEP - DDP Noticias';
+$metaDescripcion = 'Boletín NTEP (No Todo Está Perdido): cada edición en PDF con buenas noticias de las regiones del Perú.';
 $tituloBreadcrumb = 'Boletín NTEP';
 require __DIR__ . '/partials/cabecera.php';
 ?>

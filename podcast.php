@@ -4,6 +4,7 @@ require_once __DIR__ . '/clases/Podcast.php';
 $podcasts = Podcast::mostrar_todos();
 
 $tituloPagina = 'Podcast - DDP Noticias';
+$metaDescripcion = 'Podcast de Diálogo y Desarrollo Perú: conversaciones sobre minería, territorio y desarrollo.';
 $tituloBreadcrumb = 'Podcast';
 require __DIR__ . '/partials/cabecera.php';
 ?>

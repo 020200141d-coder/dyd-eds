@@ -15,6 +15,7 @@ $podcasts = Podcast::mostrar_recientes(4);
 $videos = Video::mostrar_recientes(4);
 
 $tituloPagina = 'DDP Noticias - Diálogo y Desarrollo Perú';
+$metaDescripcion = 'Periodismo independiente sobre minería, canon, territorio y diálogo en el Perú: reportajes, boletines NTEP, podcast y videos.';
 require __DIR__ . '/partials/cabecera.php';
 ?>
 

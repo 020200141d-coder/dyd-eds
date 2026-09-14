@@ -6,6 +6,7 @@ $reportajes = Reportaje::mostrar_todos($pagina);
 $totalPaginas = Reportaje::total_paginas();
 
 $tituloPagina = 'Reportajes - DDP Noticias';
+$metaDescripcion = 'Investigaciones y reportajes sobre minería ilegal, canon minero y el uso de los recursos en las regiones del Perú.';
 $tituloBreadcrumb = 'Reportajes';
 require __DIR__ . '/partials/cabecera.php';
 ?>

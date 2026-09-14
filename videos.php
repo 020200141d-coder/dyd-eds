@@ -4,6 +4,7 @@ require_once __DIR__ . '/clases/Video.php';
 $videos = Video::mostrar_todos();
 
 $tituloPagina = 'Videos - DDP Noticias';
+$metaDescripcion = 'Videos de Diálogo y Desarrollo Perú sobre minería, canon y desarrollo en las regiones.';
 $tituloBreadcrumb = 'Videos';
 require __DIR__ . '/partials/cabecera.php';
 ?>

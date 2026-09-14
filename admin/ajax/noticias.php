@@ -25,7 +25,7 @@ switch ($accion) {
         }
 
         try {
-            $fotoNueva = subirArchivo('foto', $carpeta, ['jpg', 'jpeg', 'png', 'webp']);
+            $fotoNueva = subirArchivo('foto', $carpeta, ['jpg', 'jpeg', 'png', 'webp'], 'noticias');
             // solo se aceptan los dos estados validos; cualquier otra cosa se toma
             // como borrador para no publicar nada por accidente
             $estado = ($_POST['estado'] ?? '') === 'publicado' ? 'publicado' : 'borrador';

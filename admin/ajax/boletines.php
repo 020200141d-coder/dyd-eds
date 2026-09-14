@@ -32,7 +32,7 @@ switch ($accion) {
         }
 
         try {
-            $portadaNueva = subirArchivo('foto_portada', $carpetaPortada, ['jpg', 'jpeg', 'png', 'webp']);
+            $portadaNueva = subirArchivo('foto_portada', $carpetaPortada, ['jpg', 'jpeg', 'png', 'webp'], 'boletines');
             $pdfNuevo = subirArchivo('archivo_pdf', $carpetaPdf, ['pdf']);
 
             // solo se aceptan los dos estados validos; cualquier otra cosa se toma

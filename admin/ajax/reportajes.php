@@ -37,7 +37,7 @@ switch ($accion) {
         }
 
         try {
-            $fotoNueva = subirArchivo('foto_principal', $carpetaReportajes, ['jpg', 'jpeg', 'png', 'webp']);
+            $fotoNueva = subirArchivo('foto_principal', $carpetaReportajes, ['jpg', 'jpeg', 'png', 'webp'], 'reportajes');
             $pdfNuevo = subirArchivo('pdf_adjunto', $carpetaReportajes, ['pdf']);
 
             // solo se aceptan los dos estados validos; cualquier otra cosa se toma
@@ -99,7 +99,7 @@ switch ($accion) {
     case 'agregarFoto':
         $reportajeId = (int) ($_POST['reportaje_id'] ?? 0);
         try {
-            $nombreArchivo = subirArchivo('foto', $carpetaFotos, ['jpg', 'jpeg', 'png', 'webp']);
+            $nombreArchivo = subirArchivo('foto', $carpetaFotos, ['jpg', 'jpeg', 'png', 'webp'], 'reportajes_fotos');
             if (!$nombreArchivo) {
                 respuestaJson(['ok' => false, 'error' => 'Selecciona una imagen para subir.']);
             }

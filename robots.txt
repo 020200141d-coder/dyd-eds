@@ -1,0 +1,8 @@
+# El panel y los archivos que se suben desde el no tienen por que aparecer
+# en los buscadores; el sitio publico si.
+
+User-agent: *
+Disallow: /admin/
+Allow: /
+
+Sitemap: /sitemap.php

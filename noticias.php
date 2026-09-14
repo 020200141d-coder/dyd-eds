@@ -4,6 +4,7 @@ require_once __DIR__ . '/clases/Noticia.php';
 $noticias = Noticia::mostrar_todos();
 
 $tituloPagina = 'Noticias Recientes - DDP Noticias';
+$metaDescripcion = 'Actualidad y notas breves sobre minería, obras públicas y desarrollo en las regiones del Perú.';
 $tituloBreadcrumb = 'Noticias Recientes';
 require __DIR__ . '/partials/cabecera.php';
 ?>

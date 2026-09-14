@@ -155,9 +155,7 @@ require __DIR__ . '/partials/cabecera.php';
       <?php foreach ($podcasts as $podcast): ?>
         <div class="col-lg-3 col-sm-6 mt-sm-0 mt-5">
           <div class="area-box">
-            <a href="<?= BASE ?>/podcast.php" class="miniatura cuadrada">
-              <?= etiquetaMiniatura($podcast['url_embed'], BASE . '/assets/images/podcast.png', $podcast['titulo']) ?>
-            </a>
+            <?= tarjetaMedia($podcast['url_embed'], BASE . '/assets/images/podcast.png', $podcast['titulo'], BASE . '/podcast.php', 'cuadrada') ?>
             <p><a href="<?= BASE ?>/podcast.php"><?= htmlspecialchars($podcast['titulo']) ?></a></p>
           </div>
         </div>
@@ -177,9 +175,7 @@ require __DIR__ . '/partials/cabecera.php';
       <?php foreach ($videos as $video): ?>
         <div class="col-lg-3 col-sm-6 mt-sm-0 mt-5">
           <div class="area-box">
-            <a href="<?= BASE ?>/videos.php" class="miniatura">
-              <?= etiquetaMiniatura($video['url_embed'], BASE . '/assets/images/video.jpg', $video['titulo']) ?>
-            </a>
+            <?= tarjetaMedia($video['url_embed'], BASE . '/assets/images/video.jpg', $video['titulo'], BASE . '/videos.php') ?>
             <p><a href="<?= BASE ?>/videos.php"><?= htmlspecialchars($video['titulo']) ?></a></p>
           </div>
         </div>

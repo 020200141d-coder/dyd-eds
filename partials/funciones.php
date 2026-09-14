@@ -50,6 +50,38 @@ function etiquetaMiniatura(string $urlEmbed, string $respaldo, string $alt): str
 }
 
 /**
+ * Tarjeta de un audio o un video para el inicio.
+ *
+ * Segun la plataforma conviene una cosa u otra:
+ *
+ * - YouTube publica la portada del video en una direccion fija, asi que se
+ *   muestra esa foto (grande y liviana) y al hacer clic se va al listado.
+ * - Spotify no publica la portada del episodio: la unica que la conoce es su
+ *   propio reproductor. Poniendo una foto ahi siempre saldria la imagen
+ *   generica del proyecto, que no dice de que episodio se trata. Por eso el
+ *   podcast se muestra con el mismo reproductor que ya usa podcast.php, que
+ *   trae la caratula real y ademas deja escucharlo sin salir del inicio.
+ */
+function tarjetaMedia(string $urlEmbed, string $respaldo, string $titulo, string $enlace, string $clases = ''): string
+{
+    if (miniaturasDeEnlace($urlEmbed) !== []) {
+        return sprintf(
+            '<a href="%s" class="%s">%s</a>',
+            htmlspecialchars($enlace),
+            htmlspecialchars(trim('miniatura ' . $clases)),
+            etiquetaMiniatura($urlEmbed, $respaldo, $titulo)
+        );
+    }
+
+    return sprintf(
+        '<div class="reproductor"><iframe src="%s" title="%s" loading="lazy" '
+            . 'allow="clipboard-write; encrypted-media; picture-in-picture"></iframe></div>',
+        htmlspecialchars($urlEmbed),
+        htmlspecialchars($titulo)
+    );
+}
+
+/**
  * Recorta un texto largo sin cortar una palabra por la mitad.
  */
 function resumir(?string $texto, int $largo = 160): string

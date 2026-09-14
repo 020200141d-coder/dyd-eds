@@ -105,6 +105,22 @@
   transform: translate(-50%, -50%) scale(1.12);
 }
 
+/* Reproductor incrustado dentro de una tarjeta del inicio (el podcast).
+   152px es la altura compacta de Spotify: con eso entra la caratula real del
+   episodio, el titulo y los controles, sin romper la fila de tarjetas. */
+.area-box .reproductor {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f1f1f4;
+}
+
+.area-box .reproductor iframe {
+  display: block;
+  width: 100%;
+  height: 152px;
+  border: 0;
+}
+
 /* Cuerpo de la nota: da forma al texto que el periodista escribe con el
    editor del panel (titulos, listas, citas y enlaces). */
 .reportaje-cuerpo {

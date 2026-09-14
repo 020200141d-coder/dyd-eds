@@ -6,27 +6,30 @@
 --
 -- Todo lo que ya estaba cargado queda como publicado, que es como se venia
 -- viendo hasta ahora.
+--
+-- Se puede correr mas de una vez sin romper nada: cada paso comprueba antes
+-- si la columna o la tabla ya existen.
 
 USE dyd;
 
 ALTER TABLE reportajes
-    ADD COLUMN estado ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado'
+    ADD COLUMN IF NOT EXISTS estado ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado'
     AFTER pdf_adjunto;
 
 ALTER TABLE noticias
-    ADD COLUMN estado ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado'
+    ADD COLUMN IF NOT EXISTS estado ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado'
     AFTER link_externo;
 
 ALTER TABLE boletines
-    ADD COLUMN estado ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado'
+    ADD COLUMN IF NOT EXISTS estado ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado'
     AFTER archivo_pdf;
 
 ALTER TABLE podcasts
-    ADD COLUMN estado ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado'
+    ADD COLUMN IF NOT EXISTS estado ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado'
     AFTER url_embed;
 
 ALTER TABLE videos
-    ADD COLUMN estado ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado'
+    ADD COLUMN IF NOT EXISTS estado ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado'
     AFTER url_embed;
 
 -- Tabla para el restablecimiento de contrasena (pantalla "olvide mi clave").

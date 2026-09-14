@@ -48,6 +48,11 @@ por diseño; publicar contenido es trabajo exclusivo del panel.
 - **Autores**
 - **Usuarios** del panel (solo el rol `admin` los gestiona)
 - **Login** con sesión PHP, contraseña guardada con **SHA-256**
+- **Recuperación de contraseña** por enlace con token (`admin/recuperar.php`)
+- **Editor de texto con formato** para el cuerpo del reportaje (negritas,
+  subtítulos, listas, citas y enlaces), sin librerías externas
+- **Estados de publicación**: cada contenido se guarda como borrador o
+  publicado, y el sitio público solo muestra lo publicado
 
 ## Requisitos
 
@@ -75,6 +80,10 @@ una tipografía del sistema sin que nada se rompa.
    foto, 6 boletines con portada y PDF, 3 noticias y el video.
 
    Son los dos unicos scripts que hay que correr, en ese orden.
+
+   Si tu base venia de una version anterior del proyecto, corre ademas
+   `sql/actualizacion_estados.sql`, que agrega el estado de publicacion y
+   la tabla de recuperacion de contrasenas.
 
 5. Revisa `admin/config/Conexion.php` y `clases/Conexion.php` si tu MySQL
    usa otro usuario o clave (por defecto `root` sin clave, como en XAMPP).
@@ -144,6 +153,14 @@ admin/
 - `clases/Conexion.php` (sitio público) y `admin/config/Conexion.php`
   (panel) son conexiones **separadas a propósito** — el sitio público nunca
   debería poder escribir en la base de datos.
+- El SEO se arma en `partials/cabecera.php`: cada pagina define
+  `$metaDescripcion`, `$metaImagen` y `$metaTipo` antes de incluirla, y de
+  ahi salen la descripcion, la direccion canonica y las etiquetas Open Graph
+  y Twitter Card. La nota agrega ademas datos estructurados NewsArticle.
+  `sitemap.php` se genera solo desde la base y deja fuera los borradores.
+- El HTML que entrega el editor pasa por `limpiarHtml()`
+  (`admin/config/html.php`) antes de guardarse: solo sobreviven las
+  etiquetas de la lista blanca, y los enlaces peligrosos se descartan.
 - `base.php` calcula la constante `BASE`, que es la direccion desde la que
   se ve el proyecto (`/dyd-eds`, o vacia si esta en la raiz del servidor).
   Todas las rutas del sitio y del panel la usan, asi que la carpeta puede

@@ -57,7 +57,15 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+  background: #efefef;
   transition: transform .3s ease;
+}
+
+/* El podcast usa arte cuadrado, no apaisado: con 16/9 se le cortaba media
+   portada arriba y abajo. */
+.area-box .miniatura.cuadrada img {
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
 }
 
 .area-box .miniatura:hover img {

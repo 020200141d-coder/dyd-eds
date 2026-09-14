@@ -21,6 +21,7 @@ require __DIR__ . '/parciales/cabecera.php';
       <p class="card-header-title"><span class="icon"><i class="mdi mdi-newspaper-variant"></i></span> Reportajes</p>
     </header>
     <div class="card-content">
+      <div id="avisoDestacado" class="notification blue mb-4"></div>
       <table>
         <thead><tr><th></th><th>Título</th><th>Autor</th><th>Fecha</th><th>Estado</th><th>Destacado</th><th></th></tr></thead>
         <tbody id="filasReportajes"><tr><td colspan="6">Cargando...</td></tr></tbody>

@@ -20,9 +20,7 @@ require __DIR__ . '/partials/cabecera.php';
           <div class="col-lg-4 col-md-6 grids5-info mt-5">
             <a target="_blank" href="<?= htmlspecialchars($noticia['link_externo'] ?? '#') ?>" class="d-block">
               <?php if (!empty($noticia['foto'])): ?>
-                <span class="foto-marca cuadrada">
                   <img src="<?= BASE ?>/admin/files/noticias/<?= htmlspecialchars($noticia['foto']) ?>" alt="<?= htmlspecialchars($noticia['titulo']) ?>" class="img-fluid">
-                </span>
               <?php endif; ?>
             </a>
             <div class="blog-info">

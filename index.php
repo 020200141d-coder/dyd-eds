@@ -101,9 +101,7 @@ require __DIR__ . '/partials/cabecera.php';
           <div class="col-lg-4 col-md-6 grids5-info mt-lg-0 mt-5">
             <a target="_blank" href="<?= htmlspecialchars($noticia['link_externo'] ?? '#') ?>" class="d-block">
               <?php if (!empty($noticia['foto'])): ?>
-                <span class="foto-marca cuadrada">
                   <img src="<?= BASE ?>/admin/files/noticias/<?= htmlspecialchars($noticia['foto']) ?>" alt="<?= htmlspecialchars($noticia['titulo']) ?>" class="img-fluid">
-                </span>
               <?php endif; ?>
             </a>
             <div class="blog-info">
@@ -157,11 +155,8 @@ require __DIR__ . '/partials/cabecera.php';
       <?php foreach ($podcasts as $podcast): ?>
         <div class="col-lg-3 col-sm-6 mt-sm-0 mt-5">
           <div class="area-box">
-            <?php $miniatura = miniaturaDeEnlace($podcast['url_embed']); ?>
-            <a href="<?= BASE ?>/podcast.php" class="miniatura">
-              <img src="<?= $miniatura ?? BASE . '/assets/images/podcast.png' ?>"
-                   onerror="this.onerror=null; this.src='<?= BASE ?>/assets/images/podcast.png';"
-                   alt="<?= htmlspecialchars($podcast['titulo']) ?>">
+            <a href="<?= BASE ?>/podcast.php" class="miniatura cuadrada">
+              <?= etiquetaMiniatura($podcast['url_embed'], BASE . '/assets/images/podcast.png', $podcast['titulo']) ?>
             </a>
             <p><a href="<?= BASE ?>/podcast.php"><?= htmlspecialchars($podcast['titulo']) ?></a></p>
           </div>
@@ -182,11 +177,8 @@ require __DIR__ . '/partials/cabecera.php';
       <?php foreach ($videos as $video): ?>
         <div class="col-lg-3 col-sm-6 mt-sm-0 mt-5">
           <div class="area-box">
-            <?php $miniatura = miniaturaDeEnlace($video['url_embed']); ?>
             <a href="<?= BASE ?>/videos.php" class="miniatura">
-              <img src="<?= $miniatura ?? BASE . '/assets/images/video.jpg' ?>"
-                   onerror="this.onerror=null; this.src='<?= BASE ?>/assets/images/video.jpg';"
-                   alt="<?= htmlspecialchars($video['titulo']) ?>">
+              <?= etiquetaMiniatura($video['url_embed'], BASE . '/assets/images/video.jpg', $video['titulo']) ?>
             </a>
             <p><a href="<?= BASE ?>/videos.php"><?= htmlspecialchars($video['titulo']) ?></a></p>
           </div>

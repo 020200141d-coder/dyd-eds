@@ -5,19 +5,48 @@
  */
 
 /**
- * Imagen de portada de un video o podcast a partir de su enlace.
+ * Imagenes de portada de un video o podcast a partir de su enlace.
  *
- * YouTube publica la miniatura de cada video en una direccion fija, asi que
- * se arma con el identificador del enlace. Spotify no ofrece algo parecido
- * sin pedir permiso a su API, por eso ahi se devuelve null y la vista usa la
- * imagen de siempre.
+ * YouTube publica varias miniaturas del mismo video en direcciones fijas, de
+ * mayor a menor calidad. Se devuelven en ese orden para que la vista intente
+ * primero la buena y baje de calidad solo si esa no existe: no todos los
+ * videos tienen la version grande, y pedir directo la chica se ve pixelada.
+ *
+ * Spotify no ofrece algo parecido sin pedir permiso a su API, asi que ahi se
+ * devuelve una lista vacia y la vista usa la imagen de siempre.
  */
-function miniaturaDeEnlace(string $urlEmbed): ?string
+function miniaturasDeEnlace(string $urlEmbed): array
 {
     if (preg_match('~youtube\.com/embed/([A-Za-z0-9_-]{11})~', $urlEmbed, $coincidencia)) {
-        return 'https://img.youtube.com/vi/' . $coincidencia[1] . '/hqdefault.jpg';
+        $id = $coincidencia[1];
+        return [
+            "https://img.youtube.com/vi/$id/maxresdefault.jpg",  // 1280x720
+            "https://img.youtube.com/vi/$id/sddefault.jpg",      // 640x480
+            "https://img.youtube.com/vi/$id/hqdefault.jpg",      // 480x360
+        ];
     }
-    return null;
+    return [];
+}
+
+/**
+ * Etiqueta <img> que va probando las miniaturas hasta dar con una que cargue,
+ * y termina en la imagen local si ninguna responde (por ejemplo, sin internet).
+ */
+function etiquetaMiniatura(string $urlEmbed, string $respaldo, string $alt): string
+{
+    $opciones = miniaturasDeEnlace($urlEmbed);
+    $opciones[] = $respaldo;
+
+    $primera = array_shift($opciones);
+    // Cada fallo pasa a la siguiente de la lista; la ultima ya no reintenta.
+    $siguientes = json_encode(array_values($opciones), JSON_UNESCAPED_SLASHES);
+
+    return sprintf(
+        '<img src="%s" alt="%s" data-respaldos=\'%s\' onerror="siguienteMiniatura(this)">',
+        htmlspecialchars($primera),
+        htmlspecialchars($alt),
+        htmlspecialchars($siguientes, ENT_QUOTES)
+    );
 }
 
 /**

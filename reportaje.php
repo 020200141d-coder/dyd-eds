@@ -32,7 +32,7 @@ require __DIR__ . '/partials/cabecera.php';
         <?php endif; ?>
 
         <div class="reportaje-cuerpo">
-          <?= nl2br(htmlspecialchars($reportaje['desarrollo'])) ?>
+          <?= cuerpoComoHtml($reportaje['desarrollo']) ?>
         </div>
 
         <?php if (!empty($reportaje['pdf_adjunto'])): ?>

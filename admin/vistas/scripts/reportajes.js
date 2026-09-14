@@ -44,6 +44,8 @@ function mostrarLista() {
 function mostrarFormulario() {
   document.getElementById('formReportaje').reset();
   document.getElementById('campoId').value = '';
+  document.getElementById('campoDesarrollo').value = '';
+  refrescarEditor('campoDesarrollo');
   document.getElementById('fotoActual').textContent = '';
   document.getElementById('pdfActual').textContent = '';
   document.getElementById('campoFecha').value = new Date().toISOString().slice(0, 10);
@@ -68,6 +70,7 @@ function editarReportaje(id) {
     document.getElementById('campoTitulo').value = r.titulo;
     document.getElementById('campoResumen').value = r.resumen_corto ?? '';
     document.getElementById('campoDesarrollo').value = r.desarrollo;
+    refrescarEditor('campoDesarrollo');
     document.getElementById('campoFecha').value = r.fecha_publicacion;
     document.getElementById('campoDestacado').checked = r.es_destacado == 1;
     pintarSelectAutores(autores.datos, r.autor_id);
@@ -117,4 +120,5 @@ document.getElementById('formReportaje').addEventListener('submit', function (ev
   });
 });
 
+crearEditor('campoDesarrollo');
 cargarReportajes();

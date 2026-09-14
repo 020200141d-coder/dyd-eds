@@ -1,9 +1,10 @@
 -- Contenido del sitio: reportajes, noticias, boletines y video.
 -- Tomado de dialogoydesarrollo.com.pe.
 --
--- Ejecutar DESPUES de sql/schema.sql, que crea las tablas y el usuario
--- admin. Con estos dos archivos la base queda completa; no hay mas
--- scripts que correr.
+-- Este es el segundo de los dos unicos scripts del proyecto. Se importa
+-- DESPUES de sql/schema.sql, que es el que crea las tablas y el usuario
+-- admin. Con esos dos archivos la base queda completa; no hay ninguna
+-- actualizacion aparte que correr.
 --
 -- Contiene 64 reportajes (63 con su texto completo y su foto), 3 noticias,
 -- 6 boletines y el video embebido del inicio.

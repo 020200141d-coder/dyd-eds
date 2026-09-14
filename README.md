@@ -72,18 +72,19 @@ una tipografía del sistema sin que nada se rompa.
 2. Enciende **Apache** y **MySQL** en el Panel de Control de XAMPP.
 
 3. Abre **phpMyAdmin** (`http://localhost/phpmyadmin`) → pestaña
-   **Importar** → selecciona `sql/schema.sql` → **Continuar**. Esto crea la
-   base `dyd` con todas las tablas y el usuario admin.
+   **Importar** → selecciona `sql/schema.sql` → **Continuar**. Crea la base
+   `dyd` con todas las tablas y el usuario admin.
 
 4. En la misma pestaña **Importar**, carga ahora `sql/datos.sql`, que llena
    la base con el contenido del sitio: 64 reportajes con su texto y su
    foto, 6 boletines con portada y PDF, 3 noticias y el video.
 
-   Son los dos unicos scripts que hay que correr, en ese orden.
-
-   Si tu base venia de una version anterior del proyecto, corre ademas
-   `sql/actualizacion_estados.sql`, que agrega el estado de publicacion y
-   la tabla de recuperacion de contrasenas.
+   **Esos dos archivos son todo**, en ese orden: no hay scripts de
+   actualizacion ni pasos extra. `schema.sql` vuelve a crear la base desde
+   cero (borra `dyd` si ya existia), asi que la estructura queda igual en
+   cualquier computadora, venga de la version que venga. Por lo mismo se
+   corre una sola vez, al instalar: si despues cargas contenido desde el
+   panel, no lo vuelvas a importar.
 
 5. Revisa `admin/config/Conexion.php` y `clases/Conexion.php` si tu MySQL
    usa otro usuario o clave (por defecto `root` sin clave, como en XAMPP).
@@ -117,8 +118,8 @@ partials/          cabecera.php  pie.php  tarjeta.php
 
 assets/            CSS/JS/imágenes reales del sitio (style-starter.css, etc.)
 
-sql/               schema.sql   Tablas de la base de datos + usuario admin
-                   datos.sql    Contenido del sitio (reportajes, boletines...)
+sql/               schema.sql   Estructura: tablas + usuario admin (se importa 1ro)
+                   datos.sql    Contenido del sitio: reportajes, boletines... (2do)
 
 admin/
   assets/          CSS/JS de la plantilla Admin One Tailwind (solo del panel)

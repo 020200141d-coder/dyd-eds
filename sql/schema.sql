@@ -1,16 +1,26 @@
 -- Base de datos del panel administrativo de la revista digital
 -- Motor: MySQL 8.0+ / MariaDB (XAMPP)
+--
+-- Este es el primero de los dos unicos scripts del proyecto:
+--   1) sql/schema.sql  -> la estructura (este archivo)
+--   2) sql/datos.sql   -> el contenido del sitio
+-- Se importan en ese orden desde phpMyAdmin y no hay nada mas que correr.
+--
+-- OJO: empieza borrando la base `dyd` si ya existia, para que la estructura
+-- quede siempre igual sin importar de que version venga la computadora donde
+-- se instale. Si ya habias cargado contenido propio desde el panel, se
+-- pierde: este archivo se corre una sola vez, al instalar.
 
-CREATE DATABASE IF NOT EXISTS dyd
+DROP DATABASE IF EXISTS dyd;
+
+CREATE DATABASE dyd
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 
 USE dyd;
 
-SET FOREIGN_KEY_CHECKS = 0;
-
 -- usuarios: administradores del panel
-CREATE TABLE IF NOT EXISTS usuarios (
+CREATE TABLE usuarios (
     id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nombre_completo VARCHAR(150) NOT NULL,
     email           VARCHAR(150) NOT NULL,
@@ -20,11 +30,10 @@ CREATE TABLE IF NOT EXISTS usuarios (
     CONSTRAINT uq_usuarios_email UNIQUE (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- autores: colaboradores externos, no siempre tienen usuario en el panel
--- pedidos para restablecer la contrasena
+-- recuperaciones: pedidos para restablecer la contrasena
 -- El token no se guarda tal cual sino su hash: si alguien llegara a leer la
 -- tabla, igual no podria armar el enlace de recuperacion.
-CREATE TABLE IF NOT EXISTS recuperaciones (
+CREATE TABLE recuperaciones (
     id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     usuario_id      INT UNSIGNED NOT NULL,
     token_hash      CHAR(64) NOT NULL,
@@ -37,13 +46,14 @@ CREATE TABLE IF NOT EXISTS recuperaciones (
     INDEX idx_recuperaciones_token (token_hash)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS autores (
+-- autores: colaboradores externos, no siempre tienen usuario en el panel
+CREATE TABLE autores (
     id      INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nombre  VARCHAR(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- reportajes: contenido principal de la revista
-CREATE TABLE IF NOT EXISTS reportajes (
+CREATE TABLE reportajes (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo              VARCHAR(255) NOT NULL,
     resumen_corto       VARCHAR(500) NULL,
@@ -69,7 +79,7 @@ CREATE TABLE IF NOT EXISTS reportajes (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- reportajes_fotos: fotos extra de un reportaje (aparte de la foto principal)
-CREATE TABLE IF NOT EXISTS reportajes_fotos (
+CREATE TABLE reportajes_fotos (
     id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     reportaje_id    INT UNSIGNED NOT NULL,
     url_foto        VARCHAR(255) NOT NULL,
@@ -82,7 +92,7 @@ CREATE TABLE IF NOT EXISTS reportajes_fotos (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- noticias: notas cortas que enlazan a otro medio
-CREATE TABLE IF NOT EXISTS noticias (
+CREATE TABLE noticias (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo              VARCHAR(255) NOT NULL,
     foto                VARCHAR(255) NULL,
@@ -98,7 +108,7 @@ CREATE TABLE IF NOT EXISTS noticias (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- boletines: boletines NTEP con su PDF
-CREATE TABLE IF NOT EXISTS boletines (
+CREATE TABLE boletines (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     numero_boletin      VARCHAR(50) NOT NULL,
     resumen             VARCHAR(500) NULL,
@@ -116,7 +126,7 @@ CREATE TABLE IF NOT EXISTS boletines (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- podcasts
-CREATE TABLE IF NOT EXISTS podcasts (
+CREATE TABLE podcasts (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo              VARCHAR(255) NOT NULL,
     url_embed           VARCHAR(500) NOT NULL,
@@ -131,7 +141,7 @@ CREATE TABLE IF NOT EXISTS podcasts (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- videos
-CREATE TABLE IF NOT EXISTS videos (
+CREATE TABLE videos (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo              VARCHAR(255) NOT NULL,
     url_embed           VARCHAR(500) NOT NULL,
@@ -145,11 +155,8 @@ CREATE TABLE IF NOT EXISTS videos (
     INDEX idx_videos_fecha (fecha_publicacion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-SET FOREIGN_KEY_CHECKS = 1;
-
 -- usuario administrador de prueba, cambiar la clave apenas se ingrese
 -- correo: admin@dyd.com / clave: admin123 (guardada como SHA-256)
 INSERT INTO usuarios (nombre_completo, email, password_hash, rol)
-SELECT 'Administrador General', 'admin@dyd.com',
-       '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'admin'
-WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'admin@dyd.com');
+VALUES ('Administrador General', 'admin@dyd.com',
+        '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'admin');

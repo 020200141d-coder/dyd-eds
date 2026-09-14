@@ -3,6 +3,7 @@ require_once __DIR__ . '/clases/Reportaje.php';
 require_once __DIR__ . '/clases/Noticia.php';
 require_once __DIR__ . '/clases/Boletin.php';
 require_once __DIR__ . '/clases/Podcast.php';
+require_once __DIR__ . '/clases/Video.php';
 
 $destacado = Reportaje::mostrar_destacado();
 $otrosReportajes = Reportaje::mostrar_todos(1, $destacado['id'] ?? null);
@@ -11,6 +12,7 @@ $otrosReportajes = array_slice($otrosReportajes, 0, 3);
 $noticias = Noticia::mostrar_recientes(3);
 $boletin = Boletin::mostrar_ultimo();
 $podcasts = Podcast::mostrar_recientes(4);
+$videos = Video::mostrar_recientes(4);
 
 $tituloPagina = 'DDP Noticias - Diálogo y Desarrollo Perú';
 require __DIR__ . '/partials/cabecera.php';
@@ -147,20 +149,50 @@ require __DIR__ . '/partials/cabecera.php';
 <section class="w3l-homeblock3 py-5">
   <div class="container py-lg-5 py-md-4">
     <h3 class="title-big mb-5 text-center">Podcast</h3>
-    <div class="row">
+    <div class="row fila-tarjetas">
       <?php if (!$podcasts): ?>
         <p class="text-center w-100">Todavía no hay podcasts publicados.</p>
       <?php endif; ?>
       <?php foreach ($podcasts as $podcast): ?>
         <div class="col-lg-3 col-sm-6 mt-sm-0 mt-5">
           <div class="area-box">
-            <img src="<?= BASE ?>/assets/images/podcast.png" alt="">
-            <p><a href="<?= htmlspecialchars($podcast['url_embed']) ?>" target="_blank"><?= htmlspecialchars($podcast['titulo']) ?></a></p>
+            <?php $miniatura = miniaturaDeEnlace($podcast['url_embed']); ?>
+            <a href="<?= BASE ?>/podcast.php" class="miniatura">
+              <img src="<?= $miniatura ?? BASE . '/assets/images/podcast.png' ?>"
+                   onerror="this.onerror=null; this.src='<?= BASE ?>/assets/images/podcast.png';"
+                   alt="<?= htmlspecialchars($podcast['titulo']) ?>">
+            </a>
+            <p><a href="<?= BASE ?>/podcast.php"><?= htmlspecialchars($podcast['titulo']) ?></a></p>
           </div>
         </div>
       <?php endforeach; ?>
     </div>
     <center><a href="<?= BASE ?>/podcast.php" class="btn btn-style btn-primary mt-md-5 mt-4">Ver todos</a></center>
+  </div>
+</section>
+
+<section class="w3l-homeblock3 py-5" id="videos">
+  <div class="container py-lg-5 py-md-4">
+    <h3 class="title-big mb-5 text-center">Videos</h3>
+    <div class="row fila-tarjetas">
+      <?php if (!$videos): ?>
+        <p class="text-center w-100">Todavía no hay videos publicados.</p>
+      <?php endif; ?>
+      <?php foreach ($videos as $video): ?>
+        <div class="col-lg-3 col-sm-6 mt-sm-0 mt-5">
+          <div class="area-box">
+            <?php $miniatura = miniaturaDeEnlace($video['url_embed']); ?>
+            <a href="<?= BASE ?>/videos.php" class="miniatura">
+              <img src="<?= $miniatura ?? BASE . '/assets/images/video.jpg' ?>"
+                   onerror="this.onerror=null; this.src='<?= BASE ?>/assets/images/video.jpg';"
+                   alt="<?= htmlspecialchars($video['titulo']) ?>">
+            </a>
+            <p><a href="<?= BASE ?>/videos.php"><?= htmlspecialchars($video['titulo']) ?></a></p>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <center><a href="<?= BASE ?>/videos.php" class="btn btn-style btn-primary mt-md-5 mt-4">Ver todos</a></center>
   </div>
 </section>
 

@@ -4,6 +4,7 @@
  * cada pagina antes de incluir este archivo.
  */
 require_once __DIR__ . '/../base.php';
+require_once __DIR__ . '/funciones.php';
 ?><!DOCTYPE html>
 <html lang="es">
 <head>

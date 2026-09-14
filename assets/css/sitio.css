@@ -36,3 +36,56 @@
     border-radius: 0 16% 16% 0 / 0 50% 50% 0;
   }
 }
+
+/* Miniaturas de video y podcast en el inicio: recorte parejo para que la
+   fila quede alineada aunque cada plataforma entregue otra proporcion. */
+.area-box .miniatura {
+  display: block;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.area-box .miniatura img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+
+.area-box .miniatura:hover img {
+  transform: scale(1.04);
+}
+
+/* La plantilla centra las tarjetas en vertical (.w3l-homeblock3 .row), asi
+   que un titulo de dos lineas sube su miniatura y la fila queda despareja.
+   Se alinean arriba; el selector repite el de la plantilla para poder
+   ganarle en especificidad. */
+.w3l-homeblock3 .row.fila-tarjetas {
+  align-items: flex-start;
+}
+
+/* Marca de reproduccion sobre la miniatura, para que se entienda que es un
+   video o un podcast y no una foto suelta. */
+.area-box .miniatura {
+  position: relative;
+}
+
+.area-box .miniatura::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 46px;
+  height: 46px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(224, 2, 13, .92) no-repeat center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M9 6.5v11l9-5.5z'/%3E%3C/svg%3E");
+  background-size: 22px 22px;
+  transition: transform .3s ease;
+}
+
+.area-box .miniatura:hover::after {
+  transform: translate(-50%, -50%) scale(1.12);
+}

@@ -1,15 +1,20 @@
 /* Ajustes propios, encima de la plantilla (style-starter.css). */
 
-/* Marca de la casa en las fotos: el lado derecho se curva en media
-   circunferencia y por detras asoma el rojo institucional.
-   El radio horizontal (34.72%) equivale a la mitad del alto en una foto de
-   720x500, que es la proporcion con la que la redaccion arma sus imagenes;
-   por eso en las fotos que ya traen el rojo pintado el recorte cae justo
-   encima y no se nota ningun cambio. Las fotos que suba el periodista sin
-   ese adorno lo reciben igual, y el sitio se ve parejo. */
+/* Marca de la casa en las fotos: el borde derecho se curva y por detras
+   asoma el rojo institucional arriba, mientras que abajo la foto queda
+   recortada contra el fondo de la pagina.
+
+   Los dos radios salen medidos de las fotos que arma la redaccion, sobre una
+   imagen de 720x500: la curva de arriba es de 251px (34.9% del ancho por 50%
+   del alto) y la de abajo, mas suave, de 106x260px (14.7% por 52%). Por eso
+   en las fotos que ya traen el adorno pintado el recorte cae justo encima y
+   no cambia nada, mientras que una foto nueva lo recibe sola.
+
+   La mitad de abajo del fondo va transparente y no en un gris fijo, asi el
+   recorte se ve bien sobre cualquier fondo donde se ponga la tarjeta. */
 .foto-marca {
   display: block;
-  background: #e0020d;
+  background: linear-gradient(to bottom, #e0020d 0 50%, transparent 50%);
   overflow: hidden;
   line-height: 0;
 }
@@ -19,21 +24,23 @@
   width: 100%;
   aspect-ratio: 720 / 500;
   object-fit: cover;
-  border-radius: 0 34.72% 34.72% 0 / 0 50% 50% 0;
+  border-radius: 0 34.9% 14.7% 0 / 0 50% 50% 0;
 }
 
-/* Las fotos de noticias son cuadradas: se respeta su forma y la curva se
-   abre menos, para no comerse la mitad de la imagen. */
+/* Las fotos de noticias son cuadradas: se respeta su forma y las curvas se
+   abren menos, para no comerse un tercio de la imagen. */
 .foto-marca.cuadrada img {
   aspect-ratio: 1 / 1;
-  border-radius: 0 24% 24% 0 / 0 50% 50% 0;
+  border-radius: 0 26% 11% 0 / 0 50% 50% 0;
 }
 
 /* En pantallas angostas la curva se come demasiada foto, se suaviza. */
 @media (max-width: 575px) {
-  .foto-marca img,
+  .foto-marca img {
+    border-radius: 0 24% 10% 0 / 0 50% 50% 0;
+  }
   .foto-marca.cuadrada img {
-    border-radius: 0 16% 16% 0 / 0 50% 50% 0;
+    border-radius: 0 20% 9% 0 / 0 50% 50% 0;
   }
 }
 

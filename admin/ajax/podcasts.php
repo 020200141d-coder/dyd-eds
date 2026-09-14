@@ -22,7 +22,12 @@ switch ($accion) {
             respuestaJson(['ok' => false, 'error' => 'Título y URL son obligatorios.']);
         }
 
+        // solo se aceptan los dos estados validos; cualquier otra cosa se toma
+        // como borrador para no publicar nada por accidente
+        $estado = ($_POST['estado'] ?? '') === 'publicado' ? 'publicado' : 'borrador';
+
         $datos = [
+            'estado' => $estado,
             'titulo' => $titulo,
             'url_embed' => urlParaIncrustar($urlEmbed),
             'fecha_publicacion' => $_POST['fecha_publicacion'] ?? date('Y-m-d'),

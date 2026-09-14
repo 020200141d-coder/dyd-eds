@@ -26,13 +26,14 @@ class Reportaje
     {
         $pdo = Conexion::obtener();
         $stmt = $pdo->prepare(
-            'INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, pdf_adjunto, fecha_publicacion, es_destacado, autor_id, usuario_id)
-             VALUES (?,?,?,?,?,?,?,?,?)'
+            'INSERT INTO reportajes (titulo, resumen_corto, desarrollo, foto_principal, pdf_adjunto, fecha_publicacion, es_destacado, autor_id, usuario_id, estado)
+             VALUES (?,?,?,?,?,?,?,?,?,?)'
         );
         $stmt->execute([
             $datos['titulo'], $datos['resumen_corto'], $datos['desarrollo'],
             $datos['foto_principal'], $datos['pdf_adjunto'], $datos['fecha_publicacion'],
             $datos['es_destacado'], $datos['autor_id'], $datos['usuario_id'],
+            $datos['estado'],
         ]);
         return (int) $pdo->lastInsertId();
     }
@@ -40,12 +41,12 @@ class Reportaje
     public static function actualizar(int $id, array $datos): void
     {
         $stmt = Conexion::obtener()->prepare(
-            'UPDATE reportajes SET titulo=?, resumen_corto=?, desarrollo=?, foto_principal=?, pdf_adjunto=?, fecha_publicacion=?, es_destacado=?, autor_id=? WHERE id=?'
+            'UPDATE reportajes SET titulo=?, resumen_corto=?, desarrollo=?, foto_principal=?, pdf_adjunto=?, fecha_publicacion=?, es_destacado=?, autor_id=?, estado=? WHERE id=?'
         );
         $stmt->execute([
             $datos['titulo'], $datos['resumen_corto'], $datos['desarrollo'],
             $datos['foto_principal'], $datos['pdf_adjunto'], $datos['fecha_publicacion'],
-            $datos['es_destacado'], $datos['autor_id'], $id,
+            $datos['es_destacado'], $datos['autor_id'], $datos['estado'], $id,
         ]);
     }
 

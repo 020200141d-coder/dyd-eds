@@ -15,6 +15,7 @@ function cargarNoticias() {
         <td data-label="Título">${escaparHtml(n.titulo)}</td>
         <td data-label="Link">${n.link_externo ? `<a href="${escaparHtml(n.link_externo)}" target="_blank" class="text-blue-500">Ver enlace</a>` : ''}</td>
         <td data-label="Fecha">${formatearFecha(n.fecha_publicacion)}</td>
+        <td data-label="Estado">${n.estado === 'borrador' ? '<span class="tag is-warning">Borrador</span>' : '<span class="tag is-success">Publicado</span>'}</td>
         <td class="actions-cell">
           <div class="buttons right nowrap">
             <button type="button" class="button small blue" onclick="editarNoticia(${n.id})"><span class="icon"><i class="mdi mdi-pencil"></i></span></button>
@@ -35,6 +36,7 @@ function mostrarFormulario() {
   document.getElementById('campoId').value = '';
   document.getElementById('fotoActual').textContent = '';
   document.getElementById('campoFecha').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('campoEstado').value = 'publicado';
   document.getElementById('tituloFormulario').textContent = 'Nueva noticia';
   document.getElementById('vistaLista').hidden = true;
   document.getElementById('vistaFormulario').hidden = false;
@@ -51,6 +53,7 @@ function editarNoticia(id) {
     document.getElementById('campoTitulo').value = n.titulo;
     document.getElementById('campoLink').value = n.link_externo ?? '';
     document.getElementById('campoFecha').value = n.fecha_publicacion;
+    document.getElementById('campoEstado').value = n.estado ?? 'publicado';
     document.getElementById('fotoActual').innerHTML = n.foto ? `Actual: <img src="${BASE}/admin/files/noticias/${escaparHtml(n.foto)}" style="height:60px;">` : '';
     document.getElementById('tituloFormulario').textContent = 'Editar noticia';
     document.getElementById('vistaLista').hidden = true;

@@ -23,20 +23,21 @@ class Boletin
     public static function crear(array $datos): int
     {
         $pdo = Conexion::obtener();
-        $stmt = $pdo->prepare('INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id) VALUES (?,?,?,?,?,?)');
+        $stmt = $pdo->prepare('INSERT INTO boletines (numero_boletin, resumen, foto_portada, archivo_pdf, fecha_publicacion, usuario_id, estado) VALUES (?,?,?,?,?,?,?)');
         $stmt->execute([
             $datos['numero_boletin'], $datos['resumen'], $datos['foto_portada'],
             $datos['archivo_pdf'], $datos['fecha_publicacion'], $datos['usuario_id'],
+            $datos['estado'],
         ]);
         return (int) $pdo->lastInsertId();
     }
 
     public static function actualizar(int $id, array $datos): void
     {
-        $stmt = Conexion::obtener()->prepare('UPDATE boletines SET numero_boletin=?, resumen=?, foto_portada=?, archivo_pdf=?, fecha_publicacion=? WHERE id=?');
+        $stmt = Conexion::obtener()->prepare('UPDATE boletines SET numero_boletin=?, resumen=?, foto_portada=?, archivo_pdf=?, fecha_publicacion=?, estado=? WHERE id=?');
         $stmt->execute([
             $datos['numero_boletin'], $datos['resumen'], $datos['foto_portada'],
-            $datos['archivo_pdf'], $datos['fecha_publicacion'], $id,
+            $datos['archivo_pdf'], $datos['fecha_publicacion'], $datos['estado'], $id,
         ]);
     }
 

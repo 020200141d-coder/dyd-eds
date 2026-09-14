@@ -40,7 +40,12 @@ switch ($accion) {
             $fotoNueva = subirArchivo('foto_principal', $carpetaReportajes, ['jpg', 'jpeg', 'png', 'webp']);
             $pdfNuevo = subirArchivo('pdf_adjunto', $carpetaReportajes, ['pdf']);
 
+            // solo se aceptan los dos estados validos; cualquier otra cosa se toma
+            // como borrador para no publicar nada por accidente
+            $estado = ($_POST['estado'] ?? '') === 'publicado' ? 'publicado' : 'borrador';
+
             $datos = [
+                'estado' => $estado,
                 'titulo' => $titulo,
                 'resumen_corto' => trim($_POST['resumen_corto'] ?? '') ?: null,
                 'desarrollo' => $desarrollo,

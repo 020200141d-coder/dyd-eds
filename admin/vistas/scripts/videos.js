@@ -14,6 +14,7 @@ function cargarVideos() {
         <td data-label="Título">${escaparHtml(v.titulo)}</td>
         <td data-label="URL"><a href="${escaparHtml(v.url_embed)}" target="_blank" class="text-blue-500">Abrir</a></td>
         <td data-label="Fecha">${formatearFecha(v.fecha_publicacion)}</td>
+        <td data-label="Estado">${v.estado === 'borrador' ? '<span class="tag is-warning">Borrador</span>' : '<span class="tag is-success">Publicado</span>'}</td>
         <td class="actions-cell">
           <div class="buttons right nowrap">
             <button type="button" class="button small blue" onclick="editarVideo(${v.id})"><span class="icon"><i class="mdi mdi-pencil"></i></span></button>
@@ -33,6 +34,7 @@ function mostrarFormulario() {
   document.getElementById('formVideo').reset();
   document.getElementById('campoId').value = '';
   document.getElementById('campoFecha').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('campoEstado').value = 'publicado';
   document.getElementById('tituloFormulario').textContent = 'Nuevo video';
   document.getElementById('vistaLista').hidden = true;
   document.getElementById('vistaFormulario').hidden = false;
@@ -49,6 +51,7 @@ function editarVideo(id) {
     document.getElementById('campoTitulo').value = v.titulo;
     document.getElementById('campoUrl').value = v.url_embed;
     document.getElementById('campoFecha').value = v.fecha_publicacion;
+    document.getElementById('campoEstado').value = v.estado ?? 'publicado';
     document.getElementById('tituloFormulario').textContent = 'Editar video';
     document.getElementById('vistaLista').hidden = true;
     document.getElementById('vistaFormulario').hidden = false;

@@ -13,6 +13,7 @@ require_once __DIR__ . '/../base.php';
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&family=Google+Sans:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="<?= BASE ?>/assets/css/iconos.css">
   <link rel="stylesheet" href="<?= BASE ?>/assets/css/style-starter.css">
+  <link rel="stylesheet" href="<?= BASE ?>/assets/css/sitio.css">
 </head>
 <body>
 <header id="site-header" class="fixed-top">

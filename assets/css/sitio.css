@@ -1,0 +1,38 @@
+/* Ajustes propios, encima de la plantilla (style-starter.css). */
+
+/* Marca de la casa en las fotos: el lado derecho se curva en media
+   circunferencia y por detras asoma el rojo institucional.
+   El radio horizontal (34.72%) equivale a la mitad del alto en una foto de
+   720x500, que es la proporcion con la que la redaccion arma sus imagenes;
+   por eso en las fotos que ya traen el rojo pintado el recorte cae justo
+   encima y no se nota ningun cambio. Las fotos que suba el periodista sin
+   ese adorno lo reciben igual, y el sitio se ve parejo. */
+.foto-marca {
+  display: block;
+  background: #e0020d;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.foto-marca img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 720 / 500;
+  object-fit: cover;
+  border-radius: 0 34.72% 34.72% 0 / 0 50% 50% 0;
+}
+
+/* Las fotos de noticias son cuadradas: se respeta su forma y la curva se
+   abre menos, para no comerse la mitad de la imagen. */
+.foto-marca.cuadrada img {
+  aspect-ratio: 1 / 1;
+  border-radius: 0 24% 24% 0 / 0 50% 50% 0;
+}
+
+/* En pantallas angostas la curva se come demasiada foto, se suaviza. */
+@media (max-width: 575px) {
+  .foto-marca img,
+  .foto-marca.cuadrada img {
+    border-radius: 0 16% 16% 0 / 0 50% 50% 0;
+  }
+}

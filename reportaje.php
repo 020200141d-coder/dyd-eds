@@ -26,7 +26,9 @@ require __DIR__ . '/partials/cabecera.php';
         </p>
 
         <?php if (!empty($reportaje['foto_principal'])): ?>
-          <img src="<?= BASE ?>/admin/files/reportajes/<?= htmlspecialchars($reportaje['foto_principal']) ?>" class="img-fluid mb-4" alt="">
+          <span class="foto-marca mb-4">
+            <img src="<?= BASE ?>/admin/files/reportajes/<?= htmlspecialchars($reportaje['foto_principal']) ?>" class="img-fluid" alt="<?= htmlspecialchars($reportaje['titulo']) ?>">
+          </span>
         <?php endif; ?>
 
         <div class="reportaje-cuerpo">

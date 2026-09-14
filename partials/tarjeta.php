@@ -7,11 +7,13 @@ $urlDetalle = BASE . '/reportaje.php?id=' . (int) $reportaje['id'];
 ?>
 <div class="col-lg-4 col-md-6 grids5-info mt-5">
   <a href="<?= $urlDetalle ?>" class="d-block">
-    <?php if (!empty($reportaje['foto_principal'])): ?>
-      <img src="<?= BASE ?>/admin/files/reportajes/<?= htmlspecialchars($reportaje['foto_principal']) ?>" alt="" class="img-fluid">
-    <?php else: ?>
-      <img src="<?= BASE ?>/assets/images/video.jpg" alt="" class="img-fluid">
-    <?php endif; ?>
+    <span class="foto-marca">
+      <?php if (!empty($reportaje['foto_principal'])): ?>
+        <img src="<?= BASE ?>/admin/files/reportajes/<?= htmlspecialchars($reportaje['foto_principal']) ?>" alt="<?= htmlspecialchars($reportaje['titulo']) ?>" class="img-fluid">
+      <?php else: ?>
+        <img src="<?= BASE ?>/assets/images/video.jpg" alt="" class="img-fluid">
+      <?php endif; ?>
+    </span>
   </a>
   <div class="blog-info">
     <h5><?= date('d/m/Y', strtotime($reportaje['fecha_publicacion'])) ?></h5>

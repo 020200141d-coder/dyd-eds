@@ -19,6 +19,7 @@ function cargarReportajes() {
         <td data-label="Título">${escaparHtml(r.titulo)}</td>
         <td data-label="Autor">${escaparHtml(nombreAutor(r))}</td>
         <td data-label="Fecha">${formatearFecha(r.fecha_publicacion)}</td>
+        <td data-label="Estado">${r.estado === 'borrador' ? '<span class="tag is-warning">Borrador</span>' : '<span class="tag is-success">Publicado</span>'}</td>
         <td data-label="Destacado">${r.es_destacado == 1 ? 'Sí' : 'No'}</td>
         <td class="actions-cell">
           <div class="buttons right nowrap">
@@ -49,6 +50,7 @@ function mostrarFormulario() {
   document.getElementById('fotoActual').textContent = '';
   document.getElementById('pdfActual').textContent = '';
   document.getElementById('campoFecha').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('campoEstado').value = 'publicado';
   document.getElementById('botonFotos').hidden = true;
   document.getElementById('tituloFormulario').textContent = 'Nuevo reportaje';
   obtenerJson(BASE + '/admin/ajax/reportajes.php?accion=autoresDisponibles').then((r) => pintarSelectAutores(r.datos, ''));
@@ -72,6 +74,7 @@ function editarReportaje(id) {
     document.getElementById('campoDesarrollo').value = r.desarrollo;
     refrescarEditor('campoDesarrollo');
     document.getElementById('campoFecha').value = r.fecha_publicacion;
+    document.getElementById('campoEstado').value = r.estado ?? 'publicado';
     document.getElementById('campoDestacado').checked = r.es_destacado == 1;
     pintarSelectAutores(autores.datos, r.autor_id);
     document.getElementById('fotoActual').innerHTML = r.foto_principal ? `Actual: <img src="${BASE}/admin/files/reportajes/${escaparHtml(r.foto_principal)}" style="height:60px;">` : '';

@@ -34,6 +34,8 @@ CREATE TABLE IF NOT EXISTS reportajes (
     desarrollo          LONGTEXT NOT NULL,
     foto_principal      VARCHAR(255) NULL,
     pdf_adjunto         VARCHAR(255) NULL,
+    estado              ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado',
+                        -- borrador: solo se ve en el panel; publicado: sale al sitio
     fecha_publicacion   DATE NOT NULL,
     es_destacado        TINYINT(1) NOT NULL DEFAULT 0,
     autor_id            INT UNSIGNED NULL,
@@ -69,6 +71,8 @@ CREATE TABLE IF NOT EXISTS noticias (
     titulo              VARCHAR(255) NOT NULL,
     foto                VARCHAR(255) NULL,
     link_externo        VARCHAR(500) NULL,
+    estado              ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado',
+                        -- borrador: solo se ve en el panel; publicado: sale al sitio
     fecha_publicacion   DATE NOT NULL,
     usuario_id          INT UNSIGNED NOT NULL,
     CONSTRAINT fk_noticias_usuario
@@ -84,6 +88,8 @@ CREATE TABLE IF NOT EXISTS boletines (
     resumen             VARCHAR(500) NULL,
     foto_portada        VARCHAR(255) NULL,
     archivo_pdf         VARCHAR(255) NOT NULL,
+    estado              ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado',
+                        -- borrador: solo se ve en el panel; publicado: sale al sitio
     fecha_publicacion   DATE NOT NULL,
     usuario_id          INT UNSIGNED NOT NULL,
     CONSTRAINT uq_boletines_numero UNIQUE (numero_boletin),
@@ -98,6 +104,8 @@ CREATE TABLE IF NOT EXISTS podcasts (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo              VARCHAR(255) NOT NULL,
     url_embed           VARCHAR(500) NOT NULL,
+    estado              ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado',
+                        -- borrador: solo se ve en el panel; publicado: sale al sitio
     fecha_publicacion   DATE NOT NULL,
     usuario_id          INT UNSIGNED NOT NULL,
     CONSTRAINT fk_podcasts_usuario
@@ -111,6 +119,8 @@ CREATE TABLE IF NOT EXISTS videos (
     id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo              VARCHAR(255) NOT NULL,
     url_embed           VARCHAR(500) NOT NULL,
+    estado              ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado',
+                        -- borrador: solo se ve en el panel; publicado: sale al sitio
     fecha_publicacion   DATE NOT NULL,
     usuario_id          INT UNSIGNED NOT NULL,
     CONSTRAINT fk_videos_usuario

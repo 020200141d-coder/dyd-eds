@@ -35,7 +35,12 @@ switch ($accion) {
             $portadaNueva = subirArchivo('foto_portada', $carpetaPortada, ['jpg', 'jpeg', 'png', 'webp']);
             $pdfNuevo = subirArchivo('archivo_pdf', $carpetaPdf, ['pdf']);
 
+            // solo se aceptan los dos estados validos; cualquier otra cosa se toma
+            // como borrador para no publicar nada por accidente
+            $estado = ($_POST['estado'] ?? '') === 'publicado' ? 'publicado' : 'borrador';
+
             $datos = [
+                'estado' => $estado,
                 'numero_boletin' => $numero,
                 'resumen' => trim($_POST['resumen'] ?? '') ?: null,
                 'fecha_publicacion' => $_POST['fecha_publicacion'] ?? date('Y-m-d'),

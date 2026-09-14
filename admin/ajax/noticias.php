@@ -26,7 +26,12 @@ switch ($accion) {
 
         try {
             $fotoNueva = subirArchivo('foto', $carpeta, ['jpg', 'jpeg', 'png', 'webp']);
+            // solo se aceptan los dos estados validos; cualquier otra cosa se toma
+            // como borrador para no publicar nada por accidente
+            $estado = ($_POST['estado'] ?? '') === 'publicado' ? 'publicado' : 'borrador';
+
             $datos = [
+                'estado' => $estado,
                 'titulo' => $titulo,
                 'link_externo' => trim($_POST['link_externo'] ?? '') ?: null,
                 'fecha_publicacion' => $_POST['fecha_publicacion'] ?? date('Y-m-d'),

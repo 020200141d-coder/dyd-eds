@@ -14,6 +14,7 @@ function cargarPodcasts() {
         <td data-label="Título">${escaparHtml(p.titulo)}</td>
         <td data-label="URL"><a href="${escaparHtml(p.url_embed)}" target="_blank" class="text-blue-500">Abrir</a></td>
         <td data-label="Fecha">${formatearFecha(p.fecha_publicacion)}</td>
+        <td data-label="Estado">${p.estado === 'borrador' ? '<span class="tag is-warning">Borrador</span>' : '<span class="tag is-success">Publicado</span>'}</td>
         <td class="actions-cell">
           <div class="buttons right nowrap">
             <button type="button" class="button small blue" onclick="editarPodcast(${p.id})"><span class="icon"><i class="mdi mdi-pencil"></i></span></button>
@@ -33,6 +34,7 @@ function mostrarFormulario() {
   document.getElementById('formPodcast').reset();
   document.getElementById('campoId').value = '';
   document.getElementById('campoFecha').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('campoEstado').value = 'publicado';
   document.getElementById('tituloFormulario').textContent = 'Nuevo podcast';
   document.getElementById('vistaLista').hidden = true;
   document.getElementById('vistaFormulario').hidden = false;
@@ -49,6 +51,7 @@ function editarPodcast(id) {
     document.getElementById('campoTitulo').value = p.titulo;
     document.getElementById('campoUrl').value = p.url_embed;
     document.getElementById('campoFecha').value = p.fecha_publicacion;
+    document.getElementById('campoEstado').value = p.estado ?? 'publicado';
     document.getElementById('tituloFormulario').textContent = 'Editar podcast';
     document.getElementById('vistaLista').hidden = true;
     document.getElementById('vistaFormulario').hidden = false;

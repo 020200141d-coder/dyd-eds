@@ -10,6 +10,7 @@ class Reportaje
         $sql = "SELECT r.*, a.nombre AS autor_nombre
                 FROM reportajes r
                 LEFT JOIN autores a ON a.id = r.autor_id
+                WHERE r.estado = 'publicado'
                 ORDER BY r.es_destacado DESC, r.fecha_publicacion DESC, r.id DESC
                 LIMIT 1";
         $fila = Conexion::obtener()->query($sql)->fetch();
@@ -21,7 +22,8 @@ class Reportaje
         $pdo = Conexion::obtener();
         $offset = ($pagina - 1) * self::POR_PAGINA;
 
-        $condicion = $excluirId ? 'WHERE r.id != :excluir' : '';
+        $condicion = $excluirId ? "WHERE r.estado = 'publicado' AND r.id != :excluir"
+                                : "WHERE r.estado = 'publicado'";
         $sql = "SELECT r.*, a.nombre AS autor_nombre
                 FROM reportajes r
                 LEFT JOIN autores a ON a.id = r.autor_id
@@ -40,7 +42,7 @@ class Reportaje
 
     public static function contar_total(): int
     {
-        return (int) Conexion::obtener()->query('SELECT COUNT(*) FROM reportajes')->fetchColumn();
+        return (int) Conexion::obtener()->query("SELECT COUNT(*) FROM reportajes WHERE estado = 'publicado'")->fetchColumn();
     }
 
     public static function total_paginas(): int
@@ -54,7 +56,7 @@ class Reportaje
             "SELECT r.*, a.nombre AS autor_nombre
              FROM reportajes r
              LEFT JOIN autores a ON a.id = r.autor_id
-             WHERE r.id = ?"
+             WHERE r.id = ? AND r.estado = 'publicado'"
         );
         $stmt->execute([$id]);
         $fila = $stmt->fetch();

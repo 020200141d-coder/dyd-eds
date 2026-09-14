@@ -23,15 +23,15 @@ class Noticia
     public static function crear(array $datos): int
     {
         $pdo = Conexion::obtener();
-        $stmt = $pdo->prepare('INSERT INTO noticias (titulo, foto, link_externo, fecha_publicacion, usuario_id) VALUES (?,?,?,?,?)');
-        $stmt->execute([$datos['titulo'], $datos['foto'], $datos['link_externo'], $datos['fecha_publicacion'], $datos['usuario_id']]);
+        $stmt = $pdo->prepare('INSERT INTO noticias (titulo, foto, link_externo, fecha_publicacion, usuario_id, estado) VALUES (?,?,?,?,?,?)');
+        $stmt->execute([$datos['titulo'], $datos['foto'], $datos['link_externo'], $datos['fecha_publicacion'], $datos['usuario_id'], $datos['estado']]);
         return (int) $pdo->lastInsertId();
     }
 
     public static function actualizar(int $id, array $datos): void
     {
-        $stmt = Conexion::obtener()->prepare('UPDATE noticias SET titulo=?, foto=?, link_externo=?, fecha_publicacion=? WHERE id=?');
-        $stmt->execute([$datos['titulo'], $datos['foto'], $datos['link_externo'], $datos['fecha_publicacion'], $id]);
+        $stmt = Conexion::obtener()->prepare('UPDATE noticias SET titulo=?, foto=?, link_externo=?, fecha_publicacion=?, estado=? WHERE id=?');
+        $stmt->execute([$datos['titulo'], $datos['foto'], $datos['link_externo'], $datos['fecha_publicacion'], $datos['estado'], $id]);
     }
 
     public static function eliminar(int $id): void

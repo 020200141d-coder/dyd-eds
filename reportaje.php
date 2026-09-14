@@ -1,4 +1,8 @@
 <?php
+// base.php se carga aca y no solo desde la cabecera, porque si el reportaje
+// no existe o esta en borrador hay que redirigir antes de pintar nada, y esa
+// redireccion ya necesita BASE.
+require_once __DIR__ . '/base.php';
 require_once __DIR__ . '/clases/Reportaje.php';
 
 $id = (int) ($_GET['id'] ?? 0);

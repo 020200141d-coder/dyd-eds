@@ -22,7 +22,7 @@ require __DIR__ . '/parciales/cabecera.php';
     </header>
     <div class="card-content">
       <table>
-        <thead><tr><th></th><th>Título</th><th>Link externo</th><th>Fecha</th><th></th></tr></thead>
+        <thead><tr><th></th><th>Título</th><th>Link externo</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
         <tbody id="filasNoticias"><tr><td colspan="5">Cargando...</td></tr></tbody>
       </table>
     </div>
@@ -53,6 +53,17 @@ require __DIR__ . '/parciales/cabecera.php';
           <label class="label">Foto</label>
           <div class="control"><input class="input" type="file" name="foto" accept="image/*"></div>
           <p class="help" id="fotoActual"></p>
+        </div>
+        <div class="field">
+          <label class="label">Estado de publicación</label>
+          <div class="control">
+            <div class="select">
+              <select name="estado" id="campoEstado">
+                <option value="publicado">Publicado (se ve en el sitio)</option>
+                <option value="borrador">Borrador (solo en el panel)</option>
+              </select>
+            </div>
+          </div>
         </div>
         <hr>
         <div class="field grouped">

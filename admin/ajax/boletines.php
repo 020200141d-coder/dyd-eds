@@ -71,6 +71,23 @@ switch ($accion) {
             respuestaJson(['ok' => false, 'error' => $e->getMessage()]);
         }
 
+    case 'destacar':
+        $id = (int) ($_POST['id'] ?? 0);
+        $registro = Boletin::obtener($id);
+        if (!$registro) {
+            respuestaJson(['ok' => false, 'error' => 'Boletín no encontrado.']);
+        }
+        // Un borrador no puede abrir la portada: ahi no se veria.
+        if ($registro['estado'] !== 'publicado' && $registro['es_destacado'] != 1) {
+            respuestaJson(['ok' => false, 'error' => 'Publica el boletín antes de destacarlo.']);
+        }
+        if ($registro['es_destacado'] == 1) {
+            Boletin::quitarDestacado($id);
+            respuestaJson(['ok' => true, 'destacado' => false]);
+        }
+        Boletin::marcarDestacado($id);
+        respuestaJson(['ok' => true, 'destacado' => true]);
+
     case 'eliminar':
         $id = (int) ($_POST['id'] ?? 0);
         $boletin = Boletin::obtener($id);

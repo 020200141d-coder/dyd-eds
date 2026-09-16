@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/Conexion.php';
+require_once __DIR__ . '/Destacado.php';
 
 class Reportaje
 {
@@ -50,28 +51,14 @@ class Reportaje
         ]);
     }
 
-    /**
-     * Deja a este reportaje como el destacado de la portada y le quita la
-     * marca a cualquier otro: en el inicio solo se muestra uno, asi que
-     * tener dos marcados solo confunde a quien publica.
-     */
     public static function marcarDestacado(int $id): void
     {
-        $pdo = Conexion::obtener();
-        $pdo->beginTransaction();
-        try {
-            $pdo->exec('UPDATE reportajes SET es_destacado = 0 WHERE es_destacado = 1');
-            $pdo->prepare('UPDATE reportajes SET es_destacado = 1 WHERE id = ?')->execute([$id]);
-            $pdo->commit();
-        } catch (Throwable $e) {
-            $pdo->rollBack();
-            throw $e;
-        }
+        Destacado::marcar('reportajes', $id);
     }
 
     public static function quitarDestacado(int $id): void
     {
-        Conexion::obtener()->prepare('UPDATE reportajes SET es_destacado = 0 WHERE id = ?')->execute([$id]);
+        Destacado::quitar('reportajes', $id);
     }
 
     public static function eliminar(int $id): void

@@ -237,6 +237,7 @@ require __DIR__ . '/partials/cabecera.php';
           <h5 class="title-small mb-2">DDP Noticias</h5>
           <h3 class="title-banner">Diálogo y Desarrollo Perú</h3>
           <p class="mt-4">Somos un espacio de periodismo independiente que busca visibilizar las acciones de diálogo en el país desde una mirada constructiva.</p>
+          <a href="<?= BASE ?>/sobre.php" class="btn btn-style btn-primary mt-md-5 mt-4">Nosotros</a>
         </div>
         <div class="col-md-6 left-wthree-img mt-lg-0 mt-4">
           <div class="position-relative">

@@ -21,8 +21,9 @@ require __DIR__ . '/parciales/cabecera.php';
       <p class="card-header-title"><span class="icon"><i class="mdi mdi-flash"></i></span> Noticias</p>
     </header>
     <div class="card-content">
+      <div id="avisoDestacado" class="notification blue mb-4"></div>
       <table>
-        <thead><tr><th></th><th>Título</th><th>Link externo</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
+        <thead><tr><th></th><th>Título</th><th>Link externo</th><th>Fecha</th><th>Estado</th><th>Destacado</th><th></th></tr></thead>
         <tbody id="filasNoticias"><tr><td colspan="5">Cargando...</td></tr></tbody>
       </table>
     </div>

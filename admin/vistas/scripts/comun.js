@@ -31,3 +31,63 @@ function escaparHtml(texto) {
   div.textContent = texto ?? '';
   return div.innerHTML;
 }
+
+/* ------------------------------------------------------------------
+   Destacado de la portada.
+
+   La portada muestra un solo reportaje, un solo boletín, un solo podcast
+   y un solo video, así que en cada listado hace falta poder decir cuál
+   sale. Es el mismo botón y el mismo aviso en los cinco módulos, por eso
+   vive aquí una vez y cada vista solo dice de qué módulo se trata.
+   ------------------------------------------------------------------ */
+
+let moduloDestacado = null;
+
+/**
+ * La llama cada vista al cargar:
+ *   configurarDestacado({ ajax: 'videos', recargar: cargarVideos,
+ *                         campo: 'titulo', vacio: 'el más reciente' });
+ */
+function configurarDestacado(config) {
+  moduloDestacado = config;
+}
+
+/** Celda con el botón, para pegar dentro de la fila de la tabla. */
+function celdaDestacado(registro) {
+  const marcado = registro.es_destacado == 1;
+  return `<td data-label="Destacado">
+    <button type="button" class="button small ${marcado ? 'yellow' : ''}"
+            title="${marcado ? 'Es el destacado de la portada. Clic para quitarlo.' : 'Poner como destacado de la portada'}"
+            onclick="alternarDestacado(${registro.id})">
+      ${marcado ? '★ Destacado' : '☆ Destacar'}
+    </button>
+  </td>`;
+}
+
+/** Deja claro de un vistazo cuál es el que abre la portada. */
+function pintarAvisoDestacado(lista) {
+  const caja = document.getElementById('avisoDestacado');
+  if (!caja || !moduloDestacado) return;
+  const destacado = lista.find((r) => r.es_destacado == 1);
+  const campo = moduloDestacado.campo || 'titulo';
+  const prefijo = moduloDestacado.prefijo || '';
+  caja.innerHTML = destacado
+    ? `★ En la portada: <b>${escaparHtml(prefijo + destacado[campo])}</b>`
+    : `Ninguno está destacado: la portada muestra ${moduloDestacado.vacio}.`;
+}
+
+function alternarDestacado(id) {
+  if (!moduloDestacado) return;
+  const datos = new FormData();
+  datos.append('accion', 'destacar');
+  datos.append('id', id);
+
+  llamarAjax(BASE + '/admin/ajax/' + moduloDestacado.ajax + '.php', datos).then((respuesta) => {
+    if (!respuesta.ok) {
+      mostrarAviso(respuesta.error, 'error');
+      return;
+    }
+    mostrarAviso(respuesta.destacado ? 'Ahora es el que abre la portada.' : 'Se quitó de la portada.', 'exito');
+    moduloDestacado.recargar();
+  });
+}

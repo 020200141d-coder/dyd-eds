@@ -11,6 +11,10 @@
 -- se instale. Si ya habias cargado contenido propio desde el panel, se
 -- pierde: este archivo se corre una sola vez, al instalar.
 
+-- Los textos llevan tildes y enies: se avisa el juego de caracteres
+-- para que no dependa de como este configurado el cliente que importa.
+SET NAMES utf8mb4;
+
 DROP DATABASE IF EXISTS dyd;
 
 CREATE DATABASE dyd
@@ -100,11 +104,14 @@ CREATE TABLE noticias (
     estado              ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado',
                         -- borrador: solo se ve en el panel; publicado: sale al sitio
     fecha_publicacion   DATE NOT NULL,
+    es_destacado        TINYINT(1) NOT NULL DEFAULT 0,
+                        -- el que abre su seccion en la portada; solo uno a la vez
     usuario_id          INT UNSIGNED NOT NULL,
     CONSTRAINT fk_noticias_usuario
         FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
-    INDEX idx_noticias_fecha (fecha_publicacion)
+    INDEX idx_noticias_fecha (fecha_publicacion),
+    INDEX idx_noticias_destacado (es_destacado)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- boletines: boletines NTEP con su PDF
@@ -117,12 +124,15 @@ CREATE TABLE boletines (
     estado              ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado',
                         -- borrador: solo se ve en el panel; publicado: sale al sitio
     fecha_publicacion   DATE NOT NULL,
+    es_destacado        TINYINT(1) NOT NULL DEFAULT 0,
+                        -- el que abre su seccion en la portada; solo uno a la vez
     usuario_id          INT UNSIGNED NOT NULL,
     CONSTRAINT uq_boletines_numero UNIQUE (numero_boletin),
     CONSTRAINT fk_boletines_usuario
         FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
-    INDEX idx_boletines_fecha (fecha_publicacion)
+    INDEX idx_boletines_fecha (fecha_publicacion),
+    INDEX idx_boletines_destacado (es_destacado)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- podcasts
@@ -133,11 +143,14 @@ CREATE TABLE podcasts (
     estado              ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado',
                         -- borrador: solo se ve en el panel; publicado: sale al sitio
     fecha_publicacion   DATE NOT NULL,
+    es_destacado        TINYINT(1) NOT NULL DEFAULT 0,
+                        -- el que abre su seccion en la portada; solo uno a la vez
     usuario_id          INT UNSIGNED NOT NULL,
     CONSTRAINT fk_podcasts_usuario
         FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
-    INDEX idx_podcasts_fecha (fecha_publicacion)
+    INDEX idx_podcasts_fecha (fecha_publicacion),
+    INDEX idx_podcasts_destacado (es_destacado)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- videos
@@ -148,11 +161,14 @@ CREATE TABLE videos (
     estado              ENUM('borrador', 'publicado') NOT NULL DEFAULT 'publicado',
                         -- borrador: solo se ve en el panel; publicado: sale al sitio
     fecha_publicacion   DATE NOT NULL,
+    es_destacado        TINYINT(1) NOT NULL DEFAULT 0,
+                        -- el que abre su seccion en la portada; solo uno a la vez
     usuario_id          INT UNSIGNED NOT NULL,
     CONSTRAINT fk_videos_usuario
         FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
-    INDEX idx_videos_fecha (fecha_publicacion)
+    INDEX idx_videos_fecha (fecha_publicacion),
+    INDEX idx_videos_destacado (es_destacado)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- usuario administrador de prueba, cambiar la clave apenas se ingrese

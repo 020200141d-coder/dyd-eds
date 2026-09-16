@@ -9,12 +9,14 @@ function cargarVideos() {
       cuerpo.innerHTML = '<tr><td colspan="4">No hay videos registrados.</td></tr>';
       return;
     }
+    pintarAvisoDestacado(respuesta.datos);
     cuerpo.innerHTML = respuesta.datos.map((v) => `
       <tr>
         <td data-label="Título">${escaparHtml(v.titulo)}</td>
         <td data-label="URL"><a href="${escaparHtml(v.url_embed)}" target="_blank" class="text-blue-500">Abrir</a></td>
         <td data-label="Fecha">${formatearFecha(v.fecha_publicacion)}</td>
         <td data-label="Estado">${v.estado === 'borrador' ? '<span class="tag is-warning">Borrador</span>' : '<span class="tag is-success">Publicado</span>'}</td>
+        ${celdaDestacado(v)}
         <td class="actions-cell">
           <div class="buttons right nowrap">
             <button type="button" class="button small blue" onclick="editarVideo(${v.id})"><span class="icon"><i class="mdi mdi-pencil"></i></span></button>
@@ -87,6 +89,13 @@ document.getElementById('formVideo').addEventListener('submit', function (evento
       mostrarAviso(respuesta.error, 'error');
     }
   });
+});
+
+configurarDestacado({
+  ajax: 'videos',
+  recargar: cargarVideos,
+  campo: 'titulo',
+  vacio: 'los videos publicados más recientes',
 });
 
 cargarVideos();

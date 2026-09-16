@@ -9,6 +9,7 @@ function cargarNoticias() {
       cuerpo.innerHTML = '<tr><td colspan="5">No hay noticias registradas.</td></tr>';
       return;
     }
+    pintarAvisoDestacado(respuesta.datos);
     cuerpo.innerHTML = respuesta.datos.map((n) => `
       <tr>
         <td class="image-cell">${n.foto ? `<div class="image"><img src="${BASE}/admin/files/noticias/${escaparHtml(n.foto)}" class="rounded-full"></div>` : ''}</td>
@@ -16,6 +17,7 @@ function cargarNoticias() {
         <td data-label="Link">${n.link_externo ? `<a href="${escaparHtml(n.link_externo)}" target="_blank" class="text-blue-500">Ver enlace</a>` : ''}</td>
         <td data-label="Fecha">${formatearFecha(n.fecha_publicacion)}</td>
         <td data-label="Estado">${n.estado === 'borrador' ? '<span class="tag is-warning">Borrador</span>' : '<span class="tag is-success">Publicado</span>'}</td>
+        ${celdaDestacado(n)}
         <td class="actions-cell">
           <div class="buttons right nowrap">
             <button type="button" class="button small blue" onclick="editarNoticia(${n.id})"><span class="icon"><i class="mdi mdi-pencil"></i></span></button>
@@ -90,6 +92,13 @@ document.getElementById('formNoticia').addEventListener('submit', function (even
       mostrarAviso(respuesta.error, 'error');
     }
   });
+});
+
+configurarDestacado({
+  ajax: 'noticias',
+  recargar: cargarNoticias,
+  campo: 'titulo',
+  vacio: 'la noticia publicada más reciente',
 });
 
 cargarNoticias();

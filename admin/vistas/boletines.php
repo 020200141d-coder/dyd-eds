@@ -21,8 +21,9 @@ require __DIR__ . '/parciales/cabecera.php';
       <p class="card-header-title"><span class="icon"><i class="mdi mdi-file-pdf-box"></i></span> Boletines NTEP</p>
     </header>
     <div class="card-content">
+      <div id="avisoDestacado" class="notification blue mb-4"></div>
       <table>
-        <thead><tr><th></th><th>N° Boletín</th><th>Resumen</th><th>PDF</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
+        <thead><tr><th></th><th>N° Boletín</th><th>Resumen</th><th>PDF</th><th>Fecha</th><th>Estado</th><th>Destacado</th><th></th></tr></thead>
         <tbody id="filasBoletines"><tr><td colspan="6">Cargando...</td></tr></tbody>
       </table>
     </div>

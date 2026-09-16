@@ -13,6 +13,10 @@
 --   - 3 reportajes sin foto (05-08-26, 18-06-25 y 19-06-25)
 --   - 1 reportaje sin texto, el del 05-08-26
 
+-- Los textos llevan tildes y enies: se avisa el juego de caracteres
+-- para que no dependa de como este configurado el cliente que importa.
+SET NAMES utf8mb4;
+
 USE dyd;
 
 -- reportaje destacado (portada del sitio, Set 08 2026)

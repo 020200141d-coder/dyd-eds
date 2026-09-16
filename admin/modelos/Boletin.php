@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/Conexion.php';
+require_once __DIR__ . '/Destacado.php';
 
 class Boletin
 {
@@ -39,6 +40,16 @@ class Boletin
             $datos['numero_boletin'], $datos['resumen'], $datos['foto_portada'],
             $datos['archivo_pdf'], $datos['fecha_publicacion'], $datos['estado'], $id,
         ]);
+    }
+
+    public static function marcarDestacado(int $id): void
+    {
+        Destacado::marcar('boletines', $id);
+    }
+
+    public static function quitarDestacado(int $id): void
+    {
+        Destacado::quitar('boletines', $id);
     }
 
     public static function eliminar(int $id): void

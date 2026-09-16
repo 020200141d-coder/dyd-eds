@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/Conexion.php';
+require_once __DIR__ . '/Destacado.php';
 
 class Noticia
 {
@@ -32,6 +33,16 @@ class Noticia
     {
         $stmt = Conexion::obtener()->prepare('UPDATE noticias SET titulo=?, foto=?, link_externo=?, fecha_publicacion=?, estado=? WHERE id=?');
         $stmt->execute([$datos['titulo'], $datos['foto'], $datos['link_externo'], $datos['fecha_publicacion'], $datos['estado'], $id]);
+    }
+
+    public static function marcarDestacado(int $id): void
+    {
+        Destacado::marcar('noticias', $id);
+    }
+
+    public static function quitarDestacado(int $id): void
+    {
+        Destacado::quitar('noticias', $id);
     }
 
     public static function eliminar(int $id): void

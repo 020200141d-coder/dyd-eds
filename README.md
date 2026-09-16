@@ -31,7 +31,8 @@ pagina.php  →  clases/Clase.php (solo lectura)  →  MySQL
 ```
 
 Las páginas (`index.php`, `reportajes.php`, `reportaje.php`, `noticias.php`,
-`boletines.php`, `podcast.php`, `videos.php`) solo llaman a métodos de
+`boletines.php`, `podcast.php`, `videos.php`, y las fijas `alianzas.php`,
+`sobre.php` y `contacto.php`) solo llaman a métodos de
 `clases/` (`mostrar_todos()`, `mostrar_uno($id)`, `mostrar_destacado()`,
 `mostrar_fotos($id)`, …) y pintan el HTML real de la plantilla del sitio.
 Estas clases son de **solo lectura** — nunca insertan ni actualizan nada,
@@ -53,6 +54,10 @@ por diseño; publicar contenido es trabajo exclusivo del panel.
   subtítulos, listas, citas y enlaces), sin librerías externas
 - **Estados de publicación**: cada contenido se guarda como borrador o
   publicado, y el sitio público solo muestra lo publicado
+- **Destacado de portada**: un botón por fila en reportajes, noticias,
+  boletines, podcasts y videos decide cuál de todos abre su sección en el
+  inicio. Al marcar uno se desmarca el anterior, y si no hay ninguno
+  marcado la portada muestra el más reciente
 
 ## Requisitos
 
@@ -109,6 +114,7 @@ una tipografía del sistema sin que nada se rompa.
 ```
 index.php  reportajes.php  reportaje.php  noticias.php
 boletines.php  podcast.php  videos.php        Páginas del sitio público
+alianzas.php  sobre.php  contacto.php         Páginas fijas del menú (sin BD)
 
 clases/            Reportaje.php Noticia.php Boletin.php Podcast.php Video.php
                    Conexion.php — todas de solo lectura, sin escritura a la BD
@@ -162,6 +168,15 @@ admin/
 - El HTML que entrega el editor pasa por `limpiarHtml()`
   (`admin/config/html.php`) antes de guardarse: solo sobreviven las
   etiquetas de la lista blanca, y los enlaces peligrosos se descartan.
+- El menú lleva a páginas reales: en el sitio original **Alianzas**, **Sobre
+  D&D** y **Contacto** apuntaban a archivos que no existen (`about.html`,
+  `contact.html`) o a un ancla vacía (`#btn`), y devolvían 404. Aquí son
+  `alianzas.php`, `sobre.php` y `contacto.php`, con su texto y enlazadas
+  también desde el pie y el sitemap.
+- El CSS y el JS se piden con la fecha del archivo al final
+  (`sitio.css?v=...`, ver `version()` en `partials/funciones.php`). Sin eso,
+  una computadora que ya visitó el sitio podía seguir viendo el diseño viejo
+  guardado en el caché del navegador después de actualizar el proyecto.
 - `base.php` calcula la constante `BASE`, que es la direccion desde la que
   se ve el proyecto (`/dyd-eds`, o vacia si esta en la raiz del servidor).
   Todas las rutas del sitio y del panel la usan, asi que la carpeta puede

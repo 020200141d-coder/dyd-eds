@@ -28,6 +28,8 @@
           <ul>
             <h6 class="footer-title-29">Contenido</h6>
             <li><a href="<?= BASE ?>/index.php#actualidad">Noticias</a></li>
+            <li><a href="<?= BASE ?>/reportajes.php">Reportajes</a></li>
+            <li><a href="<?= BASE ?>/boletines.php">Boletín NTEP</a></li>
             <li><a href="<?= BASE ?>/videos.php">Videos</a></li>
             <li><a href="<?= BASE ?>/podcast.php">Podcast</a></li>
           </ul>
@@ -37,6 +39,9 @@
             <h6 class="footer-title-29">Contacto</h6>
             <ul>
               <li><a href="mailto:info@dialogoydesarrollo.com.pe">info@dialogoydesarrollo.com.pe</a></li>
+              <li><a href="<?= BASE ?>/contacto.php">Escríbenos</a></li>
+              <li><a href="<?= BASE ?>/alianzas.php">Alianzas</a></li>
+              <li><a href="<?= BASE ?>/sobre.php">Sobre D&amp;D</a></li>
             </ul>
           </div>
         </div>

@@ -42,6 +42,23 @@ switch ($accion) {
         }
         respuestaJson(['ok' => true, 'id' => $id]);
 
+    case 'destacar':
+        $id = (int) ($_POST['id'] ?? 0);
+        $registro = Video::obtener($id);
+        if (!$registro) {
+            respuestaJson(['ok' => false, 'error' => 'Video no encontrado.']);
+        }
+        // Un borrador no puede abrir la portada: ahi no se veria.
+        if ($registro['estado'] !== 'publicado' && $registro['es_destacado'] != 1) {
+            respuestaJson(['ok' => false, 'error' => 'Publica el video antes de destacarlo.']);
+        }
+        if ($registro['es_destacado'] == 1) {
+            Video::quitarDestacado($id);
+            respuestaJson(['ok' => true, 'destacado' => false]);
+        }
+        Video::marcarDestacado($id);
+        respuestaJson(['ok' => true, 'destacado' => true]);
+
     case 'eliminar':
         Video::eliminar((int) ($_POST['id'] ?? 0));
         respuestaJson(['ok' => true]);

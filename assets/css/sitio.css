@@ -121,6 +121,85 @@
   border: 0;
 }
 
+
+/* Logo de la cabecera, mas grande que el de la plantilla.
+
+   La plantilla trae la cabecera de alto fijo (90px, y 80px cuando se achica
+   al bajar) y el logo entraba justo, a 75px. Para que se vea mas grande hay
+   que mover las tres medidas a la vez, porque van atadas: si solo crece el
+   logo se sale de la cabecera, y si solo crece la cabecera tapa el primer
+   bloque de la pagina, que empieza con un margen igual al alto del encabezado
+   (esta fijo arriba de todo). Por eso aqui van las tres juntas. */
+:root {
+  --alto-cabecera: 110px;
+  --alto-cabecera-fija: 88px;
+}
+
+header { height: var(--alto-cabecera); }
+header.nav-fixed { height: var(--alto-cabecera-fija); }
+
+.navbar-brand .logo-ddp {
+  height: 92px;
+  width: auto;
+  transition: height .2s ease;
+}
+
+/* Cuando la cabecera se achica al bajar, el logo la acompana. */
+.nav-fixed .navbar-brand .logo-ddp { height: 74px; }
+
+/* El primer bloque de cada pagina baja lo mismo que crecio la cabecera. */
+.breadcrumb-area,
+.w3l-banner { margin-top: var(--alto-cabecera); }
+
+/* En pantallas angostas la plantilla deja la cabecera de alto automatico,
+   asi que no hay nada que compensar: solo se achica el logo. */
+@media (max-width: 991px) {
+  header,
+  header.nav-fixed { height: auto; }
+  .navbar-brand .logo-ddp,
+  .nav-fixed .navbar-brand .logo-ddp { height: 62px; }
+  .breadcrumb-area,
+  .w3l-banner { margin-top: 90px; }
+}
+
+/* Boton del menu en pantallas chicas.
+
+   La plantilla lo dibujaba como un cuadrado rojo con el icono blanco
+   encima (.navbar-toggler-icon.fa: background-color rojo + color blanco),
+   pero eso funcionaba con una fuente de iconos, donde el icono es texto.
+   Los iconos propios del proyecto se dibujan con mask y se pintan con
+   background-color, o sea la misma propiedad que la plantilla usaba para
+   el fondo: al juntarlos salia la rayita roja y sin cuadro.
+
+   La solucion es separarlos: el cuadro rojo va en el boton y el icono, en
+   blanco, encima. Se ve igual que en el sitio real. */
+@media (max-width: 991px) {
+  .navbar-toggler {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background-color: #e0020d;
+    border: 0;
+    border-radius: 5px;
+  }
+  .navbar-toggler .navbar-toggler-icon.fa {
+    width: 22px;
+    height: 22px;
+    background-color: #fff;
+    border-radius: 0;
+  }
+}
+
+
+/* El correo es mas largo que su columna: sin esto se monta sobre la
+   columna de las redes en vez de partirse en dos lineas. */
+.correo-contacto {
+  font-size: 1.05rem;
+  overflow-wrap: anywhere;
+}
+
 /* Cuerpo de la nota: da forma al texto que el periodista escribe con el
    editor del panel (titulos, listas, citas y enlaces). */
 .reportaje-cuerpo {

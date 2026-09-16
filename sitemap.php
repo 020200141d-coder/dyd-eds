@@ -19,6 +19,9 @@ $paginas = [
     ['url' => $raiz . '/boletines.php',  'prioridad' => '0.7', 'frecuencia' => 'weekly'],
     ['url' => $raiz . '/podcast.php',    'prioridad' => '0.6', 'frecuencia' => 'weekly'],
     ['url' => $raiz . '/videos.php',     'prioridad' => '0.6', 'frecuencia' => 'weekly'],
+    ['url' => $raiz . '/alianzas.php',   'prioridad' => '0.5', 'frecuencia' => 'monthly'],
+    ['url' => $raiz . '/sobre.php',      'prioridad' => '0.5', 'frecuencia' => 'monthly'],
+    ['url' => $raiz . '/contacto.php',   'prioridad' => '0.5', 'frecuencia' => 'monthly'],
 ];
 
 // Todas las notas publicadas, recorriendo las paginas del listado.

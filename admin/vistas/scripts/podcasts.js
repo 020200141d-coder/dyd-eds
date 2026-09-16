@@ -9,12 +9,14 @@ function cargarPodcasts() {
       cuerpo.innerHTML = '<tr><td colspan="4">No hay podcasts registrados.</td></tr>';
       return;
     }
+    pintarAvisoDestacado(respuesta.datos);
     cuerpo.innerHTML = respuesta.datos.map((p) => `
       <tr>
         <td data-label="Título">${escaparHtml(p.titulo)}</td>
         <td data-label="URL"><a href="${escaparHtml(p.url_embed)}" target="_blank" class="text-blue-500">Abrir</a></td>
         <td data-label="Fecha">${formatearFecha(p.fecha_publicacion)}</td>
         <td data-label="Estado">${p.estado === 'borrador' ? '<span class="tag is-warning">Borrador</span>' : '<span class="tag is-success">Publicado</span>'}</td>
+        ${celdaDestacado(p)}
         <td class="actions-cell">
           <div class="buttons right nowrap">
             <button type="button" class="button small blue" onclick="editarPodcast(${p.id})"><span class="icon"><i class="mdi mdi-pencil"></i></span></button>
@@ -87,6 +89,13 @@ document.getElementById('formPodcast').addEventListener('submit', function (even
       mostrarAviso(respuesta.error, 'error');
     }
   });
+});
+
+configurarDestacado({
+  ajax: 'podcasts',
+  recargar: cargarPodcasts,
+  campo: 'titulo',
+  vacio: 'los podcasts publicados más recientes',
 });
 
 cargarPodcasts();

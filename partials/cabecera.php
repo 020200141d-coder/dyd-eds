@@ -40,20 +40,20 @@ $urlImagen = $esquema . '://' . $dominio . ($metaImagen ?? BASE . '/assets/image
   <meta name="twitter:description" content="<?= htmlspecialchars($descripcion) ?>">
   <meta name="twitter:image" content="<?= htmlspecialchars($urlImagen) ?>">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&family=Google+Sans:wght@400;500;700&display=swap">
-  <link rel="stylesheet" href="<?= BASE ?>/assets/css/iconos.css">
-  <link rel="stylesheet" href="<?= BASE ?>/assets/css/style-starter.css">
-  <link rel="stylesheet" href="<?= BASE ?>/assets/css/sitio.css">
+  <link rel="stylesheet" href="<?= version('/assets/css/iconos.css') ?>">
+  <link rel="stylesheet" href="<?= version('/assets/css/style-starter.css') ?>">
+  <link rel="stylesheet" href="<?= version('/assets/css/sitio.css') ?>">
 
   <!-- Va en la cabecera y no al final: el onerror de las miniaturas se
        dispara mientras el navegador lee el HTML, antes de llegar al pie. -->
-  <script src="<?= BASE ?>/assets/js/miniaturas.js"></script>
+  <script src="<?= version('/assets/js/miniaturas.js') ?>"></script>
 </head>
 <body>
 <header id="site-header" class="fixed-top">
   <div class="container">
     <nav class="navbar navbar-expand-lg stroke">
       <a class="navbar-brand" href="<?= BASE ?>/index.php">
-        <img src="<?= BASE ?>/assets/images/logo.png" alt="Diálogo y Desarrollo Perú" title="Diálogo y Desarrollo Perú" style="height:75px;">
+        <img src="<?= BASE ?>/assets/images/logo.png" alt="Diálogo y Desarrollo Perú" title="Diálogo y Desarrollo Perú" class="logo-ddp">
       </a>
       <button class="navbar-toggler collapsed bg-gradient" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
@@ -79,8 +79,14 @@ $urlImagen = $esquema . '://' . $dominio . ($metaImagen ?? BASE . '/assets/image
           <li class="nav-item">
             <a class="nav-link" href="<?= BASE ?>/videos.php">Videos</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= BASE ?>/alianzas.php">Alianzas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= BASE ?>/sobre.php">Sobre D&amp;D</a>
+          </li>
           <li class="ml-2">
-            <a href="<?= BASE ?>/index.php#footer" class="btn btn-style btn-outline-secondary">Contacto</a>
+            <a href="<?= BASE ?>/contacto.php" class="btn btn-style btn-outline-secondary">Contacto</a>
           </li>
         </ul>
       </div>

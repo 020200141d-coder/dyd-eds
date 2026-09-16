@@ -9,6 +9,7 @@ function cargarBoletines() {
       cuerpo.innerHTML = '<tr><td colspan="6">No hay boletines registrados.</td></tr>';
       return;
     }
+    pintarAvisoDestacado(respuesta.datos);
     cuerpo.innerHTML = respuesta.datos.map((b) => `
       <tr>
         <td class="image-cell">${b.foto_portada ? `<div class="image"><img src="${BASE}/admin/files/boletines/portada/${escaparHtml(b.foto_portada)}" class="rounded-full"></div>` : ''}</td>
@@ -17,6 +18,7 @@ function cargarBoletines() {
         <td data-label="PDF"><a href="${BASE}/admin/files/boletines/pdf/${escaparHtml(b.archivo_pdf)}" target="_blank" class="text-blue-500">Ver PDF</a></td>
         <td data-label="Fecha">${formatearFecha(b.fecha_publicacion)}</td>
         <td data-label="Estado">${b.estado === 'borrador' ? '<span class="tag is-warning">Borrador</span>' : '<span class="tag is-success">Publicado</span>'}</td>
+        ${celdaDestacado(b)}
         <td class="actions-cell">
           <div class="buttons right nowrap">
             <button type="button" class="button small blue" onclick="editarBoletin(${b.id})"><span class="icon"><i class="mdi mdi-pencil"></i></span></button>
@@ -97,6 +99,14 @@ document.getElementById('formBoletin').addEventListener('submit', function (even
       mostrarAviso(respuesta.error, 'error');
     }
   });
+});
+
+configurarDestacado({
+  ajax: 'boletines',
+  recargar: cargarBoletines,
+  campo: 'numero_boletin',
+  prefijo: 'Nº ',
+  vacio: 'el boletín publicado más reciente',
 });
 
 cargarBoletines();

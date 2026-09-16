@@ -5,6 +5,23 @@
  */
 
 /**
+ * Direccion de un archivo estatico con su version al final.
+ *
+ * El navegador guarda el CSS y el JS en su cache y los reusa aunque el
+ * archivo haya cambiado; por eso, despues de actualizar el proyecto, una
+ * computadora que ya visito el sitio puede seguir viendo el diseno viejo
+ * hasta que alguien haga Ctrl+F5. Agregando la fecha del archivo al final
+ * de la direccion, cada cambio se ve como una direccion distinta y el
+ * navegador la pide de nuevo solo, sin tocar nada.
+ */
+function version(string $ruta): string
+{
+    $absoluta = dirname(__DIR__) . $ruta;
+    $marca = is_file($absoluta) ? filemtime($absoluta) : 0;
+    return BASE . $ruta . '?v=' . $marca;
+}
+
+/**
  * Imagenes de portada de un video o podcast a partir de su enlace.
  *
  * YouTube publica varias miniaturas del mismo video en direcciones fijas, de

@@ -1,0 +1,27 @@
+# Que nadie pueda descargar el volcado de la base desde el navegador.
+#
+# Los .sql de esta carpeta se pueden pedir por direccion
+# (https://tusitio.com/sql/datos.sql) y contienen la base entera. En XAMPP da
+# igual, pero publicado en internet no le corresponde a nadie de afuera.
+#
+# Va en esta carpeta y no en la raiz a proposito: hay hostings que no
+# permiten estas reglas desde .htaccess y responden "500 Internal Server
+# Error". Puesto aqui, ese 500 afectaria solo a /sql/ —que igual queda
+# inaccesible, que es lo que se busca— y el sitio sigue funcionando. En la
+# raiz, un 500 tumbaria la pagina entera.
+#
+# Se escriben las dos formas porque conviven dos versiones de Apache.
+
+# Apache 2.4
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+
+# Apache 2.2 y servidores con mod_access_compat
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>
+
+# Sin listado de archivos, por si las reglas de arriba no se aplicaran.
+Options -Indexes

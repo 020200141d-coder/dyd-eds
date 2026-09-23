@@ -1,3 +1,9 @@
+# Credenciales del hosting. NUNCA van a GitHub: la clave real de la base
+# vive solo en el servidor. Se crea alla copiando bd-hosting.ejemplo.php.
+bd-hosting.php
+.env
+.env.*
+
 # Archivos subidos desde el panel (no se versionan, solo la estructura
 # de carpetas y las fotos/PDF reales de la carga inicial de datos)
 admin/files/**/*

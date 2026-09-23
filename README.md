@@ -109,42 +109,87 @@ una tipografía del sistema sin que nada se rompa.
 
    Cámbiala desde "Mi perfil" apenas ingreses.
 
-## Publicar el proyecto en internet (hosting)
+## Publicar el proyecto en internet (despliegue)
 
 El proyecto es PHP + MySQL, así que necesita un servidor que ejecute PHP y
-tenga MySQL. **GitHub Pages no sirve para esto**: solo entrega archivos
-estáticos (HTML, CSS, imágenes), no ejecuta PHP ni tiene base de datos, así
-que el panel no podría guardar nada. GitHub guarda el código; publicar el
-sitio es trabajo de un hosting.
+tenga MySQL. **GitHub Pages no sirve**: solo entrega archivos estáticos, no
+ejecuta PHP ni tiene base de datos, así que el panel no podría guardar nada.
+GitHub guarda el código; publicar el sitio es trabajo de un hosting con
+cPanel (o equivalente) que traiga PHP 8, MySQL y phpMyAdmin.
 
-En cualquier hosting con PHP 8 y MySQL los pasos son estos:
+Desplegar es mover **tres cosas**, no solo archivos: el código, la base de
+datos y la configuración. Si falta una, la aplicación no levanta.
 
-1. Sube los archivos del proyecto a la carpeta pública del hosting
-   (`htdocs`, `public_html` o como la llame el servicio).
+### Método 1 — subir los archivos (primer despliegue)
 
-2. Crea la base de datos desde el panel del servicio. Te va a dar cuatro
-   datos: servidor, nombre de la base, usuario y clave. Ojo: el nombre de la
-   base casi nunca es `dyd`, suele llevar un prefijo (`usuario_dyd`).
+1. **Descarga el código** desde GitHub (*Code → Download ZIP*) o clónalo.
 
-3. Escribe esos cuatro datos en `bd.php`, en la raíz del proyecto. Es el
-   único archivo que hay que tocar: los dos `Conexion.php` leen de ahí.
+2. **Súbelo a `public_html`** con el Gestor de Archivos de cPanel y
+   extráelo. `index.php` tiene que quedar directamente en `public_html`
+   (si queda dentro de otra carpeta, el sitio se vería en
+   `tusitio.com/dyd-eds/`, lo cual también funciona: `base.php` calcula la
+   ruta sola).
 
-4. Importa los dos SQL desde el phpMyAdmin del hosting, en orden
-   (`schema.sql` y después `datos.sql`). Antes de importar, **borra de
-   `schema.sql` las tres sentencias marcadas** (`DROP DATABASE`,
-   `CREATE DATABASE` y `USE`) y la línea `USE dyd;` de `datos.sql`: en un
-   hosting compartido la base ya está creada y la cuenta no tiene permiso
-   para crear ni borrar bases. Los dos archivos llevan el aviso escrito.
+3. **Crea la base de datos**: cPanel → *MySQL® Databases* → crea la base,
+   crea el usuario con una clave fuerte y **asígnale todos los privilegios**
+   sobre esa base. Anota los cuatro datos; ojo que cPanel le pone adelante
+   tu usuario de cuenta (`mivuser_dyd`, no `dyd`).
 
-5. Entra al panel con admin@dyd.com / admin123 y **cambia la clave de
-   inmediato** desde "Mi perfil". En una computadora local no importa; en
-   internet, cualquiera que conozca el proyecto puede entrar con la clave
-   de ejemplo.
+4. **Importa los dos SQL** en cPanel → *phpMyAdmin* → selecciona tu base →
+   pestaña *Importar*: primero `sql/schema.sql`, después `sql/datos.sql`.
 
-Si el repositorio de GitHub es público, no subas ahí la clave real del
-hosting: `bd.php` también acepta variables de entorno
-(`DYD_BD_HOST`, `DYD_BD_NOMBRE`, `DYD_BD_USUARIO`, `DYD_BD_CLAVE`) y usa
-los valores de XAMPP solo cuando no existen.
+   Antes de importar, **borra de `schema.sql` las tres sentencias marcadas**
+   (`DROP DATABASE`, `CREATE DATABASE` y `USE dyd`) y la línea `USE dyd;` de
+   `datos.sql`: en un hosting compartido la base ya está creada y tu cuenta
+   no tiene permiso para crear ni borrar bases. Los dos archivos llevan el
+   aviso escrito en el lugar exacto.
+
+5. **Configura la conexión**: copia `bd-hosting.ejemplo.php` como
+   `bd-hosting.php` y escribe ahí los cuatro datos del paso 3. Ese archivo
+   está en el `.gitignore`, así que **la clave nunca llega a GitHub** y un
+   `git pull` posterior no la pisa. Si no existe, el proyecto usa los valores
+   de XAMPP, que es lo que hace falta en una instalación local.
+
+6. **Entra al panel** (`/admin/login.php`) con admin@dyd.com / admin123 y
+   **cambia la clave de inmediato** desde "Mi perfil". En una computadora
+   local da igual; publicado en internet, cualquiera que vea el proyecto
+   puede entrar con la clave de ejemplo y borrar todo.
+
+7. **Borra la carpeta `sql/` del servidor** una vez importada la base. Lleva
+   un `.htaccess` que bloquea la descarga del volcado, pero hay hostings que
+   ignoran el `.htaccess`; borrarla es la única garantía. En GitHub se queda,
+   que es donde tiene que estar.
+
+### Método 2 — actualizar con Git (los cambios siguientes)
+
+Si el hosting trae el módulo **Git™ Version Control** en cPanel:
+
+1. cPanel → *Git™ Version Control* → *Create* → *Clone a Repository*.
+2. URL del repositorio y ruta de despliegue `/home/tuusuario/public_html`.
+   Para un repositorio privado, usa un *Personal Access Token* de GitHub
+   como contraseña.
+3. Desde ahí, cada vez que hagas `git push`: cPanel → *Pull or Deploy* →
+   *Update from Remote*.
+
+Git sincroniza **solo el código**. La base de datos va aparte: la primera vez
+se importa como en el Método 1, y si más adelante cambia la estructura, se
+aplica el mismo cambio en producción desde phpMyAdmin. Los reportajes que
+cargues desde el panel viven solo en el servidor — respáldalos con
+phpMyAdmin → *Exportar*.
+
+`bd-hosting.php` y las fotos subidas desde el panel no están en Git, así que
+sobreviven a cada actualización.
+
+### Si algo falla
+
+| Síntoma | Qué revisar |
+|---|---|
+| "No se pudo conectar a la base de datos" | Los cuatro datos de `bd-hosting.php`. El mensaje de MySQL aparece en la misma pantalla y dice si el problema es la clave (*Access denied*) o el nombre (*Unknown database*) |
+| Error 500 en todo el sitio | Suele ser un `.htaccess` que el hosting no acepta, o la versión de PHP: ponla en 8.x desde cPanel |
+| Error 500 solo en `/sql/` | Es lo esperado en algunos hostings: significa que el volcado quedó inaccesible |
+| Página en blanco | Un error de PHP oculto. Actívalos un momento con `ini_set('display_errors', 1);` al inicio de `index.php` y quítalo después |
+| Acentos rotos (�) | La base tiene que ser `utf8mb4`. Los dos SQL ya empiezan con `SET NAMES utf8mb4` |
+| Faltan imágenes o CSS (404) | Linux distingue mayúsculas de minúsculas y Windows no: `Logo.PNG` y `logo.png` son archivos distintos allá |
 
 ## Estructura del proyecto
 
@@ -161,8 +206,10 @@ partials/          cabecera.php  pie.php  tarjeta.php
 
 assets/            CSS/JS/imágenes reales del sitio (style-starter.css, etc.)
 
-bd.php             Servidor, base, usuario y clave de MySQL (único archivo
-                   que se cambia al mover el proyecto a otra máquina u hosting)
+bd.php             De dónde salen los datos de MySQL. Trae los de XAMPP y,
+                   si existe bd-hosting.php, usa los de ahí
+bd-hosting.ejemplo.php   Plantilla para crear bd-hosting.php en el servidor
+                   (bd-hosting.php lleva la clave real y NO va a GitHub)
 
 sql/               schema.sql   Estructura: tablas + usuario admin (se importa 1ro)
                    datos.sql    Contenido del sitio: reportajes, boletines... (2do)

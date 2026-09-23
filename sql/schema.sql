@@ -15,6 +15,13 @@
 -- para que no dependa de como este configurado el cliente que importa.
 SET NAMES utf8mb4;
 
+-- ---------------------------------------------------------------------
+-- EN UN HOSTING: borra estas tres sentencias (hasta la linea de guiones)
+-- antes de importar. Alla la base ya viene creada desde el panel del
+-- servicio, con un nombre propio (algo como usuario_dyd), y la cuenta no
+-- tiene permiso para crear ni borrar bases: se elige la base en
+-- phpMyAdmin y se importa el resto tal cual.
+-- En XAMPP se dejan como estan.
 DROP DATABASE IF EXISTS dyd;
 
 CREATE DATABASE dyd
@@ -22,6 +29,7 @@ CREATE DATABASE dyd
     COLLATE utf8mb4_unicode_ci;
 
 USE dyd;
+-- ---------------------------------------------------------------------
 
 -- usuarios: administradores del panel
 CREATE TABLE usuarios (

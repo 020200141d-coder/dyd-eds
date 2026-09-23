@@ -17,6 +17,7 @@
 -- para que no dependa de como este configurado el cliente que importa.
 SET NAMES utf8mb4;
 
+-- En un hosting: borra esta linea (la base se elige en phpMyAdmin).
 USE dyd;
 
 -- reportaje destacado (portada del sitio, Set 08 2026)

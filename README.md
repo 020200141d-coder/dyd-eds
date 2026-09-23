@@ -109,6 +109,43 @@ una tipografía del sistema sin que nada se rompa.
 
    Cámbiala desde "Mi perfil" apenas ingreses.
 
+## Publicar el proyecto en internet (hosting)
+
+El proyecto es PHP + MySQL, así que necesita un servidor que ejecute PHP y
+tenga MySQL. **GitHub Pages no sirve para esto**: solo entrega archivos
+estáticos (HTML, CSS, imágenes), no ejecuta PHP ni tiene base de datos, así
+que el panel no podría guardar nada. GitHub guarda el código; publicar el
+sitio es trabajo de un hosting.
+
+En cualquier hosting con PHP 8 y MySQL los pasos son estos:
+
+1. Sube los archivos del proyecto a la carpeta pública del hosting
+   (`htdocs`, `public_html` o como la llame el servicio).
+
+2. Crea la base de datos desde el panel del servicio. Te va a dar cuatro
+   datos: servidor, nombre de la base, usuario y clave. Ojo: el nombre de la
+   base casi nunca es `dyd`, suele llevar un prefijo (`usuario_dyd`).
+
+3. Escribe esos cuatro datos en `bd.php`, en la raíz del proyecto. Es el
+   único archivo que hay que tocar: los dos `Conexion.php` leen de ahí.
+
+4. Importa los dos SQL desde el phpMyAdmin del hosting, en orden
+   (`schema.sql` y después `datos.sql`). Antes de importar, **borra de
+   `schema.sql` las tres sentencias marcadas** (`DROP DATABASE`,
+   `CREATE DATABASE` y `USE`) y la línea `USE dyd;` de `datos.sql`: en un
+   hosting compartido la base ya está creada y la cuenta no tiene permiso
+   para crear ni borrar bases. Los dos archivos llevan el aviso escrito.
+
+5. Entra al panel con admin@dyd.com / admin123 y **cambia la clave de
+   inmediato** desde "Mi perfil". En una computadora local no importa; en
+   internet, cualquiera que conozca el proyecto puede entrar con la clave
+   de ejemplo.
+
+Si el repositorio de GitHub es público, no subas ahí la clave real del
+hosting: `bd.php` también acepta variables de entorno
+(`DYD_BD_HOST`, `DYD_BD_NOMBRE`, `DYD_BD_USUARIO`, `DYD_BD_CLAVE`) y usa
+los valores de XAMPP solo cuando no existen.
+
 ## Estructura del proyecto
 
 ```
@@ -123,6 +160,9 @@ partials/          cabecera.php  pie.php  tarjeta.php
                    Piezas de HTML reutilizadas por las páginas públicas
 
 assets/            CSS/JS/imágenes reales del sitio (style-starter.css, etc.)
+
+bd.php             Servidor, base, usuario y clave de MySQL (único archivo
+                   que se cambia al mover el proyecto a otra máquina u hosting)
 
 sql/               schema.sql   Estructura: tablas + usuario admin (se importa 1ro)
                    datos.sql    Contenido del sitio: reportajes, boletines... (2do)

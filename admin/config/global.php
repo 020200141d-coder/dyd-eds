@@ -62,6 +62,36 @@ function urlParaIncrustar(string $url): string
     return $url;
 }
 
+/**
+ * Si el proyecto se esta viendo en la propia computadora o ya esta publicado.
+ *
+ * Hay cosas que ayudan mientras uno desarrolla y que en internet serian un
+ * agujero: mostrar en pantalla el enlace para restablecer una contrasena es
+ * comodo en XAMPP, donde no hay correo saliente, pero publicado dejaria
+ * entrar al panel a cualquiera que escriba el correo del administrador.
+ */
+function esServidorLocal(): bool
+{
+    $host = strtolower($_SERVER['HTTP_HOST'] ?? '');
+    $host = explode(':', $host)[0];          // sin el puerto
+
+    if (in_array($host, ['localhost', '127.0.0.1', '::1', ''], true)) {
+        return true;
+    }
+    // dominios que solo existen en la maquina de uno
+    return (bool) preg_match('/\.(local|test|localhost)$/', $host);
+}
+
+/**
+ * Direccion completa del sitio (https://midominio.com/carpeta), que es lo que
+ * hace falta para armar un enlace que viaje por correo: BASE sola es relativa.
+ */
+function direccionDelSitio(): string
+{
+    $esquema = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    return $esquema . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . BASE;
+}
+
 function respuestaJson($datos): void
 {
     header('Content-Type: application/json; charset=utf-8');

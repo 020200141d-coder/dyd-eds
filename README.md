@@ -155,6 +155,13 @@ datos y la configuración. Si falta una, la aplicación no levanta.
    local da igual; publicado en internet, cualquiera que vea el proyecto
    puede entrar con la clave de ejemplo y borrar todo.
 
+   Hazlo antes que nada: la pantalla de "olvidé mi contraseña" solo muestra
+   el enlace de restablecimiento cuando el sitio corre en localhost. Ya
+   publicado lo manda por correo y no lo enseña, porque si no, cualquiera
+   escribiría el correo del administrador y entraría. Si el hosting no envía
+   correo (los gratuitos casi nunca lo permiten), esa vía queda sin salida:
+   la clave se cambia desde "Mi perfil" estando dentro, o desde phpMyAdmin.
+
 7. **Borra la carpeta `sql/` del servidor** una vez importada la base. Lleva
    un `.htaccess` que bloquea la descarga del volcado, pero hay hostings que
    ignoran el `.htaccess`; borrarla es la única garantía. En GitHub se queda,

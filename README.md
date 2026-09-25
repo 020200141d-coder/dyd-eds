@@ -288,6 +288,11 @@ de contenido: el segundo inserta en tablas que crea el primero.
 
 ![Importación](docs/capturas/phpmyadmin-importacion.png)
 
+**Tablas en el servidor.** Las nueve tablas del proyecto migradas, con sus
+campos y las claves foráneas que las relacionan.
+
+![Tablas en phpMyAdmin](docs/capturas/phpmyadmin-tablas.png)
+
 **Dominio activo.** El subdominio quedó asociado a la cuenta y sirviendo el
 proyecto.
 

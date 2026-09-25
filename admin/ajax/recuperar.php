@@ -63,6 +63,26 @@ switch ($accion) {
 
         respuestaJson($respuesta);
 
+    case 'codigo':
+        $email = trim($_POST['email'] ?? '');
+        $codigo = trim($_POST['codigo'] ?? '');
+        if ($email === '' || $codigo === '') {
+            respuestaJson(['ok' => false, 'error' => 'Escribe tu correo y el código de recuperación.']);
+        }
+
+        $pedido = Recuperacion::comprobarCodigo($email, $codigo);
+        if (!$pedido) {
+            // Un solo mensaje para los dos casos (correo que no existe y
+            // codigo equivocado): decir cual de los dos fallo serviria para ir
+            // descubriendo correos validos a fuerza de probar.
+            respuestaJson(['ok' => false, 'error' => 'El correo y el código no coinciden, o ese código ya se usó.']);
+        }
+
+        respuestaJson([
+            'ok' => true,
+            'enlace' => BASE . '/admin/nueva-clave.php?token=' . rawurlencode(Recuperacion::normalizar($codigo)),
+        ]);
+
     case 'restablecer':
         $token = trim($_POST['token'] ?? '');
         $clave = (string) ($_POST['clave'] ?? '');

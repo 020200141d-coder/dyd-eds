@@ -38,4 +38,31 @@ require __DIR__ . '/parciales/cabecera.php';
   </div>
 </div>
 
+<div class="card mb-6">
+  <header class="card-header">
+    <p class="card-header-title"><span class="icon"><i class="mdi mdi-key"></i></span> Código de recuperación</p>
+  </header>
+  <div class="card-content">
+    <p class="mb-4">
+      Si olvidas la contraseña, este código te deja entrar sin necesitar correo.
+      Guárdalo en un lugar seguro: impreso, anotado o en tu gestor de contraseñas.
+    </p>
+    <p class="mb-4 has-text-grey">
+      Hace falta porque muchos servidores —entre ellos casi todos los alojamientos
+      gratuitos— no pueden enviar correos, así que el enlace de "olvidé mi
+      contraseña" nunca llegaría. Sirve una sola vez: después generas otro.
+    </p>
+
+    <div id="estadoCodigo" class="notification mb-4">Comprobando...</div>
+
+    <div id="cajaCodigoNuevo" class="notification green mb-4" hidden>
+      <p class="mb-2"><b>Este es tu código. Cópialo ahora:</b></p>
+      <p class="mb-2" style="font-family:monospace;font-size:1.4rem;letter-spacing:2px" id="codigoGenerado"></p>
+      <p>No se vuelve a mostrar. Si lo pierdes, genera uno nuevo desde aquí.</p>
+    </div>
+
+    <button type="button" class="button blue" id="btnGenerarCodigo">Generar código nuevo</button>
+  </div>
+</div>
+
 <?php require __DIR__ . '/parciales/pie.php'; ?>

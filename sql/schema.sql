@@ -49,6 +49,9 @@ CREATE TABLE recuperaciones (
     id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     usuario_id      INT UNSIGNED NOT NULL,
     token_hash      CHAR(64) NOT NULL,
+    tipo            ENUM('enlace', 'codigo') NOT NULL DEFAULT 'enlace',
+                    -- enlace: el que se pide desde "olvide mi contrasena" y dura una hora
+                    -- codigo: el que se genera desde el panel y se guarda por si acaso
     expira          DATETIME NOT NULL,
     usado           TINYINT(1) NOT NULL DEFAULT 0,
     created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

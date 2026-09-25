@@ -27,7 +27,42 @@ if (usuarioActual()) {
         </p>
       </header>
       <div class="card-content">
-        <p class="mb-6">Escribe el correo de tu cuenta y se generará un enlace para elegir una contraseña nueva.</p>
+        <p class="mb-4"><b>Tengo mi código de recuperación</b></p>
+        <p class="mb-4 has-text-grey">
+          Es el que generaste desde "Mi perfil" y guardaste. Sirve una sola vez.
+        </p>
+
+        <form id="formCodigo" class="mb-6">
+          <div class="field spaced">
+            <label class="label">Correo</label>
+            <div class="control icons-left">
+              <input class="input" type="email" name="email" id="campoEmailCodigo" placeholder="tucorreo@dyd.com" autocomplete="username" required>
+              <span class="icon is-small left"><i class="mdi mdi-account"></i></span>
+            </div>
+          </div>
+          <div class="field spaced">
+            <label class="label">Código de recuperación</label>
+            <div class="control icons-left">
+              <input class="input" type="text" name="codigo" id="campoCodigo" placeholder="ABCDE-FGHJK-LMNPQ-RSTUV"
+                     autocomplete="one-time-code" spellcheck="false" required>
+              <span class="icon is-small left"><i class="mdi mdi-key"></i></span>
+            </div>
+          </div>
+          <div class="field grouped">
+            <div class="control"><button type="submit" class="button green">Continuar</button></div>
+            <div class="control"><a href="<?= BASE ?>/admin/login.php" class="button">Volver</a></div>
+          </div>
+        </form>
+
+        <hr>
+
+        <p class="mb-4"><b>No tengo código</b></p>
+        <p class="mb-4 has-text-grey">
+          Se genera un enlace y se envía al correo de la cuenta. Ojo: muchos
+          alojamientos gratuitos no permiten enviar correo, y en ese caso el
+          mensaje no llega. Si es tu caso, pídele a otro administrador que te
+          cambie la contraseña desde el panel.
+        </p>
 
         <form id="formRecuperar">
           <div class="field spaced">
@@ -37,10 +72,8 @@ if (usuarioActual()) {
               <span class="icon is-small left"><i class="mdi mdi-account"></i></span>
             </div>
           </div>
-          <hr>
           <div class="field grouped">
-            <div class="control"><button type="submit" class="button blue">Generar enlace</button></div>
-            <div class="control"><a href="<?= BASE ?>/admin/login.php" class="button">Volver</a></div>
+            <div class="control"><button type="submit" class="button blue">Enviar enlace</button></div>
           </div>
         </form>
 
@@ -52,9 +85,10 @@ if (usuarioActual()) {
             <p class="mb-2"><b>Enlace para restablecer la contraseña:</b></p>
             <p class="mb-2"><a id="enlaceRecuperacion" href="#"></a></p>
             <p class="has-text-grey">
-              En un servidor con correo saliente este enlace llegaría por email.
-              Como XAMPP no envía correos, se muestra aquí para poder continuar.
-              Vence en una hora y sirve una sola vez.
+              Este enlace se muestra porque el proyecto está corriendo en tu
+              propia computadora, donde no hay correo saliente. Publicado en
+              internet no aparece: se envía por correo. Vence en una hora y
+              sirve una sola vez.
             </p>
           </div>
         </div>

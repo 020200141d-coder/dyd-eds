@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/global.php';
 require_once __DIR__ . '/../modelos/Usuario.php';
+require_once __DIR__ . '/../modelos/Recuperacion.php';
 
 exigirSesionAjax();
 
@@ -27,6 +28,14 @@ switch ($accion) {
 
         $_SESSION['usuario'] = Usuario::obtener($id);
         respuestaJson(['ok' => true]);
+
+    case 'estadoCodigo':
+        respuestaJson(['ok' => true, 'tiene' => Recuperacion::hayCodigoActivo($id)]);
+
+    case 'generarCodigo':
+        // Se devuelve una sola vez: en la base queda solo el hash, asi que ni
+        // el propio panel puede volver a mostrarlo despues.
+        respuestaJson(['ok' => true, 'codigo' => Recuperacion::crearCodigo($id)]);
 
     default:
         respuestaJson(['ok' => false, 'error' => 'Acción no reconocida.']);

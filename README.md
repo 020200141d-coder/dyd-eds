@@ -49,7 +49,12 @@ por diseño; publicar contenido es trabajo exclusivo del panel.
 - **Autores**
 - **Usuarios** del panel (solo el rol `admin` los gestiona)
 - **Login** con sesión PHP, contraseña guardada con **SHA-256**
-- **Recuperación de contraseña** por enlace con token (`admin/recuperar.php`)
+- **Recuperación de contraseña** por dos caminos (`admin/recuperar.php`):
+  enlace con token enviado por correo, y **código de recuperación** que se
+  genera desde "Mi perfil" y se guarda aparte. El código existe porque casi
+  ningún alojamiento gratuito puede enviar correo: sin él, olvidar la
+  contraseña dejaría el panel cerrado. De los dos se guarda solo el hash y
+  cada uno sirve una sola vez
 - **Editor de texto con formato** para el cuerpo del reportaje (negritas,
   subtítulos, listas, citas y enlaces), sin librerías externas
 - **Estados de publicación**: cada contenido se guarda como borrador o
@@ -186,6 +191,22 @@ phpMyAdmin → *Exportar*.
 
 `bd-hosting.php` y las fotos subidas desde el panel no están en Git, así que
 sobreviven a cada actualización.
+
+### Si cambia la estructura de la base (migraciones)
+
+Git sincroniza el código, no la base de datos. Cuando una actualización
+agrega o cambia una columna, en el servidor hay que aplicarla a mano una vez:
+phpMyAdmin → tu base → pestaña **SQL** → pegar la sentencia → **Continuar**.
+
+Una instalación nueva no necesita nada: los `.sql` ya vienen actualizados.
+
+Cambios aplicados hasta ahora:
+
+```sql
+-- Código de recuperación (distingue el enlace del código guardado)
+ALTER TABLE recuperaciones
+    ADD COLUMN tipo ENUM('enlace','codigo') NOT NULL DEFAULT 'enlace' AFTER token_hash;
+```
 
 ### Si algo falla
 

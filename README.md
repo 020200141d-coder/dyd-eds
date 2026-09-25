@@ -192,6 +192,47 @@ phpMyAdmin → *Exportar*.
 `bd-hosting.php` y las fotos subidas desde el panel no están en Git, así que
 sobreviven a cada actualización.
 
+### Método 3 — despliegue automático con GitHub Actions
+
+InfinityFree no trae el módulo *Git Version Control* de cPanel, así que el
+servidor no puede ir a buscar los cambios solo. Se hace al revés: **GitHub se
+conecta por FTP y sube lo que cambió**, en cuanto se hace `push`.
+
+```
+cambio en el código  →  git push  →  GitHub sube por FTP  →  sitio actualizado
+```
+
+Queda más automático que el Método 2 de la guía: allá hay que entrar al panel
+y darle *Pull*; aquí no se entra a ningún lado.
+
+**Configuración (una sola vez).** En GitHub, *Settings → Secrets and variables
+→ Actions → New repository secret*, se cargan tres secretos con los datos que
+da el panel del hosting en *Detalles de FTP*:
+
+| Secreto | Valor |
+|---|---|
+| `FTP_SERVER` | `ftpupload.net` |
+| `FTP_USERNAME` | el usuario FTP (empieza con `if0_`) |
+| `FTP_PASSWORD` | la contraseña FTP |
+
+GitHub los guarda cifrados: no aparecen en el código, ni en el historial, ni
+en los registros de ejecución.
+
+El resto está en `.github/workflows/desplegar.yml`. También se puede lanzar a
+mano desde la pestaña *Actions* → *Desplegar en el hosting* → *Run workflow*.
+
+**Lo que el despliegue NO toca**, y es lo más importante de la configuración:
+
+| Excluido | Por qué |
+|---|---|
+| `bd-hosting.php` | Solo existe en el servidor y lleva la clave de la base. Si se borrara, el sitio dejaría de conectar |
+| `admin/files/` | Las fotos que se suben desde el panel viven solo en el servidor. Se cargaron una vez a mano; el despliegue no las toca para no borrar las nuevas |
+| `sql/`, `docs/` | No tienen por qué estar en el servidor |
+
+Sin esas exclusiones, cada despliegue borraría la configuración y las fotos,
+porque la herramienta sincroniza: elimina del servidor lo que no está en el
+repositorio.
+
 ### Si cambia la estructura de la base (migraciones)
 
 Git sincroniza el código, no la base de datos. Cuando una actualización

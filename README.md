@@ -1,5 +1,20 @@
 # Diálogo y Desarrollo Perú - Sitio + Panel de Administración
 
+## Sitio publicado
+
+| | |
+|---|---|
+| **Sitio público** | https://dyd-edsonaguirre.rf.gd/dyd-eds/ |
+| **Panel de administración** | https://dyd-edsonaguirre.rf.gd/dyd-eds/admin/login.php |
+| **Alojamiento** | InfinityFree (PHP 8 + MySQL) |
+| **Despliegue** | Automático desde GitHub en cada `push` |
+
+![Sitio publicado](docs/capturas/sitio-publicado.png)
+
+*El sitio funcionando en su dirección pública, cargando los reportajes desde
+la base de datos del servidor.*
+
+
 Dos partes: el **sitio público** (lo que ve cualquier visitante, replicando
 el diseño real de dialogoydesarrollo.com.pe) y el **panel de administración**
 (donde se publica el contenido), ambos conectados a la misma base de datos
@@ -260,6 +275,29 @@ ALTER TABLE recuperaciones
 | Acentos rotos (�) | La base tiene que ser `utf8mb4`. Los dos SQL ya empiezan con `SET NAMES utf8mb4` |
 | Faltan imágenes o CSS (404) | Linux distingue mayúsculas de minúsculas y Windows no: `Logo.PNG` y `logo.png` son archivos distintos allá |
 
+## Capturas del despliegue
+
+**Creación de la base de datos.** El panel del hosting entrega los cuatro
+datos de conexión. El servidor de MySQL es una máquina distinta de la del
+sitio, y tanto la base como el usuario llevan el prefijo de la cuenta.
+
+![Base de datos](docs/capturas/base-de-datos.png)
+
+**Importación en phpMyAdmin.** Primero el archivo de estructura y después el
+de contenido: el segundo inserta en tablas que crea el primero.
+
+![Importación](docs/capturas/phpmyadmin-importacion.png)
+
+**Dominio activo.** El subdominio quedó asociado a la cuenta y sirviendo el
+proyecto.
+
+![Panel del hosting](docs/capturas/panel-hosting.png)
+
+**Despliegue automático.** Cada `push` a GitHub dispara el flujo que sube los
+archivos por FTP. Este terminó en poco más de un minuto.
+
+![Despliegue en Actions](docs/capturas/despliegue-actions.png)
+
 ## Estructura del proyecto
 
 ```
@@ -282,6 +320,12 @@ bd-hosting.ejemplo.php   Plantilla para crear bd-hosting.php en el servidor
 
 sql/               schema.sql   Estructura: tablas + usuario admin (se importa 1ro)
                    datos.sql    Contenido del sitio: reportajes, boletines... (2do)
+                   hosting/     Los mismos dos, sin crear ni borrar la base,
+                                para importar en un hosting compartido
+
+docs/              Informe del despliegue y las capturas del README
+
+.github/workflows/ desplegar.yml  Sube el sitio por FTP en cada push
 
 admin/
   assets/          CSS/JS de la plantilla Admin One Tailwind (solo del panel)

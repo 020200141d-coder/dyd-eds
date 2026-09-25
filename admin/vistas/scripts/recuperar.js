@@ -24,8 +24,10 @@ document.getElementById('formRecuperar').addEventListener('submit', function (ev
       caja.hidden = true;
     }
 
-    this.hidden = true;
-    document.getElementById('formCodigo').hidden = true;
+    // Se ocultan las dos opciones enteras, con sus titulos. Ocultando solo
+    // los formularios quedaban los encabezados sueltos, sin campos debajo, y
+    // la pantalla parecia rota.
+    ocultarOpciones();
   });
 });
 
@@ -45,3 +47,10 @@ document.getElementById('formCodigo').addEventListener('submit', function (event
     window.location.href = respuesta.enlace;
   });
 });
+
+function ocultarOpciones() {
+  ['bloqueCodigo', 'separadorOpciones', 'bloqueEnlace'].forEach((id) => {
+    const caja = document.getElementById(id);
+    if (caja) caja.hidden = true;
+  });
+}

@@ -27,9 +27,15 @@ if (usuarioActual()) {
         </p>
       </header>
       <div class="card-content">
+        <div id="bloqueCodigo">
         <p class="mb-4"><b>Tengo mi código de recuperación</b></p>
         <p class="mb-4 has-text-grey">
           Es el que generaste desde "Mi perfil" y guardaste. Sirve una sola vez.
+        </p>
+        <p class="mb-4 has-text-grey">
+          ¿No tienes uno? No se envía ni aparece solo: se genera desde el panel,
+          en "Mi perfil", mientras todavía puedes entrar. Guárdalo para el día
+          que lo necesites.
         </p>
 
         <form id="formCodigo" class="mb-6">
@@ -53,9 +59,11 @@ if (usuarioActual()) {
             <div class="control"><a href="<?= BASE ?>/admin/login.php" class="button">Volver</a></div>
           </div>
         </form>
+        </div>
 
-        <hr>
+        <hr id="separadorOpciones">
 
+        <div id="bloqueEnlace">
         <p class="mb-4"><b>No tengo código</b></p>
         <p class="mb-4 has-text-grey">
           Se genera un enlace y se envía al correo de la cuenta. Ojo: muchos
@@ -76,6 +84,7 @@ if (usuarioActual()) {
             <div class="control"><button type="submit" class="button blue">Enviar enlace</button></div>
           </div>
         </form>
+        </div>
 
         <div id="resultado" hidden>
           <div class="notification green">

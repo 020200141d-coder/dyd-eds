@@ -23,8 +23,7 @@ name: Desplegar en el hosting
 on:
   push:
     branches:
-      - admin-database-setup
-      - claude/admin-database-setup-i5uuyd
+      - main
   # Tambien deja lanzarlo a mano desde la pestana Actions, sin tener que
   # inventar un cambio solo para probar el despliegue.
   workflow_dispatch:

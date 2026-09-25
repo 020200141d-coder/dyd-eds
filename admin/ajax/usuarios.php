@@ -21,6 +21,8 @@ switch ($accion) {
         $email = trim($_POST['email'] ?? '');
         $rol = $_POST['rol'] ?? 'redactor';
         $clave = $_POST['clave'] ?? '';
+        $pregunta = trim($_POST['pregunta'] ?? '');
+        $respuesta = trim($_POST['respuesta'] ?? '');
 
         if ($nombre === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             respuestaJson(['ok' => false, 'error' => 'Nombre y email válido son obligatorios.']);
@@ -30,6 +32,12 @@ switch ($accion) {
         }
         if ($accion === 'crear' && $clave === '') {
             respuestaJson(['ok' => false, 'error' => 'La contraseña es obligatoria para un usuario nuevo.']);
+        }
+        // Al crear se exige la pregunta: es la unica forma de recuperar la
+        // cuenta en un servidor que no envia correos. Al editar es opcional,
+        // porque si se deja vacia se conserva la que ya tenia.
+        if ($accion === 'crear' && ($pregunta === '' || $respuesta === '')) {
+            respuestaJson(['ok' => false, 'error' => 'Escribe la pregunta de seguridad y su respuesta.']);
         }
         if (Usuario::emailExiste($email, $accion === 'actualizar' ? $id : null)) {
             respuestaJson(['ok' => false, 'error' => 'Ese email ya está registrado.']);
@@ -41,6 +49,9 @@ switch ($accion) {
             $id = Usuario::crear($datos);
         } else {
             Usuario::actualizar($id, $datos);
+        }
+        if ($pregunta !== '' && $respuesta !== '') {
+            Usuario::guardarPregunta($id, $pregunta, $respuesta);
         }
         respuestaJson(['ok' => true, 'id' => $id]);
 

@@ -64,7 +64,9 @@ por diseño; publicar contenido es trabajo exclusivo del panel.
 - **Autores**
 - **Usuarios** del panel (solo el rol `admin` los gestiona)
 - **Login** con sesión PHP, contraseña guardada con **SHA-256**
-- **Recuperación de contraseña** por dos caminos (`admin/recuperar.php`):
+- **Recuperación de contraseña** por tres caminos (`admin/recuperar.php`):
+  **pregunta de seguridad**, que se define al crear cada usuario y es la vía
+  principal porque no depende del correo;
   enlace con token enviado por correo, y **código de recuperación** que se
   genera desde "Mi perfil" y se guarda aparte. El código existe porque casi
   ningún alojamiento gratuito puede enviar correo: sin él, olvidar la
@@ -262,6 +264,11 @@ Cambios aplicados hasta ahora:
 -- Código de recuperación (distingue el enlace del código guardado)
 ALTER TABLE recuperaciones
     ADD COLUMN tipo ENUM('enlace','codigo') NOT NULL DEFAULT 'enlace' AFTER token_hash;
+
+-- Pregunta de seguridad de cada usuario
+ALTER TABLE usuarios
+    ADD COLUMN pregunta VARCHAR(255) NULL AFTER rol,
+    ADD COLUMN respuesta_hash VARCHAR(255) NULL AFTER pregunta;
 ```
 
 ### Si algo falla

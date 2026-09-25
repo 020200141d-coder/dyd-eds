@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/global.php';
 require_once __DIR__ . '/../modelos/Recuperacion.php';
+require_once __DIR__ . '/../modelos/Usuario.php';
 
 // Este es el unico ajax sin sesion: justamente lo usa quien no puede entrar.
 
@@ -82,6 +83,31 @@ switch ($accion) {
             'ok' => true,
             'enlace' => BASE . '/admin/nueva-clave.php?token=' . rawurlencode(Recuperacion::normalizar($codigo)),
         ]);
+
+    case 'pregunta':
+        $email = trim($_POST['email'] ?? '');
+        $cuenta = Usuario::preguntaDe($email);
+        respuestaJson($cuenta
+            ? ['ok' => true, 'pregunta' => $cuenta['pregunta']]
+            : ['ok' => false, 'error' => 'Esa cuenta no tiene una pregunta de seguridad configurada.']);
+
+    case 'responder':
+        $email = trim($_POST['email'] ?? '');
+        $respuesta = trim($_POST['respuesta'] ?? '');
+        if ($email === '' || $respuesta === '') {
+            respuestaJson(['ok' => false, 'error' => 'Escribe tu respuesta.']);
+        }
+
+        $usuarioId = Usuario::comprobarRespuesta($email, $respuesta);
+        if (!$usuarioId) {
+            respuestaJson(['ok' => false, 'error' => 'La respuesta no coincide.']);
+        }
+
+        // Acertar la pregunta vale lo mismo que recibir el enlace por correo:
+        // se emite un token de un solo uso y se sigue en la misma pantalla de
+        // contrasena nueva, sin caminos aparte.
+        $token = Recuperacion::crear($usuarioId);
+        respuestaJson(['ok' => true, 'enlace' => BASE . '/admin/nueva-clave.php?token=' . $token]);
 
     case 'restablecer':
         $token = trim($_POST['token'] ?? '');

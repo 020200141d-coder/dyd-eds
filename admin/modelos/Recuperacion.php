@@ -162,6 +162,39 @@ class Recuperacion
         return $fila;
     }
 
+    /**
+     * Pedidos de contrasena que siguen sin resolver.
+     *
+     * En un servidor que envia correo, el enlace llega solo y nadie mas se
+     * entera. Aqui no: el pedido queda en la base y el panel lo muestra, para
+     * que el administrador sepa quien se quedo afuera y pueda resolverlo. Es
+     * la unica via cuando el alojamiento no manda correos.
+     *
+     * Solo cuenta los de tipo "enlace": el codigo lo usa la propia persona y
+     * no necesita que nadie intervenga.
+     */
+    public static function pendientes(): array
+    {
+        $stmt = Conexion::obtener()->prepare(
+            "SELECT r.id, r.created_at, r.expira, u.id AS usuario_id,
+                    u.nombre_completo, u.email
+             FROM recuperaciones r
+             JOIN usuarios u ON u.id = r.usuario_id
+             WHERE r.tipo = 'enlace' AND r.usado = 0 AND r.expira > ?
+             ORDER BY r.created_at DESC"
+        );
+        $stmt->execute([date('Y-m-d H:i:s')]);
+        return $stmt->fetchAll();
+    }
+
+    /** Cierra los pedidos de esa persona, ya resueltos por el administrador. */
+    public static function cerrarPendientes(int $usuarioId): void
+    {
+        Conexion::obtener()
+            ->prepare("UPDATE recuperaciones SET usado = 1 WHERE usuario_id = ? AND tipo = 'enlace' AND usado = 0")
+            ->execute([$usuarioId]);
+    }
+
     /** Busca a quien pertenece un correo, sin revelar nada al que pregunta. */
     public static function usuarioPorEmail(string $email): ?array
     {

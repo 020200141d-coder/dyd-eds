@@ -27,6 +27,42 @@ if (usuarioActual()) {
         </p>
       </header>
       <div class="card-content">
+        <div id="bloquePregunta">
+        <p class="mb-4"><b>Responder mi pregunta de seguridad</b></p>
+        <p class="mb-4 has-text-grey">
+          Es la que se definió al crear la cuenta. Es la forma más directa de
+          recuperar el acceso: no depende del correo.
+        </p>
+
+        <form id="formPregunta" class="mb-6">
+          <div class="field spaced">
+            <label class="label">Correo</label>
+            <div class="control icons-left">
+              <input class="input" type="email" name="email" id="campoEmailPregunta" placeholder="tucorreo@dyd.com" autocomplete="username" required>
+              <span class="icon is-small left"><i class="mdi mdi-account"></i></span>
+            </div>
+          </div>
+
+          <div id="cajaPregunta" hidden>
+            <div class="field spaced">
+              <label class="label" id="textoPregunta"></label>
+              <div class="control icons-left">
+                <input class="input" type="text" name="respuesta" id="campoRespuesta" autocomplete="off" spellcheck="false">
+                <span class="icon is-small left"><i class="mdi mdi-key"></i></span>
+              </div>
+              <p class="help">No distingue mayúsculas ni espacios de más.</p>
+            </div>
+          </div>
+
+          <div class="field grouped">
+            <div class="control"><button type="submit" class="button green" id="btnPregunta">Continuar</button></div>
+            <div class="control"><a href="<?= BASE ?>/admin/login.php" class="button">Volver</a></div>
+          </div>
+        </form>
+        </div>
+
+        <hr id="separadorPregunta">
+
         <div id="bloqueCodigo">
         <p class="mb-4"><b>Tengo mi código de recuperación</b></p>
         <p class="mb-4 has-text-grey">

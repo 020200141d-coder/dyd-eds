@@ -29,6 +29,10 @@ function mostrarFormulario() {
   document.getElementById('formUsuario').reset();
   document.getElementById('campoId').value = '';
   document.getElementById('etiquetaClave').textContent = 'Contraseña *';
+  document.getElementById('etiquetaPregunta').textContent = 'Pregunta *';
+  document.getElementById('etiquetaRespuesta').textContent = 'Respuesta *';
+  document.getElementById('campoPregunta').value = '';
+  document.getElementById('campoRespuesta').value = '';
   document.getElementById('campoClave').required = true;
   document.getElementById('tituloFormulario').textContent = 'Nuevo usuario';
   document.getElementById('vistaLista').hidden = true;
@@ -47,6 +51,10 @@ function editarUsuario(id) {
     document.getElementById('campoEmail').value = u.email;
     document.getElementById('campoRol').value = u.rol;
     document.getElementById('etiquetaClave').textContent = 'Nueva contraseña (dejar vacío para no cambiar)';
+    document.getElementById('etiquetaPregunta').textContent = 'Pregunta (dejar vacío para no cambiar)';
+    document.getElementById('etiquetaRespuesta').textContent = 'Respuesta (dejar vacío para no cambiar)';
+    document.getElementById('campoPregunta').value = u.pregunta ?? '';
+    document.getElementById('campoRespuesta').value = '';
     document.getElementById('campoClave').required = false;
     document.getElementById('tituloFormulario').textContent = 'Editar usuario';
     document.getElementById('vistaLista').hidden = true;

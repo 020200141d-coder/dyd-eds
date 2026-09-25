@@ -38,6 +38,11 @@ CREATE TABLE usuarios (
     email           VARCHAR(150) NOT NULL,
     password_hash   VARCHAR(255) NOT NULL,
     rol             ENUM('admin', 'editor', 'redactor') NOT NULL DEFAULT 'redactor',
+    pregunta        VARCHAR(255) NULL,
+                    -- pregunta de seguridad: sirve para recuperar la clave sin
+                    -- correo, que es lo unico que funciona en un hosting gratuito
+    respuesta_hash  VARCHAR(255) NULL,
+                    -- la respuesta se guarda hasheada, igual que la contrasena
     created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT uq_usuarios_email UNIQUE (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

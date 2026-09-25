@@ -1,3 +1,37 @@
+/* Pregunta de seguridad: dos pasos en el mismo formulario. Primero se pide
+   el correo y se trae la pregunta de esa cuenta; despues se comprueba la
+   respuesta. Asi no hay que mostrar todas las preguntas de antemano. */
+document.getElementById('formPregunta').addEventListener('submit', function (evento) {
+  evento.preventDefault();
+  const caja = document.getElementById('cajaPregunta');
+  const datos = new FormData(this);
+
+  if (caja.hidden) {
+    datos.append('accion', 'pregunta');
+    llamarAjax(BASE + '/admin/ajax/recuperar.php', datos).then((respuesta) => {
+      if (!respuesta.ok) {
+        mostrarAviso(respuesta.error, 'error');
+        return;
+      }
+      document.getElementById('textoPregunta').textContent = respuesta.pregunta;
+      caja.hidden = false;
+      document.getElementById('campoRespuesta').required = true;
+      document.getElementById('campoRespuesta').focus();
+      document.getElementById('campoEmailPregunta').readOnly = true;
+    });
+    return;
+  }
+
+  datos.append('accion', 'responder');
+  llamarAjax(BASE + '/admin/ajax/recuperar.php', datos).then((respuesta) => {
+    if (!respuesta.ok) {
+      mostrarAviso(respuesta.error, 'error');
+      return;
+    }
+    window.location.href = respuesta.enlace;
+  });
+});
+
 document.getElementById('formRecuperar').addEventListener('submit', function (evento) {
   evento.preventDefault();
   const datos = new FormData(this);
@@ -49,7 +83,7 @@ document.getElementById('formCodigo').addEventListener('submit', function (event
 });
 
 function ocultarOpciones() {
-  ['bloqueCodigo', 'separadorOpciones', 'bloqueEnlace'].forEach((id) => {
+  ['bloquePregunta', 'separadorPregunta', 'bloqueCodigo', 'separadorOpciones', 'bloqueEnlace'].forEach((id) => {
     const caja = document.getElementById(id);
     if (caja) caja.hidden = true;
   });
